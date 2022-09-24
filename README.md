@@ -12,13 +12,14 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
 - [React Redux](https://react-redux.js.org/)
 
 ## Libraries
-- 
+- [i18next](https://www.i18next.com/) i18next is an internationalization-framework written in and for JavaScript.
 
 ## TODOs
 - [ ] Project base
     - [ ] Install react and required dependencies
     - [ ] Set clear project structure
-    - [ ] Set styling rules on lint etc.
+    - [X] Set styling rules on lint etc.
+    - [ ] Environment variables
 - [ ] Backend communications
     - [ ] User related
         - [ ] User registration
