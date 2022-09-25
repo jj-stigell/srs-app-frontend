@@ -15,11 +15,21 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
 - [i18next](https://www.i18next.com/) i18next is an internationalization-framework written in and for JavaScript.
 
 ## TODOs
-- [ ] Project base
-    - [ ] Install react and required dependencies
-    - [ ] Set clear project structure
+- [X] Project base
+    - [X] Install react and required dependencies
+    - [X] Set clear project structure
     - [X] Set styling rules on lint etc.
-    - [ ] Environment variables
+    - [X] Environment variables
+- [ ] Frontend Components (with functionality)
+    - [ ] Navbar
+    - [ ] Login page
+    - [ ] Logout
+    - [ ] Dashboard
+    - [ ] Settings
+    - [ ] Sign up page
+    - [ ] Language selector
+- [ ] Styling
+    - [ ] Animations
 - [ ] Backend communications
     - [ ] User related
         - [ ] User registration
