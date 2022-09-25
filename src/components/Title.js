@@ -1,21 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { lngs } from '../util/lngs';
 
-function Title () {
-  const { t, i18n } = useTranslation();
+const Title = () => {
+  const { t } = useTranslation();
   return (
-    <div>
-      <h1>{t('title')}</h1>
-      <div>
-        {Object.keys(lngs).map((lng) => (
-          <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
-            {lngs[lng].nativeName}
-          </button>
-        ))}
-      </div>
-    </div>
+    <h1>{t('title')}</h1>
   );
-}
+};
 
 export default Title;
