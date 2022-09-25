@@ -6,7 +6,7 @@ import {
 import LanguageBar from './LanguageBar';
 import Dashboard from './Dashboard';
 import Settings from './Settings';
-import Signin from './Signin';
+import SigninForm from './SigninForm';
 import Signout from './Signout';
 import { useTranslation } from 'react-i18next';
 
@@ -22,14 +22,14 @@ const NavBar = () => {
         <Link style={padding} to="/settings">{t('navbar.settings')}</Link>
         <Link style={padding} to="/signout">{t('navbar.signout')}</Link>
         <Link style={padding} to="/signin">{t('navbar.signin')}</Link>
+        <LanguageBar />
       </div>
       <Routes>
         <Route path="/settings" element={<Settings />} />
         <Route path="/signout" element={<Signout />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin" element={<SigninForm />} />
         <Route path="/" element={<Dashboard />} />
       </Routes>
-      <LanguageBar />
     </Router>
 
   );

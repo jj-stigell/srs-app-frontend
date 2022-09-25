@@ -21,5 +21,10 @@
   },
   "signout": {
     "title": "this is the signout page"
+  },
+  "misc": {
+    "username": "Username",
+    "password": "Password",
+    "signin": "Sign In"
   }
 }
