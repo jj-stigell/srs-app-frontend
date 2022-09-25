@@ -19,14 +19,6 @@ const App = () => {
           <br/>
           production env is: {process.env.REACT_APP_PROD_BACKEND_URL}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );

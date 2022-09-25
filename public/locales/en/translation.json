@@ -8,5 +8,14 @@
     "dashboard": "Dashboard",
     "settings": "Settings",
     "signout": "Sign Out"
+  },
+  "dashboard": {
+    "title": "this is the dashboard page"
+  },
+  "settings": {
+    "title": "this is the settings page"
+  },
+  "signout": {
+    "title": "this is the signout page"
   }
 }
