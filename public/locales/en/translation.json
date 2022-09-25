@@ -7,13 +7,17 @@
   "navbar": {
     "dashboard": "Dashboard",
     "settings": "Settings",
-    "signout": "Sign Out"
+    "signout": "Sign Out",
+    "signin": "Sign In"
   },
   "dashboard": {
     "title": "this is the dashboard page"
   },
   "settings": {
     "title": "this is the settings page"
+  },
+  "signin": {
+    "title": "this is the signin page"
   },
   "signout": {
     "title": "this is the signout page"

@@ -1,7 +1,25 @@
 {
-  "title": "Tervetuloa kayttamaan reactia",
+  "title": "Tervetuloa käyttämään reactia",
   "description": {
     "part1": "part 1 teksti",
     "part2": "part 1 teksti"
+  },
+  "navbar": {
+    "dashboard": "Dashboard",
+    "settings": "Asetukset",
+    "signout": "Kirjaudu ulos",
+    "signin": "Kirjaudu sisään"
+  },
+  "dashboard": {
+    "title": "Tämä on Dashboard sivu"
+  },
+  "settings": {
+    "title": "Tämä on asetukset sivu"
+  },
+  "signin": {
+    "title": "Tämä on kirjaudu sisään sivu"
+  },
+  "signout": {
+    "title": "Tämä on kirjaudu ulos sivu"
   }
 }

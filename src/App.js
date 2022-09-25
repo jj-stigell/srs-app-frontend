@@ -11,8 +11,6 @@ const App = () => {
         <NavBar />
         <Title />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
-          <br/>
           dev env is: {process.env.REACT_APP_DEV_BACKEND_URL}
           <br/>
           test env is: {process.env.REACT_APP_TEST_BACKEND_URL}
