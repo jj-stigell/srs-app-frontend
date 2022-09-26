@@ -8,6 +8,7 @@ import Dashboard from './Dashboard';
 import Settings from './Settings';
 import SigninForm from './SigninForm';
 import Signout from './Signout';
+import RegisterForm from './RegisterForm';
 import { useTranslation } from 'react-i18next';
 
 const NavBar = () => {
@@ -22,12 +23,14 @@ const NavBar = () => {
         <Link style={padding} to="/settings">{t('navbar.settings')}</Link>
         <Link style={padding} to="/signout">{t('navbar.signout')}</Link>
         <Link style={padding} to="/signin">{t('navbar.signin')}</Link>
+        <Link style={padding} to="/register">{t('navbar.register')}</Link>
         <LanguageBar />
       </div>
       <Routes>
         <Route path="/settings" element={<Settings />} />
         <Route path="/signout" element={<Signout />} />
         <Route path="/signin" element={<SigninForm />} />
+        <Route path="/register" element={<RegisterForm />} />
         <Route path="/" element={<Dashboard />} />
       </Routes>
     </Router>

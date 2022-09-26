@@ -16,13 +16,14 @@ const SigninForm = () => {
       <h2>{t('signin.title')}</h2>
       <form onSubmit={handleLogin}>
         <div>
-          {t('misc.username')}
+          {t('misc.email')}
           <input
             type="text"
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)}
             id="username"
+            placeholder={t('placeholder.email')}
           />
         </div>
         <div>
@@ -33,6 +34,7 @@ const SigninForm = () => {
             name="Password"
             onChange={({ target }) => setPassword(target.value)}
             id="password"
+            placeholder={t('placeholder.password')}
           />
         </div>
         <button id="login" type="submit">{t('misc.signin')}</button>

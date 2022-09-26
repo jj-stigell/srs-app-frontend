@@ -8,7 +8,8 @@
     "dashboard": "Dashboard",
     "settings": "Settings",
     "signout": "Sign Out",
-    "signin": "Sign In"
+    "signin": "Sign In",
+    "register": "Register"
   },
   "dashboard": {
     "title": "this is the dashboard page"
@@ -22,9 +23,20 @@
   "signout": {
     "title": "this is the signout page"
   },
+  "register": {
+    "title": "this is the registering page for new account"
+  },
   "misc": {
     "username": "Username",
+    "email": "Email address",
     "password": "Password",
+    "passwordConfirm": "Confirm password",
     "signin": "Sign In"
+  },
+  "placeholder": {
+    "username": "e.g. User23494",
+    "email": "Your email",
+    "password": "Your password",
+    "passwordConfirm": "Password confirmation"
   }
 }
