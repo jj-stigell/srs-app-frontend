@@ -4,11 +4,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './i18n';
+import {
+  ApolloClient, ApolloProvider, HttpLink, InMemoryCache
+} from '@apollo/client';
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    // eslint-disable-next-line no-undef
+    uri: process.env.REACT_APP_DEV_BACKEND_URL,
+  })
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>
 );
 
