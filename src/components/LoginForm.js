@@ -8,25 +8,27 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  //const found = window.localStorage.getItem('srs-acc-token');
+  //console.log('token in store', found);
+
   const [ login, result ] = useMutation(LOGIN, {
     onError: (error) => {
       //setError(error.graphQLErrors[0].message);
-      console.log('error:::', error);
+      console.log('error:::', error.graphQLErrors[0].extensions.errorName);
     }
   });
 
   useEffect(() => {
     if ( result.data ) {
-      console.log('login succes, data::::', result.data);
-      //const token = result.data.login.value;
-      //setToken(token);
-      //localStorage.setItem('phonenumbers-user-token', token);
+      //console.log('login succes, data::::', result.data.login.value);
+      const token = result.data.login.value;
+      localStorage.setItem('srs-acc-token', token);
     }
   }, [result.data]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    console.log('username', email, 'password', password);
+    //console.log('username', email, 'password', password);
     login({ variables: { email, password } });
   };
 
