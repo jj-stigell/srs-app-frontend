@@ -7,6 +7,8 @@ import './i18n';
 import {
   ApolloClient, ApolloProvider, InMemoryCache, createHttpLink
 } from '@apollo/client';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const link = createHttpLink({
   // eslint-disable-next-line no-undef
@@ -21,9 +23,11 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </Provider>
   </React.StrictMode>
 );
 

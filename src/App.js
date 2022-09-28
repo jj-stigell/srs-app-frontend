@@ -3,6 +3,7 @@ import Title from './components/Title';
 import NavBar from './components/NavBar';
 
 const App = () => {
+
   return (
     <div className="App">
       <NavBar />

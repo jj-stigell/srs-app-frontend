@@ -3,6 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../queries/mutations';
 import Notification from './Notification';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/reducers/userReducer';
+
+
+import { useSelector } from 'react-redux';
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -10,8 +15,14 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const dispatch = useDispatch();
+
   //const found = window.localStorage.getItem('token');
   //console.log('token in store', found);
+
+  // eslint-disable-next-line no-undef
+  const user = useSelector(state => state.user);
+  console.log('user is:::::::',user);
 
   const [ login, result ] = useMutation(LOGIN, {
     onError: (error) => {
@@ -26,8 +37,13 @@ const LoginForm = () => {
   useEffect(() => {
     if ( result.data ) {
       //console.log('login succes, data::::', result.data.login.user);
+      const user = result.data.login.user;
       const token = result.data.login.token.value;
       localStorage.setItem('token', token);
+
+      dispatch(setUser(user));
+
+
     }
   }, [result.data]);
 
