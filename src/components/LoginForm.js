@@ -34,6 +34,8 @@ const LoginForm = () => {
       const token = result.data.login.token.value;
       localStorage.setItem('token', token);
       dispatch(setUser(user));
+      setEmail('');
+      setPassword('');
     }
   }, [result.data]);
 
