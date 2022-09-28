@@ -2,19 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../queries/mutations';
+import Notification from './Notification';
 
 const LoginForm = () => {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  //const found = window.localStorage.getItem('srs-acc-token');
+  //const found = window.localStorage.getItem('token');
   //console.log('token in store', found);
 
   const [ login, result ] = useMutation(LOGIN, {
     onError: (error) => {
-      //setError(error.graphQLErrors[0].message);
-      console.log('error:::', error.graphQLErrors[0].extensions.errorName);
+      const message = t(`errors.${error.graphQLErrors[0].extensions.errorName}`);
+      setErrorMessage(message);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
     }
   });
 
@@ -22,7 +27,7 @@ const LoginForm = () => {
     if ( result.data ) {
       //console.log('login succes, data::::', result.data.login.value);
       const token = result.data.login.value;
-      localStorage.setItem('srs-acc-token', token);
+      localStorage.setItem('token', token);
     }
   }, [result.data]);
 
@@ -34,6 +39,7 @@ const LoginForm = () => {
 
   return (
     <div>
+      <Notification notification={errorMessage} error={true}/>
       <h2>{t('signin.title')}</h2>
       <form onSubmit={handleLogin}>
         <div>

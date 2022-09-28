@@ -38,5 +38,8 @@
     "email": "Your email",
     "password": "Your password",
     "passwordConfirm": "Password confirmation"
+  },
+  "errors": {
+    "userOrPassIncorrectError": "Username or password invalid"
   }
 }
