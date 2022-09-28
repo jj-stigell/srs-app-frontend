@@ -5,6 +5,7 @@ import { LOGIN } from '../queries/mutations';
 import Notification from './Notification';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/reducers/userReducer';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const { t } = useTranslation();
@@ -13,6 +14,7 @@ const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //const found = window.localStorage.getItem('token');
   //console.log('token in store', found);
@@ -35,6 +37,7 @@ const LoginForm = () => {
       const token = result.data.login.token.value;
       localStorage.setItem('token', token);
       dispatch(setUser(user));
+      navigate('/');
       setEmail('');
       setPassword('');
     }
