@@ -10,9 +10,12 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import { useTranslation } from 'react-i18next';
 import { useApolloClient } from '@apollo/client';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../redux/reducers/userReducer';
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
   const client = useApolloClient();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const padding = {
     padding: 5
@@ -20,6 +23,8 @@ const NavBar = () => {
 
   const logout = () => {
     //setToken(null);
+    //logoutUser
+    dispatch(logoutUser());
     localStorage.clear();
     client.resetStore();
   };
@@ -27,11 +32,17 @@ const NavBar = () => {
   return (
     <Router>
       <div>
-        <Link style={padding} to="/">{t('navbar.dashboard')}</Link>
-        <Link style={padding} to="/settings">{t('navbar.settings')}</Link>
-        <Link style={padding} to="/login">{t('navbar.signin')}</Link>
-        <Link style={padding} to="/register">{t('navbar.register')}</Link>
-        <button onClick={logout}>{t('navbar.signout')}</button>
+        {user
+          ? <div>
+            <Link style={padding} to="/">{t('navbar.dashboard')}</Link>
+            <Link style={padding} to="/settings">{t('navbar.settings')}</Link>
+            <button onClick={logout}>{t('navbar.signout')}</button>
+          </div>
+          : <div>
+            <Link style={padding} to="/login">{t('navbar.signin')}</Link>
+            <Link style={padding} to="/register">{t('navbar.register')}</Link>
+          </div>}
+
         <LanguageBar />
       </div>
       <Routes>
