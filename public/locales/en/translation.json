@@ -40,6 +40,8 @@
     "passwordConfirm": "Password confirmation"
   },
   "errors": {
-    "userOrPassIncorrectError": "Username or password invalid"
+    "userOrPassIncorrectError": "Email or password invalid",
+    "inputValueMissingError": "Missing email and/or password",
+    "notEmailError": "Email not valid email address"
   }
 }
