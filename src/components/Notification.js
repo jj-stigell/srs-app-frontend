@@ -6,7 +6,7 @@ const Notification = ({ notification, error }) => {
     border: 'solid',
     padding: 10,
     borderWidth: 1,
-    borderColor: error ? 'red' : 'blue'
+    borderColor: error ? 'red' : 'green'
   };
 
   if (!notification) {
