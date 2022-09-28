@@ -25,8 +25,8 @@ const LoginForm = () => {
 
   useEffect(() => {
     if ( result.data ) {
-      //console.log('login succes, data::::', result.data.login.value);
-      const token = result.data.login.value;
+      //console.log('login succes, data::::', result.data.login.user);
+      const token = result.data.login.token.value;
       localStorage.setItem('token', token);
     }
   }, [result.data]);
