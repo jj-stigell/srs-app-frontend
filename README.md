@@ -59,4 +59,8 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
 - [ ] Testing
     - [ ] Unit testing for functions
     - [ ] Integration tests
-    
+
+
+## Authorization
+
+[GraphQL Authentication](https://www.apollographql.com/docs/react/networking/authentication/)

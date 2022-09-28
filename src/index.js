@@ -5,15 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './i18n';
 import {
-  ApolloClient, ApolloProvider, HttpLink, InMemoryCache
+  ApolloClient, ApolloProvider, InMemoryCache, createHttpLink
 } from '@apollo/client';
+
+const link = createHttpLink({
+  // eslint-disable-next-line no-undef
+  uri: process.env.REACT_APP_DEV_BACKEND_URL,
+});
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({
-    // eslint-disable-next-line no-undef
-    uri: process.env.REACT_APP_DEV_BACKEND_URL,
-  })
+  link,
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
