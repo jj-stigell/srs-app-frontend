@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Routes, Route, Link
+  Routes, Route, Link, Navigate
 } from 'react-router-dom';
 import LanguageBar from './LanguageBar';
 import Dashboard from './Dashboard';
@@ -46,9 +46,9 @@ const NavBar = ({ user }) => {
         <LanguageBar />
       </div>
       <Routes>
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/settings" element={user ? <Settings /> : <Navigate replace to="/login" />} />
+        <Route path="/login" element={user ? <Navigate replace to="/" /> : <LoginForm />} />
+        <Route path="/register" element={user ? <Navigate replace to="/" /> : <RegisterForm />} />
         <Route path="/" element={<Dashboard />} />
       </Routes>
     </Router>
