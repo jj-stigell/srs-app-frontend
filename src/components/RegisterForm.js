@@ -1,67 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useMutation } from '@apollo/client';
+import { REGISTER } from '../queries/mutations';
+import Notification from './Notification';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const navigate = useNavigate();
+  const [notificationMessage, setMessage] = useState(null);
+  const [errorOn, setErrorOn] = useState(false);
+  const { register, reset, formState: { errors }, handleSubmit } = useForm();
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    console.log('username', username, 'password', password);
+  const [ registerAccount, result ] = useMutation(REGISTER, {
+    onError: (error) => {
+      const message = t(`errors.${error.graphQLErrors[0].extensions.errorName}`);
+      reset({ password: '', passwordConfirmation: '' });
+      setErrorOn(true);
+      setMessage(message);
+      setTimeout(() => {
+        setMessage(null);
+      }, 3000);
+    }
+  });
+
+  useEffect(() => {
+    if (result.data?.createAccount) {
+      const registeredEmail = result.data.createAccount.email;
+      reset({ email: '', username: '', password: '', passwordConfirmation: '' });
+      setErrorOn(false);
+      setMessage(t('register.success', { email: registeredEmail }));
+      setTimeout(() => {
+        setMessage(null);
+        navigate('/login');
+      }, 3000);
+    }
+  }, [result.data]);
+
+  const handleRegister = async ({ username, email, password, passwordConfirmation }) => {
+    //console.log('username', data.username, 'email:', data.email, 'password', data.password, 'confirm', data.passwordConfirmation);
+    registerAccount({ variables: { username, email, password, passwordConfirmation }
+    });
   };
 
   return (
     <div>
+      <Notification notification={notificationMessage} error={errorOn}/>
       <h2>{t('register.title')}</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          {t('misc.username')}
-          <input
-            type="text"
-            value={username}
-            name="username"
-            onChange={({ target }) => setUsername(target.value)}
-            id="username"
-            placeholder={t('placeholder.username')}
-          />
-        </div>
-        <div>
-          {t('misc.email')}
-          <input
-            type="text"
-            value={email}
-            name="email"
-            onChange={({ target }) => setEmail(target.value)}
-            id="email"
-            placeholder={t('placeholder.email')}
-          />
-        </div>
-        <div>
-          {t('misc.password')}
-          <input
-            type="password"
-            value={password}
-            name="password"
-            onChange={({ target }) => setPassword(target.value)}
-            id="password"
-            placeholder={t('placeholder.password')}
-          />
-        </div>
-        <div>
-          {t('misc.passwordConfirm')}
-          <input
-            type="password"
-            value={passwordConfirm}
-            name="passwordConfirm"
-            onChange={({ target }) => setPasswordConfirm(target.value)}
-            id="passwordConfirm"
-            placeholder={t('placeholder.passwordConfirm')}
-          />
-        </div>
-        <button id="register" type="submit">{t('misc.signin')}</button>
+      <form onSubmit={handleSubmit(handleRegister)}>
+        {t('misc.email')}
+        <input
+          type="text"
+          placeholder={t('placeholder.email')}
+          {...register('email', { required: t('errors.requiredEmailError') })}
+          aria-invalid={errors.email ? 'true' : 'false'}
+        />
+        {errors.email && <p role="alert">{errors.email?.message}</p>}
+        {t('misc.username')}
+        <input
+          type="text"
+          placeholder={t('placeholder.username')}
+          {...register('username', { required: t('errors.requiredUsernameError') })}
+          aria-invalid={errors.username ? 'true' : 'false'}
+        />
+        {errors.username && <p role="alert">{errors.username?.message}</p>}
+        {t('misc.password')}
+        <input
+          type="password"
+          placeholder={t('placeholder.password')}
+          {...register('password', { required: t('errors.requiredPasswordError') })}
+          aria-invalid={errors.password ? 'true' : 'false'}
+        />
+        {errors.password && <p role="alert">{errors.password?.message}</p>}
+        {t('misc.passwordConfirm')}
+        <input
+          type="password"
+          placeholder={t('placeholder.passwordConfirm')}
+          {...register('passwordConfirmation', { required: t('errors.requiredPasswordConfirmError') })}
+          aria-invalid={errors.passwordConfirmation ? 'true' : 'false'}
+        />
+        {errors.passwordConfirmation && <p role="alert">{errors.passwordConfirmation?.message}</p>}
+        <input type="submit" value={t('register.registerButton')} />
       </form>
     </div>
   );
