@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN } from '../queries/mutations';
 import Notification from './Notification';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/reducers/userReducer';
+import { setUser, setToken } from '../redux/reducers/userReducer';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
@@ -37,6 +37,7 @@ const LoginForm = () => {
       const token = result.data.login.token.value;
       localStorage.setItem('token', token);
       dispatch(setUser(user));
+      dispatch(setToken(token));
       navigate('/');
       setEmail('');
       setPassword('');

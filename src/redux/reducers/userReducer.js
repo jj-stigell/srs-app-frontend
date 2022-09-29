@@ -1,16 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  user: null,
+  token: null
+};
+
 const userSlice = createSlice({
   name: 'user',
-  initialState: null,
+  initialState,
   reducers: {
     setUser(state, action) {
-      return action.payload;
+      state.user = action.payload;
+    },
+    setToken(state, action) {
+      state.token = action.payload;
     }
   }
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setToken } = userSlice.actions;
 
 export const updateUser = () => {
   return async dispatch => {
@@ -22,6 +30,7 @@ export const updateUser = () => {
 export const logoutUser = () => {
   return async dispatch => {
     dispatch(setUser(null));
+    dispatch(setToken(null));
   };
 };
 
