@@ -11,15 +11,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <NavBar user={user}/>
       <Title />
-      <p>
-        dev env is: {process.env.REACT_APP_DEV_BACKEND_URL}
-        <br/>
-        test env is: {process.env.REACT_APP_TEST_BACKEND_URL}
-        <br/>
-        production env is: {process.env.REACT_APP_PROD_BACKEND_URL}
-      </p>
+      <NavBar user={user}/>
     </div>
   );
 };
