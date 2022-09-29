@@ -13,6 +13,9 @@ const RegisterForm = () => {
   const [errorOn, setErrorOn] = useState(false);
   const { register, reset, formState: { errors }, handleSubmit } = useForm();
 
+  //eslint-disable-next-line
+  const regexEmail = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+
   const [ registerAccount, result ] = useMutation(REGISTER, {
     onError: (error) => {
       const message = t(`errors.${error.graphQLErrors[0].extensions.errorName}`);
@@ -53,7 +56,13 @@ const RegisterForm = () => {
         <input
           type="text"
           placeholder={t('placeholder.email')}
-          {...register('email', { required: t('errors.requiredEmailError') })}
+          {...register('email', {
+            required: t('errors.requiredEmailError'),
+            pattern: {
+              value: regexEmail,
+              message: t('errors.notEmailError')
+            }
+          })}
           aria-invalid={errors.email ? 'true' : 'false'}
         />
         {errors.email && <p role="alert">{errors.email?.message}</p>}
