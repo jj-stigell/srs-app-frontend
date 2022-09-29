@@ -11,10 +11,7 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const [notificationMessage, setMessage] = useState(null);
   const [errorOn, setErrorOn] = useState(false);
-  const { register, reset, formState: { errors }, handleSubmit } = useForm();
-
-  //eslint-disable-next-line
-  const regexEmail = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+  const { register, reset, watch, formState: { errors }, handleSubmit } = useForm();
 
   const [ registerAccount, result ] = useMutation(REGISTER, {
     onError: (error) => {
@@ -59,7 +56,8 @@ const RegisterForm = () => {
           {...register('email', {
             required: t('errors.requiredEmailError'),
             pattern: {
-              value: regexEmail,
+              //eslint-disable-next-line
+              value: '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/',
               message: t('errors.notEmailError')
             }
           })}
@@ -70,7 +68,21 @@ const RegisterForm = () => {
         <input
           type="text"
           placeholder={t('placeholder.username')}
-          {...register('username', { required: t('errors.requiredUsernameError') })}
+          {...register('username', {
+            required: t('errors.requiredUsernameError'),
+            minLength: {
+              value: 1,
+              message: t('errors.usernameMinLengthError')
+            },
+            maxLength: {
+              value: 14,
+              message: t('errors.usernameMaxLengthError')
+            },
+            pattern: {
+              value: '/^([a-zA-Z0-9]+)$/',
+              message: t('errors.usernameValidationError')
+            }
+          })}
           aria-invalid={errors.username ? 'true' : 'false'}
         />
         {errors.username && <p role="alert">{errors.username?.message}</p>}
@@ -78,7 +90,14 @@ const RegisterForm = () => {
         <input
           type="password"
           placeholder={t('placeholder.password')}
-          {...register('password', { required: t('errors.requiredPasswordError') })}
+          {...register('password', {
+            //minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1
+            required: t('errors.requiredPasswordError'),
+            minLength: {
+              value: 8,
+              message: t('errors.passwordMinLengthError')
+            },
+          })}
           aria-invalid={errors.password ? 'true' : 'false'}
         />
         {errors.password && <p role="alert">{errors.password?.message}</p>}
@@ -86,7 +105,14 @@ const RegisterForm = () => {
         <input
           type="password"
           placeholder={t('placeholder.passwordConfirm')}
-          {...register('passwordConfirmation', { required: t('errors.requiredPasswordConfirmError') })}
+          {...register('passwordConfirmation', {
+            required: t('errors.requiredPasswordConfirmError'),
+            validate: (value) => {
+              if (watch('password') !== value) {
+                return t('errors.passwordMismatchError');
+              }
+            }
+          })}
           aria-invalid={errors.passwordConfirmation ? 'true' : 'false'}
         />
         {errors.passwordConfirmation && <p role="alert">{errors.passwordConfirmation?.message}</p>}
