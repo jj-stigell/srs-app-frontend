@@ -30,6 +30,13 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
     - [ ] Sign up page
     - [ ] Language selector
 - [ ] Styling
+    - [ ] Navbar
+    - [ ] Login page
+    - [ ] Logout
+    - [ ] Dashboard
+    - [ ] Settings
+    - [ ] Sign up page
+    - [ ] Language selector
     - [ ] Animations
 - [ ] Backend communications
     - [ ] User related
@@ -39,13 +46,13 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
             - [X] Check that username, email etc not taken
             - [X] Register user
             - [ ] Email verification ([node mailer](https://nodemailer.com/about/) & [Amazon SES](https://aws.amazon.com/ses/))
-        - [ ] User login, JWT on succesful login, otherwise error
-            - [ ] Validate input
-            - [ ] Error on missing, incorrect input, mismatch with password
-            - [ ] Succesfully login, token save to redux store
+        - [X] User login, JWT on succesful login, otherwise error
+            - [X] Validate input
+            - [X] Error on missing, incorrect input, mismatch with password
+            - [X] Succesfully login, token and user saved to redux store
         - [ ] User logout
             - [ ] Send session termination request to backend
-            - [ ] Empty token from redux store
+            - [X] Empty token and user data from redux store
         - [ ] User change password/personal data
             - [ ] Validate new data, confirmation must match, cannot be same as old one
             - [ ] Email, settings change
@@ -56,7 +63,12 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
         - [ ] Reschedule card based on user input
 - [ ] Redux
     - [ ] Reducers
-    - [ ] Storage
+        - [ ] User
+            - [X] User data
+            - [X] Token
+            - [ ] Update information
+        - [ ] Cards
+    - [X] Storage
 - [ ] Testing
     - [ ] Unit testing for functions
     - [ ] Integration tests
