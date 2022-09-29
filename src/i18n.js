@@ -16,7 +16,8 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    debug: true,
+    // eslint-disable-next-line no-undef
+    debug: process.env.NODE_ENV === 'development',
     lng: 'en',
     fallbackLng: 'en',
     interpolation: {
