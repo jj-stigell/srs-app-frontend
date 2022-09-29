@@ -13,6 +13,7 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
 
 ## Libraries
 - [i18next](https://www.i18next.com/) i18next is an internationalization-framework written in and for JavaScript.
+- [React-hook-form](https://react-hook-form.com/) forms and form validation
 
 ## TODOs
 - [X] Project base
@@ -33,18 +34,18 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
 - [ ] Backend communications
     - [ ] User related
         - [ ] User registration
-            - [ ] Validate input
+            - [X] Validate input, with React-hook-form, if bypassed notification component used backend error messages.
             - [ ] Captcha to prevent bots ([reCAPTCHA](https://www.google.com/recaptcha/about/))
-            - [ ] Check that username, email etc not taken
-            - [ ] Create user
+            - [X] Check that username, email etc not taken
+            - [X] Register user
             - [ ] Email verification ([node mailer](https://nodemailer.com/about/) & [Amazon SES](https://aws.amazon.com/ses/))
         - [ ] User login, JWT on succesful login, otherwise error
             - [ ] Validate input
             - [ ] Error on missing, incorrect input, mismatch with password
-            - [ ] Succesfully login, safe to local storage
+            - [ ] Succesfully login, token save to redux store
         - [ ] User logout
             - [ ] Send session termination request to backend
-            - [ ] Empty token from local storage
+            - [ ] Empty token from redux store
         - [ ] User change password/personal data
             - [ ] Validate new data, confirmation must match, cannot be same as old one
             - [ ] Email, settings change
