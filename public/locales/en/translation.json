@@ -14,7 +14,8 @@
     "title": "this is the settings page"
   },
   "signin": {
-    "title": "this is the signin page"
+    "title": "this is the signin page",
+    "signinButton": "Login"
   },
   "signout": {
     "title": "this is the signout page"

@@ -6,23 +6,19 @@ import Notification from './Notification';
 import { useDispatch } from 'react-redux';
 import { setUser, setToken } from '../redux/reducers/userReducer';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 const LoginForm = () => {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  //const found = window.localStorage.getItem('token');
-  //console.log('token in store', found);
+  const { register, reset, formState: { errors }, handleSubmit } = useForm();
 
   const [ login, result ] = useMutation(LOGIN, {
     onError: (error) => {
       const message = t(`errors.${error.graphQLErrors[0].extensions.errorName}`);
-      setPassword('');
+      reset({ password: '' });
       setErrorMessage(message);
       setTimeout(() => {
         setErrorMessage(null);
@@ -31,21 +27,17 @@ const LoginForm = () => {
   });
 
   useEffect(() => {
-    if ( result.data ) {
-      //console.log('login succes, data::::', result.data.login.user);
+    if (result.data) {
+      //console.log('login succes, data:', result.data.login.user);
       const user = result.data.login.user;
       const token = result.data.login.token.value;
-      localStorage.setItem('token', token);
       dispatch(setUser(user));
       dispatch(setToken(token));
       navigate('/');
-      setEmail('');
-      setPassword('');
     }
   }, [result.data]);
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
+  const handleLogin = async ({ email, password }) => {
     //console.log('username', email, 'password', password);
     login({ variables: { email, password } });
   };
@@ -54,30 +46,30 @@ const LoginForm = () => {
     <div>
       <Notification notification={errorMessage} error={true}/>
       <h2>{t('signin.title')}</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          {t('misc.email')}
-          <input
-            type="text"
-            value={email}
-            name="username"
-            onChange={({ target }) => setEmail(target.value)}
-            id="username"
-            placeholder={t('placeholder.email')}
-          />
-        </div>
-        <div>
-          {t('misc.password')}
-          <input
-            type="password"
-            value={password}
-            name="password"
-            onChange={({ target }) => setPassword(target.value)}
-            id="password"
-            placeholder={t('placeholder.password')}
-          />
-        </div>
-        <button id="login" type="submit">{t('misc.signin')}</button>
+      <form onSubmit={handleSubmit(handleLogin)}>
+        {t('misc.email')}
+        <input
+          type="text"
+          placeholder={t('placeholder.email')}
+          {...register('email', {
+            required: t('errors.requiredEmailError'),
+            pattern: {
+              value: /^[\w\-._]+@[\w\-._]+\.[A-Za-z]+/,
+              message: t('errors.notEmailError')
+            }
+          })}
+          aria-invalid={errors.email ? 'true' : 'false'}
+        />
+        {errors.email && <p role="alert">{errors.email?.message}</p>}
+        {t('misc.password')}
+        <input
+          type="password"
+          placeholder={t('placeholder.password')}
+          {...register('password', { required: t('errors.requiredPasswordError') } )}
+          aria-invalid={errors.password ? 'true' : 'false'}
+        />
+        {errors.password && <p role="alert">{errors.password?.message}</p>}
+        <input type="submit" value={t('signin.signinButton')} />
       </form>
     </div>
   );
