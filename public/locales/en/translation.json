@@ -20,7 +20,9 @@
     "title": "this is the signout page"
   },
   "register": {
-    "title": "this is the registering page for new account"
+    "title": "this is the registering page for new account",
+    "success": "New user created successfully with email address {{email}}. Redirecting to login page.",
+    "registerButton": "Register"
   },
   "misc": {
     "username": "Username",
@@ -38,6 +40,15 @@
   "errors": {
     "userOrPassIncorrectError": "Email or password invalid",
     "inputValueMissingError": "Missing email and/or password",
-    "notEmailError": "Email not valid email address"
+    "notEmailError": "Email not valid email address",
+    "passwordMismatchError": "Password and confirmation do not match",
+    "passwordValidationError": "Password does not meet the requirements",
+    "usernameValidationError": "Username does not meet the requirements",
+    "emailInUseError": "Email address already in use",
+    "usernameInUseError": "Username already in use",
+    "requiredEmailError": "Email address required",
+    "requiredUsernameError": "Username required",
+    "requiredPasswordError": "Password required",
+    "requiredPasswordConfirmError": "Password confirmation required"
   }
 }
