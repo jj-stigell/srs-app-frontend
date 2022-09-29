@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/client';
 import { REGISTER } from '../queries/mutations';
-import Notification from './Notification';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import Notification from './Notification';
 
 const RegisterForm = () => {
   const { t } = useTranslation();
@@ -56,8 +56,7 @@ const RegisterForm = () => {
           {...register('email', {
             required: t('errors.requiredEmailError'),
             pattern: {
-              //eslint-disable-next-line
-              value: '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/',
+              value: /^[\w\-._]+@[\w\-._]+\.[A-Za-z]+/,
               message: t('errors.notEmailError')
             }
           })}
@@ -79,7 +78,7 @@ const RegisterForm = () => {
               message: t('errors.usernameMaxLengthError')
             },
             pattern: {
-              value: '/^([a-zA-Z0-9]+)$/',
+              value: /^([a-zA-Z0-9]+)$/,
               message: t('errors.usernameValidationError')
             }
           })}
