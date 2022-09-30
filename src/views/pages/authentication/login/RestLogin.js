@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+//import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-
-import configData from '../../../../config';
+import { useMutation } from '@apollo/client';
+import { LOGIN } from '../../../../queries/mutations';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -25,12 +25,15 @@ import {
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import axios from 'axios';
+
+//import axios from 'axios';
 
 // project imports
-import useScriptRef from '../../../../hooks/useScriptRef';
+//import useScriptRef from '../../../../hooks/useScriptRef';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
-import { ACCOUNT_INITIALIZE } from './../../../../store/actions';
+
+//import { ACCOUNT_INITIALIZE } from './../../../../store/actions';
+//import configData from '../../../../config';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';
@@ -79,10 +82,10 @@ const useStyles = makeStyles((theme) => ({
 
 const RestLogin = (props, { ...others }) => {
   const classes = useStyles();
-  const dispatcher = useDispatch();
+  //const dispatcher = useDispatch();
   const { t } = useTranslation();
 
-  const scriptedRef = useScriptRef();
+  //const scriptedRef = useScriptRef();
   const [checked, setChecked] = React.useState(true);
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -93,6 +96,38 @@ const RestLogin = (props, { ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const [ login, result ] = useMutation(LOGIN, {
+    onError: (error) => {
+      const message = t(`errors.${error.graphQLErrors[0].extensions.errorName}`);
+      console.log(message);
+      /*
+      reset({ password: '' });
+      setErrorMessage(message);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 3000);
+      */
+    }
+  });
+
+
+
+  useEffect(() => {
+    if (result.data) {
+      //console.log('login succes, data:', result.data.login.user);
+      console.log('login success!!!');
+      const user = result.data.login.user;
+      const token = result.data.login.token.value;
+      console.log(user, token);
+      //dispatch(setUser(user));
+      //dispatch(setToken(token));
+      //navigate('/');
+    }
+  }, [result.data]);
+
+
+
 
   return (
     <React.Fragment>
@@ -111,7 +146,16 @@ const RestLogin = (props, { ...others }) => {
             .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
             .required(t('errors.requiredPasswordError'))
         })}
+        // eslint-disable-next-line no-unused-vars
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+
+          console.log('email', values.email, 'password', values.password);
+          login({ variables: { email: values.email, password: values.password } });
+
+          //setStatus({ success: false });
+          //setErrors({ submit: 'testinggg' });
+          //setSubmitting(false);
+          /*
           try {
             axios
               .post( configData.API_SERVER + 'users/login', {
@@ -148,6 +192,12 @@ const RestLogin = (props, { ...others }) => {
               setSubmitting(false);
             }
           }
+          */
+
+
+
+
+
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (

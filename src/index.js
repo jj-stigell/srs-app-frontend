@@ -44,6 +44,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import {
+  ApolloClient, ApolloProvider, InMemoryCache, createHttpLink
+} from '@apollo/client';
 
 // project imports
 import { store, persister } from './store';
@@ -55,15 +58,29 @@ import './i18n';
 // style + assets
 import './assets/scss/style.scss';
 
+//-----------------------|| INIT APOLLOCLIENT  ||-----------------------//
+
+const link = createHttpLink({
+  // eslint-disable-next-line no-undef
+  uri: process.env.REACT_APP_DEV_BACKEND_URL,
+});
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link,
+});
+
 //-----------------------|| REACT DOM RENDER  ||-----------------------//
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persister}>
-      <BrowserRouter basename={config.basename}>
-        <App />
-      </BrowserRouter>
-    </PersistGate>
+    <ApolloProvider client={client}>
+      <PersistGate loading={null} persistor={persister}>
+        <BrowserRouter basename={config.basename}>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </ApolloProvider>
   </Provider>,
   document.getElementById('root')
 );
