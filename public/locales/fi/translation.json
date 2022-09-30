@@ -1,21 +1,64 @@
 {
-  "title": "SRS-app asioden oppimiseen",
+  "title": "SRS-app for learning stuff",
   "navbar": {
     "dashboard": "Dashboard",
-    "settings": "Asetukset",
-    "signout": "Kirjaudu ulos",
-    "signin": "Kirjaudu sisään"
+    "settings": "Settings",
+    "signout": "Sign Out",
+    "signin": "Sign In",
+    "register": "Register"
   },
   "dashboard": {
-    "title": "Tämä on Dashboard sivu"
+    "title": "this is the dashboard page"
   },
   "settings": {
-    "title": "Tämä on asetukset sivu"
+    "title": "this is the settings page"
   },
-  "signin": {
-    "title": "Tämä on kirjaudu sisään sivu"
+  "login": {
+    "title": "this is the signin page",
+    "logInButton": "Kirjaudu sisaan",
+    "welcomeBack": "Tervetuloa takaisin!",
+    "enterCredentials": "Syota tunnukset jatkaaksesi",
+    "rememberMe": "Muista minut"
   },
-  "signout": {
-    "title": "Tämä on kirjaudu ulos sivu"
+  "logout": {
+    "title": "this is the signout page"
+  },
+  "register": {
+    "title": "this is the registering page for new account",
+    "success": "New user created successfully with email address {{email}}. Redirecting to login page.",
+    "registerButton": "Register",
+    "noAccount": "Eiko sinulla ole kayttajatunnusta?"
+  },
+  "misc": {
+    "username": "Kayttajatunnus",
+    "email": "Sahkoposti",
+    "password": "Salasana",
+    "passwordConfirm": "Vahvista salasana",
+    "passwordsForgot": "Unohditko salasanan?"
+  },
+  "placeholder": {
+    "username": "e.g. User23494",
+    "email": "Your email",
+    "password": "Your password",
+    "passwordConfirm": "Password confirmation"
+  },
+  "errors": {
+    "userOrPassIncorrectError": "Email or password invalid",
+    "inputValueMissingError": "Missing email and/or password",
+    "notEmailError": "Ei validi email osoite",
+    "passwordMismatchError": "Password and confirmation do not match",
+    "passwordValidationError": "Password does not meet the requirements",
+    "usernameValidationError": "Username does not meet the requirements, must contain only alphanumeric values",
+    "emailInUseError": "Email address already in use",
+    "usernameInUseError": "Username already in use",
+    "requiredEmailError": "Sahkoposti vaaditaan",
+    "requiredUsernameError": "Username required",
+    "requiredPasswordError": "Salasana vaaditaan",
+    "requiredPasswordConfirmError": "Password confirmation required",
+    "usernameMinLengthError": "Username must be at least 1 character long",
+    "usernameMaxLengthError": "Username can be maximum 14 characters long",
+    "passwordMinLengthError": "Password must be at least 8 characters long",
+    "emailMaxLengthError": "Sahkopostin maksimi pituus on {{length}}",
+    "passwordMaxLengthError": "Salasana maksimi pituus on {{length}}"
   }
 }
