@@ -17,15 +17,16 @@ const accountSlice = createSlice({
     setAccount(state, action) {
       return action.payload;
     },
+    // eslint-disable-next-line no-unused-vars
     resetAccount(state, action) {
-      return action.payload;
+      return initialState;
     }
   }
 });
 
 export const { setAccount, resetAccount } = accountSlice.actions;
 
-export const logoutUser = () => {
+export const logOutAccount = () => {
   return async dispatch => {
     dispatch(resetAccount(null));
   };

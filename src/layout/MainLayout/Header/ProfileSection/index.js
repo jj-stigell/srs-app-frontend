@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import configData from '../../../../config';
+//import configData from '../../../../config';
+import { logOutAccount } from '../../../../store/accountReducer';
 
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles';
@@ -26,7 +27,7 @@ import ListItemButton from '@material-ui/core/ListItemButton';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import axios from 'axios';
+//import axios from 'axios';
 
 // project imports
 import MainCard from '../../../../ui-component/cards/MainCard';
@@ -132,7 +133,8 @@ const ProfileSection = () => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const handleLogout = () => {
-    console.log(account.token);
+    dispatcher(logOutAccount());
+    /*
     axios
       .post( configData.API_SERVER + 'users/logout', { token: `${account.token}` }, { headers: { Authorization: `${account.token}` } })
       // eslint-disable-next-line no-unused-vars
@@ -147,6 +149,7 @@ const ProfileSection = () => {
       .catch(function (error) {
         console.log('error - ', error);
       });
+      */
   };
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -217,7 +220,7 @@ const ProfileSection = () => {
                       <Grid item className={classes.flex}>
                         <Typography variant="h4">Good Morning,</Typography>
                         <Typography component="span" variant="h4" className={classes.name}>
-                                                    John
+                          {account.user.username}
                         </Typography>
                       </Grid>
                       <Grid item>

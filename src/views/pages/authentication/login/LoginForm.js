@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 
 //============================|| API JWT - LOGIN ||============================//
 
-const RestLogin = (props, { ...others }) => {
+const LoginForm = (props, { ...others }) => {
   const classes = useStyles();
   const dispatcher = useDispatch();
   const { t } = useTranslation();
@@ -325,4 +325,4 @@ const RestLogin = (props, { ...others }) => {
   );
 };
 
-export default RestLogin;
+export default LoginForm;
