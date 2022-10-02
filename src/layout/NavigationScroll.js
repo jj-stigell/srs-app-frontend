@@ -5,20 +5,20 @@ import { withRouter } from 'react-router-dom';
 //-----------------------|| NAVIGATION SCROLL TO TOP ||-----------------------//
 
 const NavigationScroll = ({ children, location: { pathname } }) => {
-    useEffect(() => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
-    }, [pathname]);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [pathname]);
 
-    return children || null;
+  return children || null;
 };
 
 NavigationScroll.propTypes = {
-    children: PropTypes.node,
-    location: PropTypes.object
+  children: PropTypes.node,
+  location: PropTypes.object
 };
 
 export default withRouter(NavigationScroll);

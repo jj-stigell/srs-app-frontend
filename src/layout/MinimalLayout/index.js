@@ -7,16 +7,16 @@ import Customization from './../Customization';
 //-----------------------|| MINIMAL LAYOUT ||-----------------------//
 
 const MinimalLayout = (props) => {
-    return (
-        <React.Fragment>
-            {props.children}
-            <Customization />
-        </React.Fragment>
-    );
+  return (
+    <React.Fragment>
+      {props.children}
+      <Customization />
+    </React.Fragment>
+  );
 };
 
 MinimalLayout.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node
 };
 
 export default MinimalLayout;
