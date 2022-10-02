@@ -67,11 +67,15 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
             - [X] User data
             - [X] Token
             - [ ] Update information
+        - [X] Theme/customization UI
         - [ ] Cards
-    - [X] Storage
+    - [ ] Storage
+        - [X] [Persist](https://blog.logrocket.com/persist-state-redux-persist-redux-toolkit-react/)
+        - [ ] Merging
 - [ ] Testing
     - [ ] Unit testing for functions
     - [ ] Integration tests
+    - [ ] e2e testing
 
 
 ## Authorization
