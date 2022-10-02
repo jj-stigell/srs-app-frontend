@@ -1,4 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
+import thunk from 'redux-thunk';
 
 // reducer imports
 import accountReducer from './accountReducer';
@@ -6,14 +9,26 @@ import customizationReducer from './customizationReducer';
 
 //-----------------------|| CONFIGURE STORE WITH REDUCERS ||-----------------------//
 
-export default configureStore({
-  reducer: {
-    account: accountReducer,
-    customization: customizationReducer
-  },
-  // eslint-disable-next-line no-undef
-  devTools: process.env.NODE_ENV !== 'production'
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const rootReducer = combineReducers({
+  account: accountReducer,
+  customization: customizationReducer
 });
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  // eslint-disable-next-line no-undef
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: [thunk]
+});
+
+export const persistor = persistStore(store);
 
 /*
 //import { combineReducers } from 'redux';
