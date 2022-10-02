@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
 //import configData from '../../../../config';
 import { logOutAccount } from '../../../../store/accountReducer';
 
@@ -134,6 +136,7 @@ const ProfileSection = () => {
   const anchorRef = React.useRef(null);
   const handleLogout = () => {
     dispatcher(logOutAccount());
+    return <Redirect to="/login" />;
     /*
     axios
       .post( configData.API_SERVER + 'users/logout', { token: `${account.token}` }, { headers: { Authorization: `${account.token}` } })

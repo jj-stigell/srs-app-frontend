@@ -27,7 +27,7 @@ const MainRoutes = () => {
     return (
         <Route
             path={[
-                '/dashboard/default',
+                '/dashboard',
 
                 '/utils/util-typography',
                 '/utils/util-color',
@@ -41,7 +41,7 @@ const MainRoutes = () => {
             <MainLayout>
                 <Switch location={location} key={location.pathname}>
                     <AuthGuard>
-                        <Route path="/dashboard/default" component={DashboardDefault} />
+                        <Route path="/dashboard" component={DashboardDefault} />
 
                         <Route path="/utils/util-typography" component={UtilsTypography} />
                         <Route path="/utils/util-color" component={UtilsColor} />
