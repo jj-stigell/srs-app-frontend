@@ -10,7 +10,9 @@ export default configureStore({
   reducer: {
     account: accountReducer,
     customization: customizationReducer
-  }
+  },
+  // eslint-disable-next-line no-undef
+  devTools: process.env.NODE_ENV !== 'production'
 });
 
 /*
