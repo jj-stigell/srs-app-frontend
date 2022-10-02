@@ -87,6 +87,7 @@ const RestLogin = (props, { ...others }) => {
 
   //const scriptedRef = useScriptRef();
   const [checked, setChecked] = React.useState(true);
+  const [error, setError] = React.useState(null);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
@@ -97,21 +98,13 @@ const RestLogin = (props, { ...others }) => {
     event.preventDefault();
   };
 
+  // eslint-disable-next-line no-unused-vars
   const [ login, result ] = useMutation(LOGIN, {
     onError: (error) => {
       const message = t(`errors.${error.graphQLErrors[0].extensions.errorName}`);
-      console.log(message);
-      /*
-      reset({ password: '' });
-      setErrorMessage(message);
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 3000);
-      */
+      setError(message);
     }
   });
-
-
 
   useEffect(() => {
     if (result.data) {
@@ -125,9 +118,6 @@ const RestLogin = (props, { ...others }) => {
       //navigate('/');
     }
   }, [result.data]);
-
-
-
 
   return (
     <React.Fragment>
@@ -147,10 +137,22 @@ const RestLogin = (props, { ...others }) => {
             .required(t('errors.requiredPasswordError'))
         })}
         // eslint-disable-next-line no-unused-vars
-        onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+        onSubmit={ async (values, { setErrors, setStatus, setSubmitting }) => {
+          //console.log('email', values.email, 'password', values.password, 'checked', values.checked);
 
-          console.log('email', values.email, 'password', values.password);
-          login({ variables: { email: values.email, password: values.password } });
+          try {
+            await login({ variables: { email: values.email, password: values.password } });
+          } catch(e) {
+            console.log('error:::', e);
+          }
+
+          if (error) {
+            //console.log(error);
+            setStatus({ success: false });
+            setErrors({ submit: error });
+            setSubmitting(false);
+            setError(null);
+          }
 
           //setStatus({ success: false });
           //setErrors({ submit: 'testinggg' });

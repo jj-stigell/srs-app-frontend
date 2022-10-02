@@ -43,13 +43,14 @@ import ReactDOM from 'react-dom';
 // third party
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+//import { PersistGate } from 'redux-persist/integration/react';
 import {
   ApolloClient, ApolloProvider, InMemoryCache, createHttpLink
 } from '@apollo/client';
 
 // project imports
-import { store, persister } from './store';
+import store from './store';
+//import { store, persister } from './store';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 import config from './config';
@@ -75,11 +76,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <Provider store={store}>
     <ApolloProvider client={client}>
-      <PersistGate loading={null} persistor={persister}>
-        <BrowserRouter basename={config.basename}>
-          <App />
-        </BrowserRouter>
-      </PersistGate>
+      <BrowserRouter basename={config.basename}>
+        <App />
+      </BrowserRouter>
     </ApolloProvider>
   </Provider>,
   document.getElementById('root')
@@ -89,3 +88,19 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+
+/*
+ReactDOM.render(
+  <Provider store={store}>
+    <ApolloProvider client={client}>
+      <PersistGate loading={null} persistor={persister}>
+        <BrowserRouter basename={config.basename}>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </ApolloProvider>
+  </Provider>,
+  document.getElementById('root')
+);
+*/

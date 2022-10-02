@@ -1,10 +1,45 @@
-import { createStore } from 'redux';
-import { persistStore } from 'redux-persist';
-import reducer from './reducer';
+//import { combineReducers } from 'redux';
+//import { persistReducer } from 'redux-persist';
+//import storage from 'redux-persist/lib/storage';
+import { configureStore } from '@reduxjs/toolkit';
 
-//-----------------------|| REDUX - MAIN STORE ||-----------------------//
+// reducer import
+//import customizationReducer from './customizationReducer';
+import accountReducer from './accountReducer';
+import customizationReducer from './customizationReducer';
 
-const store = createStore(reducer);
-const persister = persistStore(store);
+//-----------------------|| COMBINE REDUCER ||-----------------------//
+export default configureStore({
+  reducer: {
+    account: accountReducer,
+    customization: customizationReducer
+  }
+});
 
-export { store, persister };
+/*
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from './reducers/userReducer';
+
+export default configureStore({
+  reducer: {
+    user: userReducer,
+  }
+});
+
+
+
+const reducer = combineReducers({
+  account: persistReducer(
+    {
+      key: 'account',
+      storage,
+      keyPrefix: 'berry-'
+    },
+    accountReducer
+  ),
+  customization: customizationReducer
+});
+
+export default reducer;
+
+*/
