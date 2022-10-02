@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/client';
+
 import { LOGIN } from '../../../../queries/mutations';
+import { setAccount } from '../../../../store/accountReducer';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -82,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RestLogin = (props, { ...others }) => {
   const classes = useStyles();
-  //const dispatcher = useDispatch();
+  const dispatcher = useDispatch();
   const { t } = useTranslation();
 
   //const scriptedRef = useScriptRef();
@@ -113,7 +115,9 @@ const RestLogin = (props, { ...others }) => {
       const user = result.data.login.user;
       const token = result.data.login.token.value;
       console.log(user, token);
-      //dispatch(setUser(user));
+      const payload = { isLoggedIn: true, user: user, token: token };
+
+      dispatcher(setAccount(payload));
       //dispatch(setToken(token));
       //navigate('/');
     }

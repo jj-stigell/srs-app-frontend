@@ -1,14 +1,11 @@
-//import { combineReducers } from 'redux';
-//import { persistReducer } from 'redux-persist';
-//import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 
-// reducer import
-//import customizationReducer from './customizationReducer';
+// reducer imports
 import accountReducer from './accountReducer';
 import customizationReducer from './customizationReducer';
 
-//-----------------------|| COMBINE REDUCER ||-----------------------//
+//-----------------------|| CONFIGURE STORE WITH REDUCERS ||-----------------------//
+
 export default configureStore({
   reducer: {
     account: accountReducer,
@@ -17,6 +14,10 @@ export default configureStore({
 });
 
 /*
+//import { combineReducers } from 'redux';
+//import { persistReducer } from 'redux-persist';
+//import storage from 'redux-persist/lib/storage';
+
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './reducers/userReducer';
 

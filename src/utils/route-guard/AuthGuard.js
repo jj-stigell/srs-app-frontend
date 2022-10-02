@@ -13,7 +13,7 @@ const AuthGuard = ({ children }) => {
   const account = useSelector((state) => state.account);
   const { isLoggedIn } = account;
 
-  if (isLoggedIn) {    // set to isLoggedIn to activate login
+  if (!isLoggedIn) {
     return <Redirect to="/login" />;
   }
 
