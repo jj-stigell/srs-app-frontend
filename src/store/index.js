@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 // reducer imports
 import accountReducer from './accountReducer';
 import customizationReducer from './customizationReducer';
+import registerReducer from './registerReducer';
 
 //-----------------------|| CONFIGURE STORE WITH REDUCERS ||-----------------------//
 
@@ -16,7 +17,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   account: accountReducer,
-  customization: customizationReducer
+  customization: customizationReducer,
+  register: registerReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

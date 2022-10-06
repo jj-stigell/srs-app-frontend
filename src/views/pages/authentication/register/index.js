@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@material-ui/core';
@@ -14,11 +15,13 @@ import RegisterForm from './RegisterForm';
 import AuthFooter from './../../../../ui-component/cards/AuthFooter';
 import LangSelector from '../LangSelector';
 
+
 // assets
 
-//===============================|| AUTH3 - REGISTER ||===============================//
+//===============================|| REGISTER MAIN ||===============================//
 
 const Register = () => {
+  const register = useSelector((state) => state.register);
   const theme = useTheme();
   const { t } = useTranslation();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -36,49 +39,85 @@ const Register = () => {
                       <Logo />
                     </RouterLink>
                   </Grid>
-                  <Grid item xs={12}>
-                    <Grid
-                      container
-                      direction={matchDownSM ? 'column-reverse' : 'row'}
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Grid item>
-                        <Stack alignItems="center" justifyContent="center" spacing={1}>
-                          <Typography
-                            color={theme.palette.secondary.main}
-                            gutterBottom
-                            variant={matchDownSM ? 'h3' : 'h2'}
-                            align='center'
-                          >
-                            {t('register.title')}
-                          </Typography>
-                          <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                            {t('register.enterCreds')}
-                          </Typography>
-                        </Stack>
+                  {register.registered ?
+                    <Grid item xs={12}>
+                      <Grid
+                        container
+                        direction={matchDownSM ? 'column-reverse' : 'row'}
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Grid item>
+                          <Stack alignItems="center" justifyContent="center" spacing={1}>
+                            <Typography
+                              color={theme.palette.secondary.main}
+                              gutterBottom
+                              variant={matchDownSM ? 'h3' : 'h2'}
+                              align='center'
+                            >
+                              {t('register.success', { email: register.email } )}
+                            </Typography>
+                            <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                              <Typography
+                                component={RouterLink}
+                                to="/login"
+                                variant="subtitle1"
+                                sx={{ textDecoration: 'none' }}
+                              >
+                                {t('register.linkToLogin')}
+                              </Typography>
+                            </Typography>
+                          </Stack>
+                        </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <RegisterForm />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid item container direction="column" alignItems="center" xs={12}>
-                      <Typography
-                        component={RouterLink}
-                        to="/login"
-                        variant="subtitle1"
-                        sx={{ textDecoration: 'none' }}
-                      >
-                        {t('register.haveAccount')}
-                      </Typography>
-                      <LangSelector />
-                    </Grid>
-                  </Grid>
+                    :
+                    <>
+                      <Grid item xs={12}>
+                        <Grid
+                          container
+                          direction={matchDownSM ? 'column-reverse' : 'row'}
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <Grid item>
+                            <Stack alignItems="center" justifyContent="center" spacing={1}>
+                              <Typography
+                                color={theme.palette.secondary.main}
+                                gutterBottom
+                                variant={matchDownSM ? 'h3' : 'h2'}
+                                align='center'
+                              >
+                                {t('register.title')}
+                              </Typography>
+                              <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                                {t('register.enterCreds')}
+                              </Typography>
+                            </Stack>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <RegisterForm />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Grid item container direction="column" alignItems="center" xs={12}>
+                          <Typography
+                            component={RouterLink}
+                            to="/login"
+                            variant="subtitle1"
+                            sx={{ textDecoration: 'none' }}
+                          >
+                            {t('register.haveAccount')}
+                          </Typography>
+                          <LangSelector />
+                        </Grid>
+                      </Grid>
+                    </>
+                  }
                 </Grid>
               </AuthCardWrapper>
             </Grid>

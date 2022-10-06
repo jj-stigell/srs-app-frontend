@@ -31,14 +31,15 @@
     "haveAccount": "Have an account?",
     "enterCreds": "Enter your credentials to continue",
     "agreeWith": "Agree with",
-    "TOS": "Terms & Condition"
+    "TOS": "Terms & Condition",
+    "linkToLogin": "If page does not redirect automatically, click here"
   },
   "passwordStrength": {
-    "poor": "Poor6767",
-    "weak": "Weak676767",
-    "normal": "Normal67676767",
-    "good": "Good676767",
-    "strong": "Strong676767"
+    "poor": "Poor",
+    "weak": "Weak",
+    "normal": "Normal",
+    "good": "Good",
+    "strong": "Strong"
   },
   "misc": {
     "username": "Username",

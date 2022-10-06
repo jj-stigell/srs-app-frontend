@@ -1,8 +1,11 @@
+/* eslint-disable no-constant-condition */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 //import { Link, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import { useDispatch } from 'react-redux';
+
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -31,6 +34,7 @@ import { Formik } from 'formik';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
 import { strengthColor, strengthIndicator } from '../../../../utils/password-strength';
 import { REGISTER } from '../../../../queries/mutations';
+import { setRegister } from '../../../../store/registerReducer';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';
@@ -80,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
 const RegisterForm = ({ ...others }) => {
   const classes = useStyles();
   const { t } = useTranslation();
+  const dispatcher = useDispatch();
   //let history = useHistory();
   //const scriptedRef = useScriptRef();
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -159,9 +164,7 @@ const RegisterForm = ({ ...others }) => {
             }
             case 'Account': {
               resetForm({ values: '' });
-              setStatus({ success: false });
-              setErrors({ submit: t('register.success', { email: data.email }) });
-              setSubmitting(false);
+              dispatcher(setRegister({ registered: true, email: data.email }));
               break;
             }
             default: {
