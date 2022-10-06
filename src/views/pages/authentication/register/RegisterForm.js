@@ -136,6 +136,9 @@ const RegisterForm = ({ ...others }) => {
         })}
         // eslint-disable-next-line no-unused-vars
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+
+
+          console.log(values);
           /*
           try {
             axios
@@ -175,7 +178,7 @@ const RegisterForm = ({ ...others }) => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Username"
+                  label={t('misc.username')}
                   margin="normal"
                   name="username"
                   id="username"
@@ -194,7 +197,7 @@ const RegisterForm = ({ ...others }) => {
               </Grid>
             </Grid>
             <FormControl fullWidth error={Boolean(touched.email && errors.email)} className={classes.loginInput}>
-              <InputLabel htmlFor="outlined-adornment-email-register">Email</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-email-register">{t('misc.email')}</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-email-register"
                 type="email"
@@ -217,7 +220,7 @@ const RegisterForm = ({ ...others }) => {
             </FormControl>
 
             <FormControl fullWidth error={Boolean(touched.password && errors.password)} className={classes.loginInput}>
-              <InputLabel htmlFor="outlined-adornment-password-register">Password</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-register">{t('misc.password')}</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password-register"
                 type={showPassword ? 'text' : 'password'}
@@ -255,7 +258,7 @@ const RegisterForm = ({ ...others }) => {
             </FormControl>
 
             <FormControl fullWidth error={Boolean(touched.passwordConfirm && errors.passwordConfirm)} className={classes.loginInput}>
-              <InputLabel htmlFor="outlined-adornment-password-confirm-register">Password confirmation</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-confirm-register">{t('misc.passwordConfirm')}</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password-confirm-register"
                 type={showPassConf ? 'text' : 'password'}
@@ -332,9 +335,9 @@ const RegisterForm = ({ ...others }) => {
                   }
                   label={
                     <Typography variant="subtitle1">
-                                            Agree with &nbsp;
+                      {t('register.agreeWith')} &nbsp;
                       <Typography variant="subtitle1" component={Link} to="#">
-                                                Terms & Condition.
+                        {t('register.TOS')}
                       </Typography>
                     </Typography>
                   }
@@ -366,7 +369,7 @@ const RegisterForm = ({ ...others }) => {
                   variant="contained"
                   color="secondary"
                 >
-                                    Sign UP
+                  {t('register.registerButton')}
                 </Button>
               </AnimateButton>
             </Box>

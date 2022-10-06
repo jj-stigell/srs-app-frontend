@@ -24,12 +24,14 @@
     "title": "this is the signout page"
   },
   "register": {
-    "title": "this is the registering page for new account",
+    "title": "Create a new account and start learning",
     "success": "New user created successfully with email address {{email}}. Redirecting to login page.",
     "registerButton": "Register",
     "noAccount": "Don't have an account?",
     "haveAccount": "Have an account?",
-    "enterCreds": "Enter your credentials to continue"
+    "enterCreds": "Enter your credentials to continue",
+    "agreeWith": "Agree with",
+    "TOS": "Terms & Condition"
   },
   "misc": {
     "username": "Username",
