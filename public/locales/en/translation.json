@@ -57,11 +57,11 @@
     "requiredUsernameError": "Username required",
     "requiredPasswordError": "Password required",
     "requiredPasswordConfirmError": "Password confirmation required",
-    "usernameMinLengthError": "Username must be at least 1 character long",
-    "usernameMaxLengthError": "Username can be maximum 14 characters long",
-    "passwordMinLengthError": "Password must be at least 8 characters long",
-    "emailMaxLengthError": "Email max length is {{length}}",
+    "usernameMinLengthError": "Username must be at least {{length}} character long",
+    "usernameMaxLengthError": "Username can be maximum {{length}} characters long",
+    "passwordMinLengthError": "Password must be at least {{length}} characters long",
     "passwordMaxLengthError": "Password max length is {{length}}",
+    "emailMaxLengthError": "Email max length is {{length}}",
     "connectionError": "Check your connection and try again"
   }
 }

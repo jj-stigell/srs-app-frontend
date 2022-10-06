@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 //import { Link, useHistory } from 'react-router-dom';
 
 //import configData from '../../../../config';
@@ -80,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
 const RegisterForm = ({ ...others }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
   //let history = useHistory();
   //const scriptedRef = useScriptRef();
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -115,17 +117,22 @@ const RegisterForm = ({ ...others }) => {
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string()
-            .email('Must be a valid email')
-            .max(255)
-            .required('Email is required'),
+            .email(t('errors.notEmailError'))
+            .max(255, t('errors.emailMaxLengthError', { length: 255 }))
+            .required(t('errors.requiredEmailError')),
           username: Yup.string()
-            .required('Username is required'),
+            .max(14, t('errors.usernameMaxLengthError', { length: 14 }))
+            .min(1, t('errors.usernameMinLengthError', { length: 1 }))
+            .required(t('errors.requiredUsernameError')),
           password: Yup.string()
-            .max(6)
-            .required('Password is required'),
+            .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
+            .min(8, t('errors.passwordMinLengthError', { length: 8 }))
+            .required(t('errors.requiredPasswordError')),
           passwordConfirm: Yup.string()
-            .max(6)
-            .required('Password confirmation is required')
+            .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
+            .min(8, t('errors.passwordMinLengthError', { length: 8 }))
+            .oneOf([Yup.ref('password'), null], t('errors.passwordMismatchError'))
+            .required(t('errors.requiredPasswordConfirmError'))
         })}
         // eslint-disable-next-line no-unused-vars
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
