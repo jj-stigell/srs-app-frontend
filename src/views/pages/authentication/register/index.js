@@ -49,8 +49,9 @@ const Register = () => {
                             color={theme.palette.secondary.main}
                             gutterBottom
                             variant={matchDownSM ? 'h3' : 'h2'}
+                            align='center'
                           >
-                            {t('register.registerButton')}
+                            {t('register.title')}
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
                             {t('register.enterCreds')}
