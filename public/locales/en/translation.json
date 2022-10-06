@@ -27,7 +27,9 @@
     "title": "this is the registering page for new account",
     "success": "New user created successfully with email address {{email}}. Redirecting to login page.",
     "registerButton": "Register",
-    "noAccount": "Don't have an account?"
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Have an account?",
+    "enterCreds": "Enter your credentials to continue"
   },
   "misc": {
     "username": "Username",

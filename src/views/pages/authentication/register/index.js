@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // material-ui
 import { useTheme } from '@material-ui/core';
@@ -19,6 +20,7 @@ import LangSelector from '../LangSelector';
 
 const Register = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -48,10 +50,10 @@ const Register = () => {
                             gutterBottom
                             variant={matchDownSM ? 'h3' : 'h2'}
                           >
-                                                        Sign up
+                            {t('register.registerButton')}
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                                                        Enter your credentials to continue
+                            {t('register.enterCreds')}
                           </Typography>
                         </Stack>
                       </Grid>
@@ -71,7 +73,7 @@ const Register = () => {
                         variant="subtitle1"
                         sx={{ textDecoration: 'none' }}
                       >
-                                                Have an account?
+                        {t('register.haveAccount')}
                       </Typography>
                       <LangSelector />
                     </Grid>

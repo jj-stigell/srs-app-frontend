@@ -12,21 +12,21 @@ import config from './../config';
 //-----------------------|| ROUTING RENDER ||-----------------------//
 
 const Routes = () => {
-    return (
-        <Switch>
-            <Redirect exact from="/" to={config.defaultPath} />
-            <React.Fragment>
-                {/* Routes for authentication pages */}
-                <AuthenticationRoutes />
+  return (
+    <Switch>
+      <Redirect exact from="/" to={config.defaultPath} />
+      <React.Fragment>
+        {/* Routes for authentication pages */}
+        <AuthenticationRoutes />
 
-                {/* Route for login */}
-                <LoginRoutes />
+        {/* Route for login */}
+        <LoginRoutes />
 
-                {/* Routes for main layouts */}
-                <MainRoutes />
-            </React.Fragment>
-        </Switch>
-    );
+        {/* Routes for main layouts */}
+        <MainRoutes />
+      </React.Fragment>
+    </Switch>
+  );
 };
 
 export default Routes;

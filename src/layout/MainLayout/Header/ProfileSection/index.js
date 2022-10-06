@@ -221,9 +221,9 @@ const ProfileSection = () => {
                   <CardContent className={classes.cardContent}>
                     <Grid container direction="column" spacing={0}>
                       <Grid item className={classes.flex}>
-                        <Typography variant="h4">Good Morning,</Typography>
+                        <Typography variant="h4">Good Morning, </Typography>
                         <Typography component="span" variant="h4" className={classes.name}>
-                          {account.user.username}
+                          {account.user?.username}
                         </Typography>
                       </Grid>
                       <Grid item>
