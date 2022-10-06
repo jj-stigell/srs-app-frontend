@@ -33,6 +33,13 @@
     "agreeWith": "Agree with",
     "TOS": "Terms & Condition"
   },
+  "passwordStrength": {
+    "poor": "Poor6767",
+    "weak": "Weak676767",
+    "normal": "Normal67676767",
+    "good": "Good676767",
+    "strong": "Strong676767"
+  },
   "misc": {
     "username": "Username",
     "email": "Email address",

@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 //import { Link, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
-//import configData from '../../../../config';
-
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -28,10 +26,8 @@ import {
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-//import axios from 'axios';
 
 // project imports
-//import useScriptRef from '../../../../hooks/useScriptRef';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
 import { strengthColor, strengthIndicator } from '../../../../utils/password-strength';
 import { REGISTER } from '../../../../queries/mutations';
@@ -143,7 +139,6 @@ const RegisterForm = ({ ...others }) => {
             .oneOf([Yup.ref('password'), null], t('errors.passwordMismatchError'))
             .required(t('errors.requiredPasswordConfirmError'))
         })}
-        // eslint-disable-next-line no-unused-vars
         onSubmit={ async (values, { setErrors, setStatus, setSubmitting, resetForm }) => {
           try {
             const res = await register({ variables: {
@@ -181,37 +176,6 @@ const RegisterForm = ({ ...others }) => {
             setErrors({ submit: t('errors.connectionError') });
             setSubmitting(false);
           }
-          /*
-          try {
-            axios
-              .post( configData.API_SERVER + 'users/register', {
-                username: values.username,
-                password: values.password,
-                email: values.email
-              })
-              .then(function (response) {
-                if (response.data.success) {
-                  history.push('/login');
-                } else {
-                  setStatus({ success: false });
-                  setErrors({ submit: response.data.msg });
-                  setSubmitting(false);
-                }
-              })
-              .catch(function (error) {
-                setStatus({ success: false });
-                setErrors({ submit: error.response.data.msg });
-                setSubmitting(false);
-              });
-          } catch (err) {
-            console.error(err);
-            if (scriptedRef.current) {
-              setStatus({ success: false });
-              setErrors({ submit: err.message });
-              setSubmitting(false);
-            }
-          }
-          */
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
@@ -356,7 +320,7 @@ const RegisterForm = ({ ...others }) => {
                     </Grid>
                     <Grid item>
                       <Typography variant="subtitle1" fontSize="0.75rem">
-                        {level.label}
+                        {t(`passwordStrength.${level.label}`)}
                       </Typography>
                     </Grid>
                   </Grid>
