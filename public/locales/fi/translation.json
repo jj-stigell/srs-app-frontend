@@ -43,7 +43,7 @@
     "passwordConfirm": "Password confirmation"
   },
   "errors": {
-    "userOrPassIncorrectError": "Email or password invalid",
+    "userOrPassIncorrectError": "Email tai salasana ei validi",
     "inputValueMissingError": "Missing email and/or password",
     "notEmailError": "Ei validi email osoite",
     "passwordMismatchError": "Password and confirmation do not match",

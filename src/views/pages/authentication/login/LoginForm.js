@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/client';
-
-import { LOGIN } from '../../../../queries/mutations';
-import { setAccount } from '../../../../store/accountReducer';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -28,14 +25,10 @@ import {
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-//import axios from 'axios';
-
 // project imports
-//import useScriptRef from '../../../../hooks/useScriptRef';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
-
-//import { ACCOUNT_INITIALIZE } from './../../../../store/actions';
-//import configData from '../../../../config';
+import { LOGIN } from '../../../../queries/mutations';
+import { setAccount } from '../../../../store/accountReducer';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';
@@ -86,11 +79,7 @@ const LoginForm = (props, { ...others }) => {
   const classes = useStyles();
   const dispatcher = useDispatch();
   const { t } = useTranslation();
-
-  //const scriptedRef = useScriptRef();
   const [checked, setChecked] = React.useState(true);
-  const [error, setError] = React.useState(null);
-
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -103,25 +92,9 @@ const LoginForm = (props, { ...others }) => {
   // eslint-disable-next-line no-unused-vars
   const [ login, result ] = useMutation(LOGIN, {
     onError: (error) => {
-      const message = t(`errors.${error.graphQLErrors[0].extensions.errorName}`);
-      setError(message);
+      console.log(error);
     }
   });
-
-  useEffect(() => {
-    if (result.data) {
-      //console.log('login succes, data:', result.data.login.user);
-      console.log('login success!!!');
-      const user = result.data.login.user;
-      const token = result.data.login.token.value;
-      console.log(user, token);
-      const payload = { isLoggedIn: true, user: user, token: token };
-
-      dispatcher(setAccount(payload));
-      //dispatch(setToken(token));
-      //navigate('/');
-    }
-  }, [result.data]);
 
   return (
     <React.Fragment>
@@ -140,70 +113,40 @@ const LoginForm = (props, { ...others }) => {
             .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
             .required(t('errors.requiredPasswordError'))
         })}
-        // eslint-disable-next-line no-unused-vars
         onSubmit={ async (values, { setErrors, setStatus, setSubmitting }) => {
-          //console.log('email', values.email, 'password', values.password, 'checked', values.checked);
-
           try {
-            await login({ variables: { email: values.email, password: values.password } });
-          } catch(e) {
-            console.log('error:::', e);
-          }
+            const res = await login({ variables: { email: values.email, password: values.password } });
+            const data = res.data.login;
 
-          if (error) {
-            //console.log(error);
-            setStatus({ success: false });
-            setErrors({ submit: error });
-            setSubmitting(false);
-            setError(null);
-          }
-
-          //setStatus({ success: false });
-          //setErrors({ submit: 'testinggg' });
-          //setSubmitting(false);
-          /*
-          try {
-            axios
-              .post( configData.API_SERVER + 'users/login', {
-                password: values.password,
-                email: values.email
-              })
-              .then(function (response) {
-                if (response.data.success) {
-                  console.log(response.data);
-                  dispatcher({
-                    type: ACCOUNT_INITIALIZE,
-                    payload: { isLoggedIn: true, user: response.data.user, token: response.data.token }
-                  });
-                  if (scriptedRef.current) {
-                    setStatus({ success: true });
-                    setSubmitting(false);
-                  }
-                } else {
-                  setStatus({ success: false });
-                  setErrors({ submit: response.data.msg });
-                  setSubmitting(false);
-                }
-              })
-              .catch(function (error) {
-                setStatus({ success: false });
-                setErrors({ submit: error.response.data.msg });
-                setSubmitting(false);
-              });
-          } catch (err) {
-            console.error(err);
-            if (scriptedRef.current) {
+            switch(data.__typename) {
+            case 'Error': {
+              console.log('ERROR HAPPENED');
               setStatus({ success: false });
-              setErrors({ submit: err.message });
+              setErrors({ submit: t(`errors.${data.errorCode}`) });
+              setSubmitting(false);
+              break;
+            }
+            case 'AccountToken': {
+              console.log('LOGIN SUCCESS');
+              const user = data.user;
+              const token = data.token.value;
+              const payload = { isLoggedIn: true, user: user, token: token };
+              dispatcher(setAccount(payload));
+              break;
+            }
+            default: {
+              console.log('DEFAULT ERROR HAPPENED');
+              setStatus({ success: false });
+              setErrors({ submit: t('errors.internalError') });
               setSubmitting(false);
             }
+            }
+          } catch(e) {
+            console.log('error:::', e);
+            setStatus({ success: false });
+            setErrors({ submit: t('errors.internalError') });
+            setSubmitting(false);
           }
-          */
-
-
-
-
-
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
