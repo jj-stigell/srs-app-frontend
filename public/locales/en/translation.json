@@ -64,6 +64,6 @@
     "passwordMinLengthError": "Password must be at least {{length}} characters long",
     "passwordMaxLengthError": "Password max length is {{length}}",
     "emailMaxLengthError": "Email max length is {{length}}",
-    "connectionError": "Check your connection and try again"
+    "connectionError": "Something went wrong, check your connection and try again"
   }
 }

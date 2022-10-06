@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 //import { Link, useHistory } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 
 //import configData from '../../../../config';
 
@@ -33,6 +34,7 @@ import { Formik } from 'formik';
 //import useScriptRef from '../../../../hooks/useScriptRef';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
 import { strengthColor, strengthIndicator } from '../../../../utils/password-strength';
+import { REGISTER } from '../../../../queries/mutations';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';
@@ -91,6 +93,13 @@ const RegisterForm = ({ ...others }) => {
   const [strength, setStrength] = React.useState(0);
   const [level, setLevel] = React.useState('');
 
+  // eslint-disable-next-line no-unused-vars
+  const [ register, result ] = useMutation(REGISTER, {
+    onError: (error) => {
+      console.log(error);
+    }
+  });
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -112,7 +121,7 @@ const RegisterForm = ({ ...others }) => {
           username: '',
           email: '',
           password: '',
-          passwordConfirm: '',
+          passwordConfirmation: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -128,17 +137,50 @@ const RegisterForm = ({ ...others }) => {
             .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
             .min(8, t('errors.passwordMinLengthError', { length: 8 }))
             .required(t('errors.requiredPasswordError')),
-          passwordConfirm: Yup.string()
+          passwordConfirmation: Yup.string()
             .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
             .min(8, t('errors.passwordMinLengthError', { length: 8 }))
             .oneOf([Yup.ref('password'), null], t('errors.passwordMismatchError'))
             .required(t('errors.requiredPasswordConfirmError'))
         })}
         // eslint-disable-next-line no-unused-vars
-        onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+        onSubmit={ async (values, { setErrors, setStatus, setSubmitting, resetForm }) => {
+          try {
+            const res = await register({ variables: {
+              username: values.username,
+              email: values.email,
+              password: values.password,
+              passwordConfirmation: values.passwordConfirmation
+            } });
+            const data = res.data.createAccount;
+            console.log(data);
 
-
-          console.log(values);
+            switch(data.__typename) {
+            case 'Error': {
+              setStatus({ success: false });
+              setErrors({ submit: t(`errors.${data.errorCode}`) });
+              setSubmitting(false);
+              break;
+            }
+            case 'Account': {
+              resetForm({ values: '' });
+              setStatus({ success: false });
+              setErrors({ submit: t('register.success', { email: data.email }) });
+              setSubmitting(false);
+              break;
+            }
+            default: {
+              setStatus({ success: false });
+              setErrors({ submit: t('errors.connectionError') });
+              setSubmitting(false);
+            }
+            }
+          } catch(e) {
+            console.log('error:::', e);
+            setStatus({ success: false });
+            setErrors({ submit: t('errors.connectionError') });
+            setSubmitting(false);
+          }
           /*
           try {
             axios
@@ -257,14 +299,14 @@ const RegisterForm = ({ ...others }) => {
               )}
             </FormControl>
 
-            <FormControl fullWidth error={Boolean(touched.passwordConfirm && errors.passwordConfirm)} className={classes.loginInput}>
-              <InputLabel htmlFor="outlined-adornment-password-confirm-register">{t('misc.passwordConfirm')}</InputLabel>
+            <FormControl fullWidth error={Boolean(touched.passwordConfirmation && errors.passwordConfirmation)} className={classes.loginInput}>
+              <InputLabel htmlFor="outlined-adornment-password-confirmation-register">{t('misc.passwordConfirm')}</InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password-confirm-register"
+                id="outlined-adornment-password-confirmation-register"
                 type={showPassConf ? 'text' : 'password'}
-                value={values.passwordConfirm}
-                name="passwordConfirm"
-                label="passwordConfirm"
+                value={values.passwordConfirmation}
+                name="passwordConfirmation"
+                label="passwordConfirmation"
                 onBlur={handleBlur}
                 onChange={(e) => {
                   handleChange(e);
@@ -287,9 +329,9 @@ const RegisterForm = ({ ...others }) => {
                   }
                 }}
               />
-              {touched.passwordConfirm && errors.passwordConfirm && (
-                <FormHelperText error id="standard-weight-helper-text-password-confirm-register">
-                  {errors.passwordConfirm}
+              {touched.passwordConfirmation && errors.passwordConfirmation && (
+                <FormHelperText error id="standard-weight-helper-text-password-confirmation-register">
+                  {errors.passwordConfirmation}
                 </FormHelperText>
               )}
             </FormControl>

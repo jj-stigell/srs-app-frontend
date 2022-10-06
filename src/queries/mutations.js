@@ -22,12 +22,16 @@ export const LOGIN = gql`
 
 export const REGISTER = gql`
   mutation createAccount($username: String!, $email: String!, $password: String!, $passwordConfirmation: String!) {
-    createAccount(username: $username, email: $email, password: $password, passwordConfirmation: $passwordConfirmation)  {
-      email
+    createAccount(username: $username, email: $email, password: $password, passwordConfirmation: $passwordConfirmation) {
+      ... on Error {
+        errorCode
+      }
+      ... on Account {
+        email
+      }
     }
   }
 `;
-
 
 /*
 OLD LOGIN
@@ -42,6 +46,14 @@ export const LOGIN = gql`
         email,
         username
       }
+    }
+  }
+`;
+
+export const REGISTER = gql`
+  mutation createAccount($username: String!, $email: String!, $password: String!, $passwordConfirmation: String!) {
+    createAccount(username: $username, email: $email, password: $password, passwordConfirmation: $passwordConfirmation)  {
+      email
     }
   }
 `;
