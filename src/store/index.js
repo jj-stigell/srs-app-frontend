@@ -13,6 +13,7 @@ import registerReducer from './registerReducer';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['register']
 };
 
 const rootReducer = combineReducers({
