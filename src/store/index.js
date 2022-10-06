@@ -32,35 +32,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-/*
-//import { combineReducers } from 'redux';
-//import { persistReducer } from 'redux-persist';
-//import storage from 'redux-persist/lib/storage';
-
-import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './reducers/userReducer';
-
-export default configureStore({
-  reducer: {
-    user: userReducer,
-  }
-});
-
-
-
-const reducer = combineReducers({
-  account: persistReducer(
-    {
-      key: 'account',
-      storage,
-      keyPrefix: 'berry-'
-    },
-    accountReducer
-  ),
-  customization: customizationReducer
-});
-
-export default reducer;
-
-*/
