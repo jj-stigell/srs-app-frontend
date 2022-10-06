@@ -12,8 +12,9 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
 - [React Redux](https://react-redux.js.org/)
 
 ## Libraries
-- [i18next](https://www.i18next.com/) i18next is an internationalization-framework written in and for JavaScript.
-- [React-hook-form](https://react-hook-form.com/) forms and form validation
+- [i18next](https://www.i18next.com/) i18next is an internationalization-framework written in and for JavaScript. [MIT License](https://github.com/i18next/i18next/blob/master/LICENSE)
+- [Formik](https://formik.org/) forms and form validation. [Apache-2.0 license](https://github.com/jaredpalmer/formik/blob/master/LICENSE)
+- [Berry UI](https://github.com/codedthemes/berry-free-react-admin-template) Berry is a free Material UI admin dashboard template built with React. [MIT License](https://github.com/codedthemes/berry-free-react-admin-template/blob/main/LICENSE)
 
 ## TODOs
 - [X] Project base
@@ -23,19 +24,19 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
     - [X] Environment variables
 - [ ] Frontend Components (with functionality)
     - [ ] Navbar
-    - [ ] Login page
-    - [ ] Logout
+    - [X] Login page
+    - [X] Logout
     - [ ] Dashboard
     - [ ] Settings
-    - [ ] Sign up page
+    - [X] Sign up page
     - [ ] Language selector
 - [ ] Styling
     - [ ] Navbar
-    - [ ] Login page
+    - [X] Login page
     - [ ] Logout
     - [ ] Dashboard
     - [ ] Settings
-    - [ ] Sign up page
+    - [X] Sign up page
     - [ ] Language selector
     - [ ] Animations
 - [ ] Backend communications
