@@ -120,14 +120,12 @@ const LoginForm = (props, { ...others }) => {
 
             switch(data.__typename) {
             case 'Error': {
-              console.log('ERROR HAPPENED');
               setStatus({ success: false });
               setErrors({ submit: t(`errors.${data.errorCode}`) });
               setSubmitting(false);
               break;
             }
             case 'AccountToken': {
-              console.log('LOGIN SUCCESS');
               const user = data.user;
               const token = data.token.value;
               const payload = { isLoggedIn: true, user: user, token: token };
@@ -135,16 +133,15 @@ const LoginForm = (props, { ...others }) => {
               break;
             }
             default: {
-              console.log('DEFAULT ERROR HAPPENED');
               setStatus({ success: false });
-              setErrors({ submit: t('errors.internalError') });
+              setErrors({ submit: t('errors.connectionError') });
               setSubmitting(false);
             }
             }
           } catch(e) {
             console.log('error:::', e);
             setStatus({ success: false });
-            setErrors({ submit: t('errors.internalError') });
+            setErrors({ submit: t('errors.connectionError') });
             setSubmitting(false);
           }
         }}

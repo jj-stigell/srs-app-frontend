@@ -59,6 +59,7 @@
     "usernameMaxLengthError": "Username can be maximum 14 characters long",
     "passwordMinLengthError": "Password must be at least 8 characters long",
     "emailMaxLengthError": "Email max length is {{length}}",
-    "passwordMaxLengthError": "Password max length is {{length}}"
+    "passwordMaxLengthError": "Password max length is {{length}}",
+    "connectionError": "Check your connection and try again"
   }
 }
