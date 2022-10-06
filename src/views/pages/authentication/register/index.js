@@ -10,7 +10,7 @@ import { Divider, Grid, Stack, Typography, useMediaQuery } from '@material-ui/co
 import AuthWrapper1 from './../AuthWrapper1';
 import AuthCardWrapper from './../AuthCardWrapper';
 import Logo from './../../../../ui-component/Logo';
-import RestRegister from './RestRegister';
+import RegisterForm from './RegisterForm';
 import AuthFooter from './../../../../ui-component/cards/AuthFooter';
 import LangSelector from '../LangSelector';
 
@@ -60,7 +60,7 @@ const Register = () => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
-                    <RestRegister />
+                    <RegisterForm />
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+//import { Link, useHistory } from 'react-router-dom';
 
-import configData from '../../../../config';
+//import configData from '../../../../config';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -25,11 +26,11 @@ import {
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import axios from 'axios';
+//import axios from 'axios';
 
 // project imports
-import useScriptRef from '../../../../hooks/useScriptRef';
-import AnimateButton from './../../../../ui-component/extended/AnimateButton';
+//import useScriptRef from '../../../../hooks/useScriptRef';
+import AnimateButton from '../../../../ui-component/extended/AnimateButton';
 import { strengthColor, strengthIndicator } from '../../../../utils/password-strength';
 
 // assets
@@ -77,20 +78,16 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================|| API JWT - REGISTER ||===========================//
 
-const RestRegister = ({ ...others }) => {
+const RegisterForm = ({ ...others }) => {
   const classes = useStyles();
-  let history = useHistory();
-  const scriptedRef = useScriptRef();
+  //let history = useHistory();
+  //const scriptedRef = useScriptRef();
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassConf, setShowPassConf] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
-
   const [strength, setStrength] = React.useState(0);
   const [level, setLevel] = React.useState('');
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -113,14 +110,26 @@ const RestRegister = ({ ...others }) => {
           username: '',
           email: '',
           password: '',
+          passwordConfirm: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          username: Yup.string().required('Username is required'),
-          password: Yup.string().max(255).required('Password is required')
+          email: Yup.string()
+            .email('Must be a valid email')
+            .max(255)
+            .required('Email is required'),
+          username: Yup.string()
+            .required('Username is required'),
+          password: Yup.string()
+            .max(6)
+            .required('Password is required'),
+          passwordConfirm: Yup.string()
+            .max(6)
+            .required('Password confirmation is required')
         })}
+        // eslint-disable-next-line no-unused-vars
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
+          /*
           try {
             axios
               .post( configData.API_SERVER + 'users/register', {
@@ -150,6 +159,7 @@ const RestRegister = ({ ...others }) => {
               setSubmitting(false);
             }
           }
+          */
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
@@ -216,7 +226,7 @@ const RestRegister = ({ ...others }) => {
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
+                      onClick={() => setShowPassword(!showPassword)}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
                     >
@@ -233,6 +243,43 @@ const RestRegister = ({ ...others }) => {
               {touched.password && errors.password && (
                 <FormHelperText error id="standard-weight-helper-text-password-register">
                   {errors.password}
+                </FormHelperText>
+              )}
+            </FormControl>
+
+            <FormControl fullWidth error={Boolean(touched.passwordConfirm && errors.passwordConfirm)} className={classes.loginInput}>
+              <InputLabel htmlFor="outlined-adornment-password-confirm-register">Password confirmation</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password-confirm-register"
+                type={showPassConf ? 'text' : 'password'}
+                value={values.passwordConfirm}
+                name="passwordConfirm"
+                label="passwordConfirm"
+                onBlur={handleBlur}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassConf(!showPassConf)}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassConf ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                inputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline
+                  }
+                }}
+              />
+              {touched.passwordConfirm && errors.passwordConfirm && (
+                <FormHelperText error id="standard-weight-helper-text-password-confirm-register">
+                  {errors.passwordConfirm}
                 </FormHelperText>
               )}
             </FormControl>
@@ -323,4 +370,4 @@ const RestRegister = ({ ...others }) => {
   );
 };
 
-export default RestRegister;
+export default RegisterForm;
