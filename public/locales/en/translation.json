@@ -57,8 +57,12 @@
   "errors": {
     "userOrPassIncorrectError": "Email or password invalid",
     "inputValueMissingError": "Missing email and/or password",
+    "changePasswordValueMissingError": "Current password, new password and/or confirmation is missing",
     "notEmailError": "Email not valid email address",
+    "currentPasswordIncorrect": "Current password invalid",
+    "notAuthError": "Not authenticated",
     "passwordMismatchError": "Password and confirmation do not match",
+    "currAndNewPassEqualError": "Old and new passwords cannot be equal",
     "passwordValidationError": "Password does not meet the requirements",
     "usernameValidationError": "Username does not meet the requirements, must contain only alphanumeric values",
     "emailInUseError": "Email address already in use",

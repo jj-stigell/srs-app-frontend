@@ -10,4 +10,4 @@
 | 6.10. | 3 | Error handling for login page, register page functionality and "register success" page after registering. |
 |  |  |  |
 |  |  |  |
-| total | 13 |  | 
+| total | 16 |  | 
