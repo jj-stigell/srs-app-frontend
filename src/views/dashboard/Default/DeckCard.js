@@ -7,7 +7,7 @@ import { Avatar, Grid, Menu, MenuItem, Typography, Button } from '@material-ui/c
 
 // project imports
 import MainCard from '../../../ui-component/cards/MainCard';
-import SkeletonEarningCard from '../../../ui-component/cards/Skeleton/EarningCard';
+import SkeletonDeckCard from '../../../ui-component/cards/Skeleton/DeckCard';
 
 // assets
 //import EarningIcon from './../../../assets/images/icons/earning.svg';
@@ -130,7 +130,7 @@ const DeckCard = ({ isLoading }) => {
   return (
     <React.Fragment>
       {isLoading ? (
-        <SkeletonEarningCard />
+        <SkeletonDeckCard />
       ) : (
         <MainCard border={false} className={classes.card} contentClass={classes.content}>
           <Grid container direction="column">
