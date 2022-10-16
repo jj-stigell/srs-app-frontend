@@ -3,7 +3,7 @@ import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import { Avatar, Grid, Menu, MenuItem, Typography } from '@material-ui/core';
+import { Avatar, Grid, Menu, MenuItem, Typography, Button } from '@material-ui/core';
 
 // project imports
 import MainCard from '../../../ui-component/cards/MainCard';
@@ -26,16 +26,18 @@ const useStyles = makeStyles((theme) => ({
   card: {
     // Card background color
     //backgroundColor: theme.palette.secondary.dark,
-    backgroundColor: '#74e76e',
+    backgroundColor: '#64b5f6',
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
+    /*
     '&:after': {
       content: '""',
       position: 'absolute',
       width: '210px',
       height: '210px',
-      background: theme.palette.secondary[800],
+      //background: theme.palette.secondary[800],
+      background: '#fff',
       borderRadius: '50%',
       top: '-85px',
       right: '-95px',
@@ -60,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
         top: '-155px',
         right: '-70px'
       }
-    }
+    }*/
   },
   content: {
     padding: '20px !important'
@@ -76,9 +78,11 @@ const useStyles = makeStyles((theme) => ({
   avatarRight: {
     ...theme.typography.commonAvatar,
     ...theme.typography.mediumAvatar,
-    backgroundColor: theme.palette.secondary.dark,
+    //backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: '#2286c3',
     // Color for 3 dots
-    color: theme.palette.secondary[200],
+    //color: theme.palette.secondary[200],
+    color: '#e9eff5',
     zIndex: 1
   },
   cardHeading: {
@@ -91,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
   subHeading: {
     fontSize: '1rem',
     fontWeight: 500,
-    color: theme.palette.secondary[200]
+    //color: theme.palette.secondary[200]
   },
   avatarCircle: {
     cursor: 'pointer',
@@ -133,6 +137,11 @@ const DeckCard = ({ isLoading }) => {
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>
+                  <Grid container alignItems="center">
+                    <Grid item>
+                      <Typography className={classes.cardHeading}>JLPT N5</Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item>
                   <Avatar
@@ -172,19 +181,26 @@ const DeckCard = ({ isLoading }) => {
                   </Menu>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container alignItems="center">
-                <Grid item>
-                  <Typography className={classes.cardHeading}>JLPT N5</Typography>
-                </Grid>
-              </Grid>
               <Grid item>
                 <Typography className={classes.subHeading}>Kanji Recall</Typography>
               </Grid>
             </Grid>
-            <Grid item sx={{ mb: 1.25 }}>
-              <Typography className={classes.subHeading}>Cards due: 67 (20 new cards)</Typography>
+            <Grid item>
+              <Grid container justifyContent="space-between">
+                <Grid item sx={{ mb: 1.25 }}>
+                  <Typography className={classes.subHeading}>Cards due: 67 (20 new cards)</Typography>
+                </Grid>
+                <Grid item>
+                  <Button
+                    disableElevation
+                    variant='contained'
+                    size="small"
+                    //onClick={}
+                  >
+                    Study
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </MainCard>
