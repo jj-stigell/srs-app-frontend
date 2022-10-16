@@ -8,6 +8,6 @@
 | 29.9. | 3 | Form-hook for login and register pages with validation, token save to redux store |
 | 2.10. | 3 | Redux persisting storage, save user to storage, empty on logout |
 | 6.10. | 3 | Error handling for login page, register page functionality and "register success" page after registering. |
+| 16.10. | 2 | Routing for components, indentation fixes, creating new deck component |
 |  |  |  |
-|  |  |  |
-| total | 16 |  | 
+| total | 18 |  | 
