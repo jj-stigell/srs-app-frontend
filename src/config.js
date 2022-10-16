@@ -6,7 +6,15 @@ const config = {
   // eslint-disable-next-line quotes
   fontFamily: `'Roboto', sans-serif`,
   borderRadius: 12,
-  API_SERVER: 'http://localhost:5000/api/'
+  API_SERVER: 'http://localhost:5000/api/',
+  leftLink: {
+    text: 'berrydashboard.io',
+    url: 'https://berrydashboard.io'
+  },
+  rightLink: {
+    text: 'codedthemes.com',
+    url: 'https://codedthemes.com'
+  }
 };
 
 export default config;
