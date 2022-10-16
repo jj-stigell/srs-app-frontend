@@ -6,22 +6,27 @@ import { makeStyles } from '@material-ui/styles';
 import { Avatar, Grid, Menu, MenuItem, Typography } from '@material-ui/core';
 
 // project imports
-import MainCard from './../../../ui-component/cards/MainCard';
-import SkeletonEarningCard from './../../../ui-component/cards/Skeleton/EarningCard';
+import MainCard from '../../../ui-component/cards/MainCard';
+import SkeletonEarningCard from '../../../ui-component/cards/Skeleton/EarningCard';
 
 // assets
-import EarningIcon from './../../../assets/images/icons/earning.svg';
+//import EarningIcon from './../../../assets/images/icons/earning.svg';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
-import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
-import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
-import ArchiveTwoToneIcon from '@material-ui/icons/ArchiveOutlined';
+//import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+//import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
+//import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
+//import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
+//import ArchiveTwoToneIcon from '@material-ui/icons/ArchiveOutlined';
+import HotelTwoToneIcon from '@material-ui/icons/Hotel';
+import SettingsTwoToneIcon from '@material-ui/icons/Settings';
+import LowPriorityTwoToneIcon from '@material-ui/icons/LowPriority';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
   card: {
-    backgroundColor: theme.palette.secondary.dark,
+    // Card background color
+    //backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: '#74e76e',
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
@@ -44,7 +49,9 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       width: '210px',
       height: '210px',
-      background: theme.palette.secondary[800],
+      // Corner ball color
+      //background: theme.palette.secondary[800],
+      background: '#fff',
       borderRadius: '50%',
       top: '-125px',
       right: '-15px',
@@ -61,13 +68,16 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     ...theme.typography.commonAvatar,
     ...theme.typography.largeAvatar,
+    //backgroundColor: theme.palette.secondary[800],
     backgroundColor: theme.palette.secondary[800],
     marginTop: '8px'
   },
+  // Pop up menu with sleep, settings and optimize buttons
   avatarRight: {
     ...theme.typography.commonAvatar,
     ...theme.typography.mediumAvatar,
     backgroundColor: theme.palette.secondary.dark,
+    // Color for 3 dots
     color: theme.palette.secondary[200],
     zIndex: 1
   },
@@ -98,9 +108,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-//===========================|| DASHBOARD DEFAULT - EARNING CARD ||===========================//
+//===========================|| DECK CARD ||===========================//
 
-const EarningCard = ({ isLoading }) => {
+const DeckCard = ({ isLoading }) => {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -123,9 +133,6 @@ const EarningCard = ({ isLoading }) => {
             <Grid item>
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <Avatar variant="rounded" className={classes.avatar}>
-                    <img src={EarningIcon} alt="Notification" />
-                  </Avatar>
                 </Grid>
                 <Grid item>
                   <Avatar
@@ -154,16 +161,13 @@ const EarningCard = ({ isLoading }) => {
                     }}
                   >
                     <MenuItem onClick={handleClose}>
-                      <GetAppTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Import Card
+                      <HotelTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Day off
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
-                      <FileCopyTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Copy Data
+                      <SettingsTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Settings
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
-                      <PictureAsPdfTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Export
-                    </MenuItem>
-                    <MenuItem onClick={handleClose}>
-                      <ArchiveTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Archive File
+                      <LowPriorityTwoToneIcon fontSize="inherit" className={classes.menuItem} /> Optimize
                     </MenuItem>
                   </Menu>
                 </Grid>
@@ -172,17 +176,15 @@ const EarningCard = ({ isLoading }) => {
             <Grid item>
               <Grid container alignItems="center">
                 <Grid item>
-                  <Typography className={classes.cardHeading}>$500.00</Typography>
+                  <Typography className={classes.cardHeading}>JLPT N5</Typography>
                 </Grid>
-                <Grid item>
-                  <Avatar className={classes.avatarCircle}>
-                    <ArrowUpwardIcon fontSize="inherit" className={classes.circleIcon} />
-                  </Avatar>
-                </Grid>
+              </Grid>
+              <Grid item>
+                <Typography className={classes.subHeading}>Kanji Recall</Typography>
               </Grid>
             </Grid>
             <Grid item sx={{ mb: 1.25 }}>
-              <Typography className={classes.subHeading}>Total Earning</Typography>
+              <Typography className={classes.subHeading}>Cards due: 67 (20 new cards)</Typography>
             </Grid>
           </Grid>
         </MainCard>
@@ -191,8 +193,8 @@ const EarningCard = ({ isLoading }) => {
   );
 };
 
-EarningCard.propTypes = {
+DeckCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default EarningCard;
+export default DeckCard;
