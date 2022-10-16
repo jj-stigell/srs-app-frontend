@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 
 // project imports
 import EarningCard from './EarningCard';
-import DeckCard from './DeckCard';
+import DeckCard from '../../study/DeckCard';
 import PopularCard from './PopularCard';
 import TotalOrderLineChartCard from './TotalOrderLineChartCard';
 import TotalIncomeDarkCard from './TotalIncomeDarkCard';

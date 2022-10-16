@@ -6,17 +6,11 @@ import { makeStyles } from '@material-ui/styles';
 import { Avatar, Grid, Menu, MenuItem, Typography, Button } from '@material-ui/core';
 
 // project imports
-import MainCard from '../../../ui-component/cards/MainCard';
-import SkeletonDeckCard from '../../../ui-component/cards/Skeleton/DeckCard';
+import MainCard from '../../ui-component/cards/MainCard';
+import SkeletonDeckCard from '../../ui-component/cards/Skeleton/DeckCard';
 
 // assets
-//import EarningIcon from './../../../assets/images/icons/earning.svg';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-//import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-//import GetAppTwoToneIcon from '@material-ui/icons/GetAppOutlined';
-//import FileCopyTwoToneIcon from '@material-ui/icons/FileCopyOutlined';
-//import PictureAsPdfTwoToneIcon from '@material-ui/icons/PictureAsPdfOutlined';
-//import ArchiveTwoToneIcon from '@material-ui/icons/ArchiveOutlined';
 import HotelTwoToneIcon from '@material-ui/icons/Hotel';
 import SettingsTwoToneIcon from '@material-ui/icons/Settings';
 import LowPriorityTwoToneIcon from '@material-ui/icons/LowPriority';

@@ -7,7 +7,8 @@ import {
   IconWindmill,
   IconLayoutGridAdd,
   IconSettings,
-  IconHome, IconId, IconChartBar, IconTrophy, IconNotebook, IconUser } from '@tabler/icons';
+  IconHome, IconId, IconChartBar, IconTrophy, IconNotebook, IconUser, IconLanguageHiragana, IconAbacus,
+  IconNews } from '@tabler/icons';
 
 // constant
 const icons = {
@@ -24,6 +25,9 @@ const icons = {
   IconTrophy: IconTrophy,
   IconNotebook: IconNotebook,
   IconUser: IconUser,
+  IconNews: IconNews,
+  IconLanguageHiragana: IconLanguageHiragana,
+  IconAbacus: IconAbacus
 };
 
 //-----------------------|| SIDE MENU ITEMS ||-----------------------//
@@ -60,9 +64,33 @@ export const sidemenu = {
     {
       id: 'statistics',
       title: 'Statistics',
-      type: 'item',
-      url: '/statistics',
+      type: 'collapse',
       icon: icons['IconChartBar'],
+      children: [
+        {
+          id: 'review-stats',
+          title: 'Reviews',
+          type: 'item',
+          url: '/statistics/reviews',
+          icon: icons['IconAbacus'],
+          breadcrumbs: false
+        },
+        {
+          id: 'kanji-stats',
+          title: 'Kanji',
+          type: 'item',
+          url: '/statistics/kanji',
+          icon: icons['IconLanguageHiragana'],
+          breadcrumbs: false
+        }
+      ]
+    },
+    {
+      id: 'news',
+      title: 'News',
+      type: 'item',
+      url: '/news',
+      icon: icons['IconNews'],
       breadcrumbs: false
     },
     {

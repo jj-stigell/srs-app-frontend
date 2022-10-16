@@ -9,12 +9,15 @@ import AuthGuard from './../utils/route-guard/AuthGuard';
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('../views/dashboard/Default')));
 
+// study routing
+const StudyDecks = Loadable(lazy(() => import('../views/study')));
+
 // utilities routing
-const UtilsTypography = Loadable(lazy(() => import('../views/utilities/Typography')));
+//const UtilsTypography = Loadable(lazy(() => import('../views/utilities/Typography')));
 const UtilsColor = Loadable(lazy(() => import('../views/utilities/Color')));
 const UtilsShadow = Loadable(lazy(() => import('../views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('../views/utilities/MaterialIcons')));
-const UtilsTablerIcons = Loadable(lazy(() => import('../views/utilities/TablerIcons')));
+//const UtilsTablerIcons = Loadable(lazy(() => import('../views/utilities/TablerIcons')));
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('../views/sample-page')));
@@ -22,39 +25,37 @@ const SamplePage = Loadable(lazy(() => import('../views/sample-page')));
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
-    const location = useLocation();
+  const location = useLocation();
 
-    return (
-        <Route
-            path={[
-                '/dashboard',
-
-                '/utils/util-typography',
-                '/utils/util-color',
-                '/utils/util-shadow',
-                '/icons/tabler-icons',
-                '/icons/material-icons',
-
-                '/sample-page'
-            ]}
-        >
-            <MainLayout>
-                <Switch location={location} key={location.pathname}>
-                    <AuthGuard>
-                        <Route path="/dashboard" component={DashboardDefault} />
-
-                        <Route path="/utils/util-typography" component={UtilsTypography} />
-                        <Route path="/utils/util-color" component={UtilsColor} />
-                        <Route path="/utils/util-shadow" component={UtilsShadow} />
-                        <Route path="/icons/tabler-icons" component={UtilsTablerIcons} />
-                        <Route path="/icons/material-icons" component={UtilsMaterialIcons} />
-
-                        <Route path="/sample-page" component={SamplePage} />
-                    </AuthGuard>
-                </Switch>
-            </MainLayout>
-        </Route>
-    );
+  return (
+    <Route
+      path={[
+        '/dashboard',
+        '/study',
+        '/achievements',
+        '/statistics/reviews',
+        '/statistics/kanji',
+        '/news',
+        '/settings/decks',
+        '/settings/account',
+      ]}
+    >
+      <MainLayout>
+        <Switch location={location} key={location.pathname}>
+          <AuthGuard>
+            <Route path="/dashboard" component={DashboardDefault} />
+            <Route path="/study" component={StudyDecks} />
+            <Route path="/achievements" component={UtilsColor} />
+            <Route path="/statistics/reviews" component={UtilsShadow} />
+            <Route path="/statistics/kanji" component={UtilsShadow} />
+            <Route path="/news" component={SamplePage} />
+            <Route path="/settings/decks" component={UtilsMaterialIcons} />
+            <Route path="/settings/account" component={SamplePage} />
+          </AuthGuard>
+        </Switch>
+      </MainLayout>
+    </Route>
+  );
 };
 
 export default MainRoutes;
