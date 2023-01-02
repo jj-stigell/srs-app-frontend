@@ -14,22 +14,22 @@ const AuthRegister = Loadable(lazy(() => import('../views/pages/authentication/r
 //-----------------------|| AUTH ROUTING ||-----------------------//
 
 const LoginRoutes = () => {
-    const location = useLocation();
+  const location = useLocation();
 
-    return (
-        <Route path={['/login', '/register']}>
-            <MinimalLayout>
-                <Switch location={location} key={location.pathname}>
-                    <NavMotion>
-                        <GuestGuard>
-                            <Route path="/login" component={AuthLogin} />
-                            <Route path="/register" component={AuthRegister} />
-                        </GuestGuard>
-                    </NavMotion>
-                </Switch>
-            </MinimalLayout>
-        </Route>
-    );
+  return (
+    <Route path={['/login', '/register']}>
+      <MinimalLayout>
+        <Switch location={location} key={location.pathname}>
+          <NavMotion>
+            <GuestGuard>
+              <Route path="/login" component={AuthLogin} />
+              <Route path="/register" component={AuthRegister} />
+            </GuestGuard>
+          </NavMotion>
+        </Switch>
+      </MinimalLayout>
+    </Route>
+  );
 };
 
 export default LoginRoutes;
