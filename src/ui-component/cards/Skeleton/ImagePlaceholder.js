@@ -6,7 +6,7 @@ import Skeleton from '@material-ui/core/Skeleton';
 //-----------------------|| SKELETON IMAGE CARD ||-----------------------//
 
 const ImagePlaceholder = ({ ...others }) => {
-    return <Skeleton variant="rect" {...others} animation="wave" />;
+  return <Skeleton variant="rect" {...others} animation="wave" />;
 };
 
 export default ImagePlaceholder;
