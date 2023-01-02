@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-constant-condition */
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, redirect, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-//import { Link, useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useDispatch } from 'react-redux';
+import { constants } from '../../../../utils/constants';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -84,12 +85,12 @@ const RegisterForm = ({ ...others }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const dispatcher = useDispatch();
-  //let history = useHistory();
+  //const history = useHistory();
   //const scriptedRef = useScriptRef();
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = React.useState(false);
   const [showPassConf, setShowPassConf] = React.useState(false);
-  const [checked, setChecked] = React.useState(true);
+  const [tosChecked, setTosChecked] = React.useState(false);
   const [strength, setStrength] = React.useState(0);
   const [level, setLevel] = React.useState('');
 
@@ -126,57 +127,60 @@ const RegisterForm = ({ ...others }) => {
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string()
-            .email(t('errors.notEmailError'))
-            .max(255, t('errors.emailMaxLengthError', { length: 255 }))
+            .email(t('errors.notValidEmailError'))
+            .max(constants.account.emailMaxLength, t('errors.emailMaxLengthError', { length: constants.account.emailMaxLength }))
             .required(t('errors.requiredEmailError')),
           username: Yup.string()
-            .max(14, t('errors.usernameMaxLengthError', { length: 14 }))
-            .min(1, t('errors.usernameMinLengthError', { length: 1 }))
+            .max(constants.account.usernameMaxLength, t('errors.usernameMaxLengthError', { length: constants.account.usernameMaxLength }))
+            .min(constants.account.usernameMinLength, t('errors.usernameMinLengthError', { length: constants.account.usernameMinLength }))
             .required(t('errors.requiredUsernameError')),
           password: Yup.string()
-            .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
-            .min(8, t('errors.passwordMinLengthError', { length: 8 }))
+            .max(constants.account.passwordMaxLength, t('errors.passwordMaxLengthError', { length: constants.account.passwordMaxLength }))
+            .min(constants.account.passwordMinLength, t('errors.passwordMinLengthError', { length: constants.account.passwordMinLength }))
+            .matches(constants.regex.lowercaseRegex, t('errors.passwordLowercaseError'))
+            .matches(constants.regex.uppercaseRegex, t('errors.passwordUppercaseError'))
+            .matches(constants.regex.numberRegex, t('errors.passwordNumberError'))
             .required(t('errors.requiredPasswordError')),
           passwordConfirmation: Yup.string()
-            .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
-            .min(8, t('errors.passwordMinLengthError', { length: 8 }))
+            .max(constants.account.passwordMaxLength, t('errors.passwordMaxLengthError', { length: constants.account.passwordMaxLength }))
+            .min(constants.account.passwordMinLength, t('errors.passwordMinLengthError', { length: constants.account.passwordMinLength }))
+            .matches(constants.regex.lowercaseRegex, t('errors.passwordLowercaseError'))
+            .matches(constants.regex.uppercaseRegex, t('errors.passwordUppercaseError'))
+            .matches(constants.regex.numberRegex, t('errors.passwordNumberError'))
             .oneOf([Yup.ref('password'), null], t('errors.passwordMismatchError'))
             .required(t('errors.requiredPasswordConfirmError'))
         })}
         onSubmit={ async (values, { setErrors, setStatus, setSubmitting, resetForm }) => {
-          try {
-            const res = await register({ variables: {
-              username: values.username,
-              email: values.email,
-              password: values.password,
-              passwordConfirmation: values.passwordConfirmation
-            } });
-            const data = res.data.createAccount;
-            console.log(data);
-
-            switch(data.__typename) {
-            case 'Error': {
-              setStatus({ success: false });
-              setErrors({ submit: t(`errors.${data.errorCode}`) });
-              setSubmitting(false);
-              break;
-            }
-            case 'Account': {
-              resetForm({ values: '' });
-              dispatcher(setRegister({ registered: true, email: data.email }));
-              break;
-            }
-            default: {
+          if (!tosChecked) {
+            setStatus({ success: false });
+            setErrors({ submit: t('errors.tosNotChecked') });
+            setSubmitting(false);
+          } else {
+            try {
+              const res = await register({ variables: {
+                username: values.username,
+                email: values.email,
+                password: values.password,
+                passwordConfirmation: values.passwordConfirmation
+              } });
+              if (res.errors) {
+                const error = res.errors.graphQLErrors[0].extensions.code;
+                console.log(error);
+                setStatus({ success: false });
+                setErrors({ submit: t(`errors.${error}`) });
+                setSubmitting(false);
+              } else if (res.data) {
+                const account = res.data.createAccount;
+                console.log(account);
+                resetForm({ values: '' });
+                dispatcher(setRegister({ registered: true, email: account.email }));
+              }
+            } catch(error) {
+              console.log('error:::', error);
               setStatus({ success: false });
               setErrors({ submit: t('errors.connectionError') });
               setSubmitting(false);
             }
-            }
-          } catch(e) {
-            console.log('error:::', e);
-            setStatus({ success: false });
-            setErrors({ submit: t('errors.connectionError') });
-            setSubmitting(false);
           }
         }}
       >
@@ -335,8 +339,8 @@ const RegisterForm = ({ ...others }) => {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={checked}
-                      onChange={(event) => setChecked(event.target.checked)}
+                      checked={tosChecked}
+                      onChange={(event) => setTosChecked(event.target.checked)}
                       name="checked"
                       color="primary"
                     />
@@ -344,7 +348,11 @@ const RegisterForm = ({ ...others }) => {
                   label={
                     <Typography variant="subtitle1">
                       {t('register.agreeWith')} &nbsp;
-                      <Typography variant="subtitle1" component={Link} to="#">
+                      <Typography
+                        variant="subtitle1"
+                        component={Link}
+                        to="/tos"
+                      >
                         {t('register.TOS')}
                       </Typography>
                     </Typography>

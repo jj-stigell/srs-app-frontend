@@ -12,9 +12,9 @@ import AuthWrapper1 from './../AuthWrapper1';
 import AuthCardWrapper from './../AuthCardWrapper';
 import Logo from './../../../../ui-component/Logo';
 import RegisterForm from './RegisterForm';
+import RegisterSuccess from './RegisterSuccess';
 import AuthFooter from './../../../../ui-component/cards/AuthFooter';
 import LangSelector from '../LangSelector';
-
 
 // assets
 
@@ -40,37 +40,7 @@ const Register = () => {
                     </RouterLink>
                   </Grid>
                   {register.registered ?
-                    <Grid item xs={12}>
-                      <Grid
-                        container
-                        direction={matchDownSM ? 'column-reverse' : 'row'}
-                        alignItems="center"
-                        justifyContent="center"
-                      >
-                        <Grid item>
-                          <Stack alignItems="center" justifyContent="center" spacing={1}>
-                            <Typography
-                              color={theme.palette.secondary.main}
-                              gutterBottom
-                              variant={matchDownSM ? 'h3' : 'h2'}
-                              align='center'
-                            >
-                              {t('register.success', { email: register.email } )}
-                            </Typography>
-                            <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                              <Typography
-                                component={RouterLink}
-                                to="/login"
-                                variant="subtitle1"
-                                sx={{ textDecoration: 'none' }}
-                              >
-                                {t('register.linkToLogin')}
-                              </Typography>
-                            </Typography>
-                          </Stack>
-                        </Grid>
-                      </Grid>
-                    </Grid>
+                    <RegisterSuccess/>
                     :
                     <>
                       <Grid item xs={12}>
