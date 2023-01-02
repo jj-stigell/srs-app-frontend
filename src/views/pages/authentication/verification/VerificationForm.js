@@ -32,13 +32,8 @@ import { Formik } from 'formik';
 
 // project imports
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
-import { strengthColor, strengthIndicator } from '../../../../utils/password-strength';
 import { REGISTER } from '../../../../queries/mutations';
 import { setRegister } from '../../../../store/registerReducer';
-
-// assets
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -88,32 +83,10 @@ const VerificationForm = ({ ...others }) => {
   //const history = useHistory();
   //const scriptedRef = useScriptRef();
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showPassConf, setShowPassConf] = React.useState(false);
-  const [tosChecked, setTosChecked] = React.useState(false);
-  const [strength, setStrength] = React.useState(0);
-  const [level, setLevel] = React.useState('');
-
-  // eslint-disable-next-line no-unused-vars
-  const [ register, result ] = useMutation(REGISTER, {
-    onError: (error) => {
-      console.log(error);
-    }
-  });
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  const changePassword = (value) => {
-    const temp = strengthIndicator(value);
-    setStrength(temp);
-    setLevel(strengthColor(temp));
-  };
-
-  useEffect(() => {
-    changePassword('123456');
-  }, []);
 
   return (
     <React.Fragment>
@@ -187,10 +160,6 @@ const VerificationForm = ({ ...others }) => {
                 )}
               </Grid>
             </Grid>
-
-
-
-
 
             {errors.submit && (
               <Box
