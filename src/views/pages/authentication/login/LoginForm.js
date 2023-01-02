@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, redirect, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/client';
 
@@ -28,7 +29,9 @@ import { Formik } from 'formik';
 // project imports
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
 import { LOGIN } from '../../../../queries/mutations';
-import { setAccount } from '../../../../store/accountReducer';
+import { setAccount, setVerified } from '../../../../store/accountReducer';
+import { setRememberMe, resetRememberMe } from '../../../../store/rememberMeReducer';
+import { constants } from '../../../../utils/constants';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';
@@ -78,7 +81,9 @@ const useStyles = makeStyles((theme) => ({
 const LoginForm = (props, { ...others }) => {
   const classes = useStyles();
   const dispatcher = useDispatch();
+  const history = useHistory();
   const { t } = useTranslation();
+  const savedCreds = useSelector(state => state.remember);
   const [checked, setChecked] = React.useState(true);
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
@@ -100,46 +105,53 @@ const LoginForm = (props, { ...others }) => {
     <React.Fragment>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          email: savedCreds.email ? savedCreds.email : '',
+          password: savedCreds.password ? savedCreds.password : '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
           email: Yup.string()
-            .email(t('errors.notEmailError')) //
-            .max(255, t('errors.emailMaxLengthError', { length: 255 }))
+            .email(t('errors.notValidEmailError')) //
+            .max(constants.account.emailMaxLength, t('errors.emailMaxLengthError', { length: constants.account.emailMaxLength  }))
             .required(t('errors.requiredEmailError')),
           password: Yup.string()
-            .max(50, t('errors.passwordMaxLengthError', { length: 50 }))
+            .max(constants.account.passwordMaxLength, t('errors.passwordMaxLengthError', { length: constants.account.passwordMaxLength }))
             .required(t('errors.requiredPasswordError'))
         })}
         onSubmit={ async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            const res = await login({ variables: { email: values.email, password: values.password } });
-            const data = res.data.login;
+            const res = await login({
+              variables: {
+                email: values.email,
+                password: values.password
+              }
+            });
 
-            switch(data.__typename) {
-            case 'Error': {
+            if (res.errors) {
+              const error = res.errors.graphQLErrors[0].extensions.code;
+              if (error === 'emailNotVerifiedError') {
+                dispatcher(setVerified(false));
+              }
               setStatus({ success: false });
-              setErrors({ submit: t(`errors.${data.errorCode}`) });
+              setErrors({ submit: t(`errors.${error}`) });
               setSubmitting(false);
-              break;
-            }
-            case 'AccountToken': {
-              const user = data.user;
-              const token = data.token.value;
-              const payload = { isLoggedIn: true, user: user, token: token };
+            } else if (res.data) {
+              const account = res.data.login.account;
+              const token = res.data.login.token;
+              const session = res.data.login.session;
+              const payload = { isLoggedIn: true, account: account, token: token, session: session };
+
+              if (checked) {
+                dispatcher(setRememberMe({ email: values.email, password: values.password }));
+              } else {
+                dispatcher(resetRememberMe());
+              }
+
+              window.localStorage.setItem('srs-token', token);
               dispatcher(setAccount(payload));
-              break;
             }
-            default: {
-              setStatus({ success: false });
-              setErrors({ submit: t('errors.connectionError') });
-              setSubmitting(false);
-            }
-            }
-          } catch(e) {
-            console.log('error:::', e);
+          } catch(error) {
+            console.log('error:::', error);
             setStatus({ success: false });
             setErrors({ submit: t('errors.connectionError') });
             setSubmitting(false);

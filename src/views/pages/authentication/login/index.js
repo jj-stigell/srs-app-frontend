@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@material-ui/core';
@@ -13,8 +14,8 @@ import AuthCardWrapper from './../AuthCardWrapper';
 import LoginForm from './LoginForm';
 import AuthFooter from './../../../../ui-component/cards/AuthFooter';
 import LangSelector from '../LangSelector';
-
-// assets
+import { setRegister } from '../../../../store/registerReducer';
+import NotVerified from './NotVerified';
 
 //================================|| LOGIN MAIN ||================================//
 
@@ -22,6 +23,14 @@ const Login = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+  const history = useHistory();
+  const dispatcher = useDispatch();
+  const account = useSelector((state) => state.account);
+
+  const resetRegisterData = () => {
+    dispatcher(setRegister({ registered: false, email: '' }));
+    history.push('/register');
+  };
 
   return (
     <AuthWrapper1>
@@ -36,48 +45,53 @@ const Login = () => {
                       <Logo />
                     </RouterLink>
                   </Grid>
-                  <Grid item xs={12}>
-                    <Grid
-                      container
-                      direction={matchDownSM ? 'column-reverse' : 'row'}
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Grid item>
-                        <Stack alignItems="center" justifyContent="center" spacing={1}>
-                          <Typography
-                            color={theme.palette.secondary.main}
-                            gutterBottom
-                            variant={matchDownSM ? 'h3' : 'h2'}
-                          >
-                            {t('login.welcomeBack')}
-                          </Typography>
-                          <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
-                            {t('login.enterCredentials')}
-                          </Typography>
-                        </Stack>
+                  {!account.verified ?
+                    <NotVerified/>
+                    :
+                    <>
+                      <Grid item xs={12}>
+                        <Grid
+                          container
+                          direction={matchDownSM ? 'column-reverse' : 'row'}
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <Grid item>
+                            <Stack alignItems="center" justifyContent="center" spacing={1}>
+                              <Typography
+                                color={theme.palette.secondary.main}
+                                gutterBottom
+                                variant={matchDownSM ? 'h3' : 'h2'}
+                              >
+                                {t('login.welcomeBack')}
+                              </Typography>
+                              <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : ''}>
+                                {t('login.enterCredentials')}
+                              </Typography>
+                            </Stack>
+                          </Grid>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <LoginForm />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid item container direction="column" alignItems="center" xs={12}>
-                      <Typography
-                        component={RouterLink}
-                        to="/register"
-                        variant="subtitle1"
-                        sx={{ textDecoration: 'none' }}
-                      >
-                        {t('register.noAccount')}
-                      </Typography>
-                      <LangSelector />
-                    </Grid>
-                  </Grid>
+                      <Grid item xs={12}>
+                        <LoginForm />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Divider />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Grid item container direction="column" alignItems="center" xs={12}>
+                          <Typography
+                            onClick={resetRegisterData}
+                            variant="subtitle1"
+                            sx={{ textDecoration: 'none' }}
+                          >
+                            {t('register.noAccount')}
+                          </Typography>
+                          <LangSelector />
+                        </Grid>
+                      </Grid>
+                    </>
+                  }
                 </Grid>
               </AuthCardWrapper>
             </Grid>
