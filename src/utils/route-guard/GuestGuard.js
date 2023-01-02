@@ -16,9 +16,7 @@ const GuestGuard = ({ children }) => {
   const account = useSelector((state) => state.account);
   const { isLoggedIn } = account;
 
-  if (isLoggedIn) {
-    return <Redirect to={config.defaultPath} />;
-  }
+  if (isLoggedIn) return <Redirect to={config.defaultPath} />;
 
   return children;
 };
