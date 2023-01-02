@@ -10,6 +10,8 @@ import Loadable from '../ui-component/Loadable';
 // login routing
 const AuthLogin = Loadable(lazy(() => import('../views/pages/authentication/login')));
 const AuthRegister = Loadable(lazy(() => import('../views/pages/authentication/register')));
+const Tos = Loadable(lazy(() => import('../views/pages/authentication/Tos')));
+const Verify = Loadable(lazy(() => import('../views/pages/authentication/verification')));
 
 //-----------------------|| AUTH ROUTING ||-----------------------//
 
@@ -17,13 +19,15 @@ const LoginRoutes = () => {
   const location = useLocation();
 
   return (
-    <Route path={['/login', '/register']}>
+    <Route path={['/login', '/register', '/tos', '/verify/resend']}>
       <MinimalLayout>
         <Switch location={location} key={location.pathname}>
           <NavMotion>
             <GuestGuard>
               <Route path="/login" component={AuthLogin} />
               <Route path="/register" component={AuthRegister} />
+              <Route path="/tos" component={Tos} />
+              <Route path="/verify/resend" component={Verify} />
             </GuestGuard>
           </NavMotion>
         </Switch>
