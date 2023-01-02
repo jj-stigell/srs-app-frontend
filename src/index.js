@@ -4,15 +4,16 @@ import ReactDOM from 'react-dom';
 // third party
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 //import { PersistGate } from 'redux-persist/integration/react';
 import {
   ApolloClient, ApolloProvider, InMemoryCache, createHttpLink
 } from '@apollo/client';
 import { PersistGate } from 'redux-persist/integration/react';
+import { setContext } from '@apollo/client/link/context';
 
 // project imports
 import { persistor, store } from './store';
-//import { store, persister } from './store';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 import config from './config';
@@ -23,14 +24,26 @@ import './assets/scss/style.scss';
 
 //-----------------------|| INIT APOLLOCLIENT  ||-----------------------//
 
-const link = createHttpLink({
+const httpLink = createHttpLink({
   // eslint-disable-next-line no-undef
   uri: process.env.REACT_APP_DEV_BACKEND_URL,
 });
 
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = window.localStorage.getItem('srs-token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    }
+  };
+});
+
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link,
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 });
 
 //-----------------------|| REACT DOM RENDER  ||-----------------------//
