@@ -1,12 +1,12 @@
-// action - state management
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   token: null,
   isLoggedIn: false,
   isInitialized: false,
-  user: null,
-  verified: true
+  account: null,
+  verified: true,
+  session: null
 };
 
 //-----------------------|| ACCOUNT REDUCER ||-----------------------//
@@ -24,6 +24,7 @@ const accountSlice = createSlice({
         verified: action.payload
       };
     },
+
     // eslint-disable-next-line no-unused-vars
     resetAccount(state, action) {
       return initialState;
@@ -31,10 +32,10 @@ const accountSlice = createSlice({
   }
 });
 
-export const { setAccount, resetAccount, setVerified } = accountSlice.actions;
+export const { setAccount, resetAccount, setVerified, setRememberMe } = accountSlice.actions;
 
 export const logOutAccount = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(resetAccount(null));
   };
 };
