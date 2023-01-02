@@ -30,5 +30,12 @@ export const REGISTER = gql`
       lastLogin
       createdAt
       updatedAt
+    }
   }
-}`;
+`;
+
+export const LOGOUT = gql`
+  mutation Mutation {
+    logout
+  }
+`;
