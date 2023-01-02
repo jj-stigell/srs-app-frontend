@@ -5,7 +5,8 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isInitialized: false,
-  user: null
+  user: null,
+  verified: true
 };
 
 //-----------------------|| ACCOUNT REDUCER ||-----------------------//
@@ -17,6 +18,12 @@ const accountSlice = createSlice({
     setAccount(state, action) {
       return action.payload;
     },
+    setVerified(state, action) {
+      return {
+        ...state,
+        verified: action.payload
+      };
+    },
     // eslint-disable-next-line no-unused-vars
     resetAccount(state, action) {
       return initialState;
@@ -24,7 +31,7 @@ const accountSlice = createSlice({
   }
 });
 
-export const { setAccount, resetAccount } = accountSlice.actions;
+export const { setAccount, resetAccount, setVerified } = accountSlice.actions;
 
 export const logOutAccount = () => {
   return async dispatch => {
