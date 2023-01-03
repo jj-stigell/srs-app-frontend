@@ -22,6 +22,9 @@ const UtilsMaterialIcons = Loadable(lazy(() => import('../views/utilities/Materi
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('../views/sample-page')));
 
+// account page
+const AccountPage = Loadable(lazy(() => import('../views/account')));
+
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
@@ -50,7 +53,7 @@ const MainRoutes = () => {
             <Route path="/statistics/kanji" component={UtilsShadow} />
             <Route path="/news" component={SamplePage} />
             <Route path="/settings/decks" component={UtilsMaterialIcons} />
-            <Route path="/settings/account" component={SamplePage} />
+            <Route path="/settings/account" component={AccountPage} />
           </AuthGuard>
         </Switch>
       </MainLayout>
