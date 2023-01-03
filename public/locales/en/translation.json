@@ -10,6 +10,20 @@
   "dashboard": {
     "title": "this is the dashboard page"
   },
+  "accountPage": {
+    "title": "Account information",
+    "sessionsTitle": "Active sessions",
+    "fetchSessionsButton": "Fetch active sessions"
+  },
+  "session": {
+    "id": "Id",
+    "browser": "Browser",
+    "os": "Operating system",
+    "device": "Device",
+    "createdAt": "Created at",
+    "expireAt": "Expires at",
+    "delete": "Delete session"
+  },
   "settings": {
     "title": "this is the settings page"
   },
