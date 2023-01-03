@@ -238,7 +238,7 @@ const LoginForm = (props, { ...others }) => {
                 color="secondary"
                 sx={{ textDecoration: 'none' }}
               >
-                {t('misc.passwordsForgot')}
+                {t('misc.passwordForgot')}
               </Typography>
             </Stack>
             {errors.submit && (
