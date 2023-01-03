@@ -51,14 +51,13 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
             - [X] Validate input
             - [X] Error on missing, incorrect input, mismatch with password
             - [X] Succesfully login, token and user saved to redux store
-        - [ ] User logout
-            - [ ] Send session termination request to backend
+        - [X] User logout
+            - [X] Send session termination request to backend
             - [X] Empty token and user data from redux store
-        - [ ] User change password/personal data
-            - [ ] Validate new data, confirmation must match, cannot be same as old one
-            - [ ] Email, settings change
+        - [X] User change password
+            - [X] Validate new data, confirmation must match, cannot be same as old one
         - [ ] Recover account (e.g. password forgotten)
-        - [ ] Validation of user input, including error messages
+        - [X] Validation of user input, including error messages
     - [ ] Card related
         - [ ] Get cards based on user ID
         - [ ] Reschedule card based on user input
@@ -67,7 +66,8 @@ Backend time keeping is in the backend GitHub [repository](https://github.com/jj
         - [ ] User
             - [X] User data
             - [X] Token
-            - [ ] Update information
+            - [X] Session
+            - [X] Update information
         - [X] Theme/customization UI
         - [ ] Cards
     - [ ] Storage

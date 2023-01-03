@@ -9,5 +9,7 @@
 | 2.10. | 3 | Redux persisting storage, save user to storage, empty on logout |
 | 6.10. | 3 | Error handling for login page, register page functionality and "register success" page after registering. |
 | 16.10. | 2 | Routing for components, indentation fixes, creating new deck component |
+| 2.1.2023 | 4 | fix broken register and login, set store after login, reset after logout |
+| 3.1.2023 | 5 | account page with sessions, change password and general data, sidemenu load from translation, logout button |
 |  |  |  |
-| total | 18 |  | 
+| total | 27 |  | 
