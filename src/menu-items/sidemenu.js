@@ -1,40 +1,22 @@
 // assets
 import {
-  IconBrandFramer,
-  IconTypography,
-  IconPalette,
-  IconShadow,
-  IconWindmill,
-  IconLayoutGridAdd,
   IconSettings,
-  IconHome, IconId, IconChartBar, IconTrophy, IconNotebook, IconUser, IconLanguageHiragana, IconAbacus,
-  IconNews } from '@tabler/icons';
-
-// constant
-const icons = {
-  IconTypography: IconTypography,
-  IconPalette: IconPalette,
-  IconShadow: IconShadow,
-  IconWindmill: IconWindmill,
-  IconBrandFramer: IconBrandFramer,
-  IconLayoutGridAdd: IconLayoutGridAdd,
-  IconSettings: IconSettings,
-  IconHome: IconHome,
-  IconId: IconId,
-  IconChartBar: IconChartBar,
-  IconTrophy: IconTrophy,
-  IconNotebook: IconNotebook,
-  IconUser: IconUser,
-  IconNews: IconNews,
-  IconLanguageHiragana: IconLanguageHiragana,
-  IconAbacus: IconAbacus
-};
+  IconHome,
+  IconId,
+  IconChartBar,
+  IconTrophy,
+  IconNotebook,
+  IconUser,
+  IconLanguageHiragana,
+  IconAbacus,
+  IconNews
+} from '@tabler/icons';
 
 //-----------------------|| SIDE MENU ITEMS ||-----------------------//
 
 export const sidemenu = {
   id: 'menu-items',
-  //title: 'Menu',
+  title: '',
   type: 'group',
   children: [
     {
@@ -42,7 +24,7 @@ export const sidemenu = {
       title: 'Dashboard',
       type: 'item',
       url: '/dashboard',
-      icon: icons['IconHome'],
+      icon: IconHome,
       breadcrumbs: false
     },
     {
@@ -50,7 +32,7 @@ export const sidemenu = {
       title: 'Study',
       type: 'item',
       url: '/study',
-      icon: icons['IconNotebook'],
+      icon: IconNotebook,
       breadcrumbs: false
     },
     {
@@ -58,21 +40,21 @@ export const sidemenu = {
       title: 'Achievements',
       type: 'item',
       url: '/achievements',
-      icon: icons['IconTrophy'],
+      icon: IconTrophy,
       breadcrumbs: false
     },
     {
       id: 'statistics',
       title: 'Statistics',
       type: 'collapse',
-      icon: icons['IconChartBar'],
+      icon: IconChartBar,
       children: [
         {
           id: 'review-stats',
           title: 'Reviews',
           type: 'item',
           url: '/statistics/reviews',
-          icon: icons['IconAbacus'],
+          icon: IconAbacus,
           breadcrumbs: false
         },
         {
@@ -80,7 +62,7 @@ export const sidemenu = {
           title: 'Kanji',
           type: 'item',
           url: '/statistics/kanji',
-          icon: icons['IconLanguageHiragana'],
+          icon: IconLanguageHiragana,
           breadcrumbs: false
         }
       ]
@@ -90,29 +72,29 @@ export const sidemenu = {
       title: 'News',
       type: 'item',
       url: '/news',
-      icon: icons['IconNews'],
+      icon: IconNews,
       breadcrumbs: false
     },
     {
       id: 'icons',
       title: 'Settings',
       type: 'collapse',
-      icon: icons['IconSettings'],
+      icon: IconSettings,
       children: [
-        {
-          id: 'Decks',
-          title: 'Decks',
-          type: 'item',
-          url: '/settings/decks',
-          icon: icons['IconId'],
-          breadcrumbs: false
-        },
         {
           id: 'account-settings',
           title: 'Account',
           type: 'item',
           url: '/settings/account',
-          icon: icons['IconUser'],
+          icon: IconUser,
+          breadcrumbs: false
+        },
+        {
+          id: 'Decks',
+          title: 'Decks',
+          type: 'item',
+          url: '/settings/decks',
+          icon: IconId,
           breadcrumbs: false
         }
       ]

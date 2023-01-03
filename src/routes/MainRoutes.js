@@ -13,17 +13,18 @@ const DashboardDefault = Loadable(lazy(() => import('../views/dashboard/Default'
 const StudyDecks = Loadable(lazy(() => import('../views/study')));
 
 // utilities routing
-//const UtilsTypography = Loadable(lazy(() => import('../views/utilities/Typography')));
 const UtilsColor = Loadable(lazy(() => import('../views/utilities/Color')));
 const UtilsShadow = Loadable(lazy(() => import('../views/utilities/Shadow')));
 const UtilsMaterialIcons = Loadable(lazy(() => import('../views/utilities/MaterialIcons')));
-//const UtilsTablerIcons = Loadable(lazy(() => import('../views/utilities/TablerIcons')));
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('../views/sample-page')));
 
 // account page
 const AccountPage = Loadable(lazy(() => import('../views/account')));
+
+// logout
+const Logout = Loadable(lazy(() => import('../views/logout')));
 
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
@@ -54,6 +55,7 @@ const MainRoutes = () => {
             <Route path="/news" component={SamplePage} />
             <Route path="/settings/decks" component={UtilsMaterialIcons} />
             <Route path="/settings/account" component={AccountPage} />
+            <Route path="/logout" component={Logout} />
           </AuthGuard>
         </Switch>
       </MainLayout>

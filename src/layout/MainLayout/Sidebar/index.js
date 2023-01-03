@@ -12,8 +12,9 @@ import { BrowserView, MobileView } from 'react-device-detect';
 // project imports
 import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
-import MenuCard from './MenuCard';
+//import MenuCard from './MenuCard';
 import { drawerWidth } from './../../../store/constant';
+import Logout from '../../../views/logout';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -65,13 +66,15 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
       <BrowserView>
         <PerfectScrollbar component="div" className={classes.ScrollHeight}>
           <MenuList />
-          <MenuCard />
+          <Logout />
+          {/* <MenuCard /> */}
         </PerfectScrollbar>
       </BrowserView>
       <MobileView>
         <Box sx={{ px: 2 }}>
           <MenuList />
-          <MenuCard />
+          <Logout />
+          {/* <MenuCard /> */}
         </Box>
       </MobileView>
     </React.Fragment>

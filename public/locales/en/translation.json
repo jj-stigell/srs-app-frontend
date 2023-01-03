@@ -12,7 +12,8 @@
   },
   "buttonGeneral": {
     "delete": "Delete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "logout": "Logout"
   },
   "accountPage": {
     "title": "Account information",
@@ -47,9 +48,6 @@
     "resendVerificationLink": "Resend verification",
     "linkToLogin": "Go back to login page, click here.",
     "emailNotVerifiedMessage": "Email address is not verified. Please check your email for the verification link. if you have not received the link, you can resend the verification link from here:"
-  },
-  "logout": {
-    "title": "this is the signout page"
   },
   "verify": {
     "title": "Resend email verification code",
@@ -158,9 +156,9 @@
     "usernameMinLengthError": "Username must be at least {{length}} character long",
     "requiredUsernameError": "Username required",
     "sessionNotFoundError": "sessionNotFoundError",
-    "sessionExpiredError": "sessionExpiredError",
-    "notOwnerOfSessionError": "notOwnerOfSessionError",
-    "jwtExpiredError": "jwtExpiredError",
+    "sessionExpiredError": "Session is expired, please login again.",
+    "notOwnerOfSessionError": "You are not the owner of the session.",
+    "jwtExpiredError": "Token has expired, please login again to renew the token.",
     "tosNotChecked": "Please agree with the terms of service."
   }
 }
