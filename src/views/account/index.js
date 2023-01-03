@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useLazyQuery, useMutation } from '@apollo/client';
 
 // material-ui
+import { makeStyles } from '@material-ui/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {
@@ -19,15 +20,29 @@ import {
   Paper,
   IconButton,
   Modal,
-  Box
+  Box,
+  FormControl,
+  FormHelperText,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput
 } from '@material-ui/core';
 
+// third party
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+
 // project imports
-import MainCard from '../../ui-component/cards/MainCard';
 import { SESSIONS } from '../../queries/queries';
-import { DELETE_SESSION } from '../../queries/mutations';
+import { DELETE_SESSION, CHANGE_PASSWORD } from '../../queries/mutations';
 import { setSessions, removeSession, logOutAccount } from '../../store/accountReducer';
 import { formatDate } from '../../utils/formatDate';
+import AnimateButton from '../../ui-component/extended/AnimateButton';
+import { constants } from '../../utils/constants';
+
+// assets
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const style = {
   position: 'absolute',
@@ -41,18 +56,69 @@ const style = {
   p: 4,
 };
 
+
+// style constant
+const useStyles = makeStyles((theme) => ({
+  redButton: {
+    fontSize: '1rem',
+    fontWeight: 500,
+    backgroundColor: theme.palette.grey[50],
+    border: '1px solid',
+    borderColor: theme.palette.grey[100],
+    color: theme.palette.grey[700],
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.875rem'
+    }
+  },
+  signDivider: {
+    flexGrow: 1
+  },
+  signText: {
+    cursor: 'unset',
+    margin: theme.spacing(2),
+    padding: '5px 56px',
+    borderColor: theme.palette.grey[100] + ' !important',
+    color: theme.palette.grey[900] + '!important',
+    fontWeight: 500
+  },
+  loginIcon: {
+    marginRight: '16px',
+    [theme.breakpoints.down('sm')]: {
+      marginRight: '8px'
+    }
+  },
+  loginInput: {
+    ...theme.typography.customInput
+  }
+}));
+
+
 //==============================|| ACCOUNT PAGE ||==============================//
 
 const AccountPage = () => {
+  const classes = useStyles();
   const account = useSelector(state => state.account);
   const { t } = useTranslation();
   const dispatcher = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showNewPass, setShowNewPass] = useState(false);
+  const [showNewPassConf, setNewPassConf] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  let allowDelete = false;
   const [modal, setModal] = useState(false);
-  const [ sessions, { called, loading, data } ] = useLazyQuery(SESSIONS);
+  let allowDelete = false;
 
-  const [ delSession, result ] = useMutation(DELETE_SESSION, {
+  // GraphQL
+  const [ sessions ] = useLazyQuery(SESSIONS);
+  const [ delSession ] = useMutation(DELETE_SESSION, {
+    onError: (error) => {
+      console.log(error);
+    }
+  });
+  const [ changePassword ] = useMutation(CHANGE_PASSWORD, {
     onError: (error) => {
       console.log(error);
     }
@@ -89,7 +155,6 @@ const AccountPage = () => {
           const error = res.errors.graphQLErrors[0].extensions.code;
           console.log(error);
         } else if (res.data) {
-          console.log(res.data);
           dispatcher(removeSession(res.data.deleteSession));
           if (res.data.deleteSession === account.session) {
             dispatcher(logOutAccount());
@@ -103,16 +168,216 @@ const AccountPage = () => {
     }
   };
 
+  const handleMouseDown = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
-      <MainCard title={t('accountPage.title')}>
-        <Typography variant="body2">
-                Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa. Ut
-                enif ad minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube grue
-                dolor in reprehended in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non president,
-                sunk in culpa qui officiate descent molls anim id est labours.
-        </Typography>
-      </MainCard>
+      <h2>{t('accountPage.title')}</h2>
+      <h2>{t('accountPage.changePasswordTitle')}</h2>
+      <Formik
+        initialValues={{
+          currentPassword: '',
+          newPassword: '',
+          newPasswordConfirmation: '',
+          submit: null
+        }}
+        validationSchema={Yup.object().shape({
+          currentPassword: Yup.string()
+            .max(constants.account.passwordMaxLength, t('errors.passwordMaxLengthError', { length: constants.account.passwordMaxLength }))
+            .required(t('errors.requiredPasswordError')),
+          newPassword: Yup.string()
+            .max(constants.account.passwordMaxLength, t('errors.passwordMaxLengthError', { length: constants.account.passwordMaxLength }))
+            .min(constants.account.passwordMinLength, t('errors.passwordMinLengthError', { length: constants.account.passwordMinLength }))
+            .matches(constants.regex.lowercaseRegex, t('errors.passwordLowercaseError'))
+            .matches(constants.regex.uppercaseRegex, t('errors.passwordUppercaseError'))
+            .matches(constants.regex.numberRegex, t('errors.passwordNumberError'))
+            .required(t('errors.requiredPasswordError')),
+          newPasswordConfirmation: Yup.string()
+            .max(constants.account.passwordMaxLength, t('errors.passwordMaxLengthError', { length: constants.account.passwordMaxLength }))
+            .min(constants.account.passwordMinLength, t('errors.passwordMinLengthError', { length: constants.account.passwordMinLength }))
+            .matches(constants.regex.lowercaseRegex, t('errors.passwordLowercaseError'))
+            .matches(constants.regex.uppercaseRegex, t('errors.passwordUppercaseError'))
+            .matches(constants.regex.numberRegex, t('errors.passwordNumberError'))
+            .oneOf([Yup.ref('newPassword'), null], t('errors.passwordMismatchError'))
+            .required(t('errors.requiredPasswordConfirmError'))
+        })}
+        onSubmit={ async (values, { setErrors, setStatus, setSubmitting }) => {
+          try {
+            const res = await changePassword({
+              variables: {
+                currentPassword: values.currentPassword,
+                newPassword: values.newPassword,
+                newPasswordConfirmation: values.newPasswordConfirmation
+              }
+            });
+            if (res.errors) {
+              const error = res.errors.graphQLErrors[0].extensions.code;
+              setStatus({ success: false });
+              setErrors({ submit: t(`errors.${error}`) });
+              setSubmitting(false);
+            } else if (res.data) {
+
+
+
+
+
+              console.log(res.data);
+
+
+
+
+
+            }
+          } catch(error) {
+            console.log('error:', error);
+            setStatus({ success: false });
+            setErrors({ submit: t('errors.connectionError') });
+            setSubmitting(false);
+          }
+        }}
+      >
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+          <form noValidate onSubmit={handleSubmit}>
+            <FormControl fullWidth error={Boolean(touched.currentPassword && errors.currentPassword)} className={classes.loginInput}>
+              <InputLabel htmlFor="outlined-adornment-current-password">{t('misc.currentPassword')}</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-current-password"
+                type={showPassword ? 'text' : 'password'}
+                value={values.currentPassword}
+                name="currentPassword"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                      onMouseDown={handleMouseDown}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label={t('misc.password')}
+                inputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline
+                  }
+                }}
+              />
+              {touched.password && errors.password && (
+                <FormHelperText error id="standard-weight-helper-text-password">
+                  {' '}
+                  {errors.currentPassword}{' '}
+                </FormHelperText>
+              )}
+            </FormControl>
+            <FormControl fullWidth error={Boolean(touched.newPassword && errors.newPassword)} className={classes.loginInput}>
+              <InputLabel htmlFor="outlined-adornment-new-password">{t('misc.newPassword')}</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-new-password"
+                type={showNewPass ? 'text' : 'password'}
+                value={values.newPassword}
+                name="newPassword"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowNewPass(!showNewPass)}
+                      onMouseDown={handleMouseDown}
+                      edge="end"
+                    >
+                      {showNewPass ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label={t('misc.password')}
+                inputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline
+                  }
+                }}
+              />
+              {touched.newPassword && errors.newPassword && (
+                <FormHelperText error id="standard-weight-helper-text-password">
+                  {' '}
+                  {errors.newPassword}{' '}
+                </FormHelperText>
+              )}
+            </FormControl>
+
+            <FormControl fullWidth error={Boolean(touched.newPasswordConfirmation && errors.newPasswordConfirmation)} className={classes.loginInput}>
+              <InputLabel htmlFor="outlined-adornment-new-password-confirm">{t('misc.confirmNewPassword')}</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-new-password-confirm"
+                type={showNewPassConf ? 'text' : 'password'}
+                value={values.newPasswordConfirmation}
+                name="newPasswordConfirmation"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setNewPassConf(!showNewPassConf)}
+                      onMouseDown={handleMouseDown}
+                      edge="end"
+                    >
+                      {showNewPassConf ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label={t('misc.password')}
+                inputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline
+                  }
+                }}
+              />
+              {touched.newPasswordConfirmation && errors.newPasswordConfirmation && (
+                <FormHelperText error id="standard-weight-helper-text-password">
+                  {' '}
+                  {errors.newPasswordConfirmation}{' '}
+                </FormHelperText>
+              )}
+            </FormControl>
+            {errors.submit && (
+              <Box
+                sx={{
+                  mt: 3
+                }}
+              >
+                <FormHelperText error>{errors.submit}</FormHelperText>
+              </Box>
+            )}
+
+            <Box
+              sx={{
+                mt: 2
+              }}
+            >
+              <AnimateButton>
+                <Button
+                  disableElevation
+                  disabled={isSubmitting}
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  color="secondary"
+                >
+                  {t('accountPage.changePasswordButton')}
+                </Button>
+              </AnimateButton>
+            </Box>
+          </form>
+        )}
+      </Formik>
       <h2>{t('accountPage.sessionsTitle')}</h2>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
