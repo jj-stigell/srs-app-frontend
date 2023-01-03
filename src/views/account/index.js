@@ -4,6 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useLazyQuery, useMutation } from '@apollo/client';
 
+
+
+import 'react-notifications-component/dist/theme.css';
+import { Store } from 'react-notifications-component';
+
+
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -44,8 +50,7 @@ import { constants } from '../../utils/constants';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-// Modal style
-const style = {
+const modalStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -217,17 +222,17 @@ const AccountPage = () => {
               setErrors({ submit: t(`errors.${error}`) });
               setSubmitting(false);
             } else if (res.data) {
-
-
-
-
-
-              console.log(res.data);
-
-
-
-
-
+              Store.addNotification({
+                title: t('accountPage.passwordChangeSuccess'),
+                type: 'success',
+                insert: 'top',
+                container: 'top-center',
+                animationIn: ['animate__animated', 'animate__fadeIn'],
+                animationOut: ['animate__animated', 'animate__fadeOut'],
+                dismiss: {
+                  duration: 1000
+                }
+              });
             }
           } catch(error) {
             console.log('error:', error);
@@ -435,7 +440,7 @@ const AccountPage = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box sx={modalStyle}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               {t('misc.warning')}
             </Typography>

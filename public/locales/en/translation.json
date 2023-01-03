@@ -19,7 +19,8 @@
     "sessionsTitle": "Active sessions",
     "fetchSessionsButton": "Fetch active sessions",
     "changePasswordTitle": "Change password",
-    "changePasswordButton": "Change password"
+    "changePasswordButton": "Change password",
+    "passwordChangeSuccess": "Password changed succesfully"
   },
   "session": {
     "id": "Id",

@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline, StyledEngineProvider } from '@material-ui/core';
 
+import { ReactNotifications } from 'react-notifications-component';
+
+
 // routing
 import Routes from './routes';
 
@@ -22,6 +25,7 @@ const App = () => {
       <ThemeProvider theme={theme(customization)}>
         <CssBaseline />
         <NavigationScroll>
+          <ReactNotifications />
           <Routes />
         </NavigationScroll>
       </ThemeProvider>
