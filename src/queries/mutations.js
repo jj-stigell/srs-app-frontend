@@ -45,3 +45,18 @@ export const DELETE_SESSION = gql`
     deleteSession(sessionId: $sessionId)
   }
 `;
+
+export const CHANGE_PASSWORD = gql`
+mutation ChangePassword($currentPassword: String!, $newPassword: String!, $newPasswordConfirmation: String!) {
+  changePassword(currentPassword: $currentPassword, newPassword: $newPassword, newPasswordConfirmation: $newPasswordConfirmation) {
+    id
+    email
+    emailVerified
+    username
+    languageId
+    lastLogin
+    createdAt
+    updatedAt
+  }
+}
+`;
