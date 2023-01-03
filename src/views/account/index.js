@@ -2,13 +2,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useLazyQuery, useMutation } from '@apollo/client';
-
-
-
-import 'react-notifications-component/dist/theme.css';
-import { Store } from 'react-notifications-component';
-
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -31,12 +24,16 @@ import {
   FormHelperText,
   InputAdornment,
   InputLabel,
-  OutlinedInput
+  OutlinedInput,
+  TextField
 } from '@material-ui/core';
 
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import 'react-notifications-component/dist/theme.css';
+import { Store } from 'react-notifications-component';
+import { useLazyQuery, useMutation } from '@apollo/client';
 
 // project imports
 import { SESSIONS } from '../../queries/queries';
@@ -179,6 +176,59 @@ const AccountPage = () => {
   return (
     <>
       <h2>{t('accountPage.title')}</h2>
+      <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <div>
+          <TextField
+            id="account-email"
+            label={t('misc.email')}
+            defaultValue={account.account.email}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+        <div>
+          <TextField
+            id="account-username"
+            label={t('misc.username')}
+            defaultValue={account.account.username}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+        <div>
+          <TextField
+            id="account-created-at"
+            label={t('accountPage.accountCreatedAt')}
+            defaultValue={formatDate(account.account.createdAt, false)}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+        <div>
+          <TextField
+            id="account-last-login"
+            label={t('login.lastLogin')}
+            defaultValue={formatDate(account.account.lastLogin, false)}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="standard"
+          />
+        </div>
+      </Box>
       <h2>{t('accountPage.changePasswordTitle')}</h2>
       <Formik
         initialValues={{

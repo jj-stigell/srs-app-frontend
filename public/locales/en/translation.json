@@ -20,7 +20,8 @@
     "fetchSessionsButton": "Fetch active sessions",
     "changePasswordTitle": "Change password",
     "changePasswordButton": "Change password",
-    "passwordChangeSuccess": "Password changed succesfully"
+    "passwordChangeSuccess": "Password changed succesfully",
+    "accountCreatedAt": "Account created at"
   },
   "session": {
     "id": "Id",
@@ -38,6 +39,7 @@
   },
   "login": {
     "title": "this is the signin page",
+    "lastLogin": "Latest login at",
     "logInButton": "Login",
     "welcomeBack": "Welcome back!",
     "enterCredentials": "Enter your credentials to continue",
