@@ -21,7 +21,7 @@ export const sidemenu = {
   children: [
     {
       id: 'default',
-      title: 'Dashboard',
+      title: 'dashboard',
       type: 'item',
       url: '/dashboard',
       icon: IconHome,
@@ -29,7 +29,7 @@ export const sidemenu = {
     },
     {
       id: 'study',
-      title: 'Study',
+      title: 'study',
       type: 'item',
       url: '/study',
       icon: IconNotebook,
@@ -37,7 +37,7 @@ export const sidemenu = {
     },
     {
       id: 'achievements',
-      title: 'Achievements',
+      title: 'achievements',
       type: 'item',
       url: '/achievements',
       icon: IconTrophy,
@@ -45,13 +45,13 @@ export const sidemenu = {
     },
     {
       id: 'statistics',
-      title: 'Statistics',
+      title: 'statistics',
       type: 'collapse',
       icon: IconChartBar,
       children: [
         {
           id: 'review-stats',
-          title: 'Reviews',
+          title: 'reviews',
           type: 'item',
           url: '/statistics/reviews',
           icon: IconAbacus,
@@ -59,7 +59,7 @@ export const sidemenu = {
         },
         {
           id: 'kanji-stats',
-          title: 'Kanji',
+          title: 'kanji',
           type: 'item',
           url: '/statistics/kanji',
           icon: IconLanguageHiragana,
@@ -69,7 +69,7 @@ export const sidemenu = {
     },
     {
       id: 'news',
-      title: 'News',
+      title: 'news',
       type: 'item',
       url: '/news',
       icon: IconNews,
@@ -77,13 +77,13 @@ export const sidemenu = {
     },
     {
       id: 'icons',
-      title: 'Settings',
+      title: 'settings',
       type: 'collapse',
       icon: IconSettings,
       children: [
         {
           id: 'account-settings',
-          title: 'Account',
+          title: 'account',
           type: 'item',
           url: '/settings/account',
           icon: IconUser,
@@ -91,7 +91,7 @@ export const sidemenu = {
         },
         {
           id: 'Decks',
-          title: 'Decks',
+          title: 'decks',
           type: 'item',
           url: '/settings/decks',
           icon: IconId,

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -78,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
 const NavCollapse = ({ menu, level }) => {
   const classes = useStyles();
   const customization = useSelector((state) => state.customization);
+  const { t } = useTranslation();
 
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(null);
@@ -97,7 +99,7 @@ const NavCollapse = ({ menu, level }) => {
     default:
       return (
         <Typography key={item.id} variant="h6" color="error" align="center">
-                        Menu Items Error
+          Menu Items Error
         </Typography>
       );
     }
@@ -128,7 +130,7 @@ const NavCollapse = ({ menu, level }) => {
         <ListItemText
           primary={
             <Typography variant={selected === menu.id ? 'h5' : 'body1'} color="inherit" className={classes.listItemTypography}>
-              {menu.title}
+              {t(`sidemenu.${menu.title}`)}
             </Typography>
           }
           secondary={

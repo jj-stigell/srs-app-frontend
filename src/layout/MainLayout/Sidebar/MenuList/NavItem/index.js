@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
@@ -50,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 const NavItem = ({ item, level }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const customization = useSelector((state) => state.customization);
   const matchesSM = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
@@ -111,7 +113,7 @@ const NavItem = ({ item, level }) => {
       <ListItemText
         primary={
           <Typography variant={customization.isOpen.findIndex((id) => id === item.id) > -1 ? 'h5' : 'body1'} color="inherit">
-            {item.title}
+            {t(`sidemenu.${item.title}`)}
           </Typography>
         }
         secondary={
