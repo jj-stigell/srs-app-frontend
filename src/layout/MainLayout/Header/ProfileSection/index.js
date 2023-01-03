@@ -29,12 +29,13 @@ import ListItemButton from '@material-ui/core/ListItemButton';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
-//import axios from 'axios';
+import { useMutation } from '@apollo/client';
 
 // project imports
 import MainCard from '../../../../ui-component/cards/MainCard';
 import Transitions from '../../../../ui-component/extended/Transitions';
 import UpgradePlanCard from './UpgradePlanCard';
+import { LOGOUT } from '../../../../queries/mutations';
 
 // assets
 import { IconLogout, IconSearch, IconSettings } from '@tabler/icons';
@@ -134,36 +135,39 @@ const ProfileSection = () => {
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const handleLogout = () => {
-    dispatcher(logOutAccount());
-    return <Redirect to="/login" />;
-    /*
-    axios
-      .post( configData.API_SERVER + 'users/logout', { token: `${account.token}` }, { headers: { Authorization: `${account.token}` } })
-      // eslint-disable-next-line no-unused-vars
-      .then(function (response) {
-        // Force the LOGOUT
-        //if (response.data.success) {
-        dispatcher({ type: 'LOGOUT' });
-        //} else {
-        //    console.log('response - ', response.data.msg);
-        //}
-      })
-      .catch(function (error) {
-        console.log('error - ', error);
-      });
-      */
+
+  // eslint-disable-next-line no-unused-vars
+  const [ logout, result ] = useMutation(LOGOUT, {
+    onError: (error) => {
+      console.log(error);
+    }
+  });
+
+  const handleLogout = async () => {
+    try {
+      const res = await logout();
+      if (res.errors) {
+        console.log(res.errors);
+      } else if (res.data) {
+        dispatcher(logOutAccount());
+        return <Redirect to="/login" />;
+      }
+    } catch(error) {
+      console.log('error:', error);
+    }
   };
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
+
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
+
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
@@ -172,6 +176,7 @@ const ProfileSection = () => {
 
     prevOpen.current = open;
   }, [open]);
+
   return (
     <React.Fragment>
       <Chip
