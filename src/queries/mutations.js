@@ -39,3 +39,9 @@ export const LOGOUT = gql`
     logout
   }
 `;
+
+export const DELETE_SESSION = gql`
+  mutation DeleteSession($sessionId: String!) {
+    deleteSession(sessionId: $sessionId)
+  }
+`;
