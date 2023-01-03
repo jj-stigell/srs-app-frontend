@@ -6,7 +6,8 @@ const initialState = {
   isInitialized: false,
   account: null,
   verified: true,
-  session: null
+  session: null,
+  sessions: null
 };
 
 //-----------------------|| ACCOUNT REDUCER ||-----------------------//
@@ -24,7 +25,18 @@ const accountSlice = createSlice({
         verified: action.payload
       };
     },
-
+    setSessions(state, action) {
+      return {
+        ...state,
+        sessions: action.payload
+      };
+    },
+    removeSession(state, action) {
+      return {
+        ...state,
+        sessions: state.sessions.filter(session => session.id !== action.payload)
+      };
+    },
     // eslint-disable-next-line no-unused-vars
     resetAccount(state, action) {
       return initialState;
@@ -32,11 +44,12 @@ const accountSlice = createSlice({
   }
 });
 
-export const { setAccount, resetAccount, setVerified, setRememberMe } = accountSlice.actions;
+export const { setAccount, resetAccount, setVerified, setSessions, removeSession } = accountSlice.actions;
 
 export const logOutAccount = () => {
   return async (dispatch) => {
     dispatch(resetAccount(null));
+    localStorage.removeItem('srs-token');
   };
 };
 
