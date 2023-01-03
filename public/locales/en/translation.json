@@ -10,10 +10,16 @@
   "dashboard": {
     "title": "this is the dashboard page"
   },
+  "buttonGeneral": {
+    "delete": "Delete",
+    "cancel": "Cancel"
+  },
   "accountPage": {
     "title": "Account information",
     "sessionsTitle": "Active sessions",
-    "fetchSessionsButton": "Fetch active sessions"
+    "fetchSessionsButton": "Fetch active sessions",
+    "changePasswordTitle": "Change password",
+    "changePasswordButton": "Change password"
   },
   "session": {
     "id": "Id",
@@ -22,7 +28,9 @@
     "device": "Device",
     "createdAt": "Created at",
     "expireAt": "Expires at",
-    "delete": "Delete session"
+    "delete": "Delete session",
+    "current": "current session",
+    "sessionWarning": "This is the current session on this device. If you delete this one, you will be logged out from this device."
   },
   "settings": {
     "title": "this is the settings page"
@@ -69,7 +77,11 @@
     "email": "Email address",
     "password": "Password",
     "passwordConfirm": "Confirm password",
-    "passwordsForgot": "Forgot Password?"
+    "passwordForgot": "Forgot Password?",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "warning": "Warning!"
   },
   "placeholder": {
     "username": "e.g. User23494",
