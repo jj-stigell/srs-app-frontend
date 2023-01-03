@@ -44,6 +44,7 @@ import { constants } from '../../utils/constants';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
+// Modal style
 const style = {
   position: 'absolute',
   top: '50%',
@@ -55,7 +56,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -95,7 +95,6 @@ const useStyles = makeStyles((theme) => ({
     ...theme.typography.customInput
   }
 }));
-
 
 //==============================|| ACCOUNT PAGE ||==============================//
 
