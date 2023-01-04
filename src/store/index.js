@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
 // reducer imports
@@ -8,6 +8,7 @@ import accountReducer from './accountReducer';
 import customizationReducer from './customizationReducer';
 import registerReducer from './registerReducer';
 import rememberMeReducer from './rememberMeReducer';
+import deckReducer from './deckReducer';
 
 //-----------------------|| CONFIGURE STORE WITH REDUCERS ||-----------------------//
 
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   account: accountReducer,
   customization: customizationReducer,
   register: registerReducer,
-  remember: rememberMeReducer
+  remember: rememberMeReducer,
+  decks: deckReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
