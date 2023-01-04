@@ -22,4 +22,12 @@ const accountSlice = createSlice({
 
 export const { setDecks, resetDecks } = accountSlice.actions;
 
+export const addDeckSettingsToDeck = ({ deckId, deckSettings, decks }) => {
+  return async (dispatch) => {
+    const deck = decks.filter(deck => deck.id === deckId);
+    if (deck) deck.accountDeckSettings = deckSettings;
+    dispatch(setDecks(decks));
+  };
+};
+
 export default accountSlice.reducer;
