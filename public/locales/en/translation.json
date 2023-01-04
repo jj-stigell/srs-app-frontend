@@ -1,5 +1,5 @@
 {
-  "title": "SRS-app for learning stuff",
+  "title": "SRS-app for learning Japanese",
   "navbar": {
     "dashboard": "Dashboard",
     "settings": "Settings",
@@ -10,10 +10,30 @@
   "dashboard": {
     "title": "this is the dashboard page"
   },
+  "deck": {
+    "settings": {
+      "title": "Settings for deck:",
+      "dayoff": "Day off",
+      "settings": "Settings",
+      "optimize": "Optimize",
+      "favorite": "Favorite deck:",
+      "newCardsPerDay": "New cards every day:",
+      "reviewInterval": "Maximimum review interval:",
+      "reviewsPerDay": "Maximum reviews per day:",
+      "favoriteInfo": "If you set deck as your favorite, it will be shown on the front page, making access to it faster.",
+      "newCardsPerDayInfo": "How many new cards do you want to review from this deck every day? Can be set between 0 - {{maxNewReviews}}",
+      "reviewIntervalInfo": "Review interval is the maximum time between reviews. Can be set between {{minReviewInterval}} - {{maxReviewInterval}}",
+      "reviewsPerDayInfo": "How many reviews you want to do every day from this deck? Can be set between {{minLimitReviews}} - {{maxLimitReviews}}"
+    },
+    "dueAndNewCards": "Cards due: {{old}} old, {{new}} new",
+    "onlyNewCards": "Cards due: {{new}} new"
+  },
   "buttonGeneral": {
     "delete": "Delete",
     "cancel": "Cancel",
-    "logout": "Logout"
+    "logout": "Logout",
+    "close": "Close",
+    "update": "Update"
   },
   "accountPage": {
     "title": "Account information",
