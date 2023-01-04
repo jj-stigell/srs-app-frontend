@@ -11,5 +11,7 @@
 | 16.10. | 2 | Routing for components, indentation fixes, creating new deck component |
 | 2.1.2023 | 4 | fix broken register and login, set store after login, reset after logout |
 | 3.1.2023 | 5 | account page with sessions, change password and general data, sidemenu load from translation, logout button |
+| 4.1.2023 | 4 | List all decks, modal for deck settings, fix render issue while using i18n |
 |  |  |  |
-| total | 27 |  | 
+|  |  |  |
+| total | 31 |  | 
