@@ -47,3 +47,20 @@ query Decks($date: Date!) {
   }
 }
 `;
+
+export const GET_DECK_SETTINGS = gql`
+query DeckSettings($deckId: Int!) {
+  deckSettings(deckId: $deckId) {
+    id
+    accountId
+    deckId
+    favorite
+    dueCards
+    reviewInterval
+    reviewsPerDay
+    newCardsPerDay
+    createdAt
+    updatedAt
+  }
+}
+`;
