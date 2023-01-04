@@ -22,6 +22,9 @@ i18n
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
+    },
+    react: {
+      useSuspense: false // get rid of the rendering warning
     }
   });
 
