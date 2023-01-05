@@ -2,11 +2,12 @@ import 'react-notifications-component/dist/theme.css';
 import { Store } from 'react-notifications-component';
 import { constants } from './constants';
 
-export const notification = (
-  title = '', message = '',
+export const notification = ({
+  title = '',
+  message = '',
   duration = constants.notification.defaultDuration,
   type = 'error'
-) => {
+}) => {
   Store.addNotification({
     title: title,
     message: message,

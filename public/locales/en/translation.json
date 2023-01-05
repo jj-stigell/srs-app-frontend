@@ -23,7 +23,9 @@
       "favoriteInfo": "If you set deck as your favorite, it will be shown on the front page, making access to it faster.",
       "newCardsPerDayInfo": "How many new cards do you want to review from this deck every day? Can be set between {{minNewReviews}} - {{maxNewReviews}}",
       "reviewIntervalInfo": "Review interval is the maximum time between reviews. Can be set between {{minReviewInterval}} - {{maxReviewInterval}}",
-      "reviewsPerDayInfo": "How many reviews you want to do every day from this deck? Can be set between {{minLimitReviews}} - {{maxLimitReviews}}"
+      "reviewsPerDayInfo": "How many reviews you want to do every day from this deck? Can be set between {{minLimitReviews}} - {{maxLimitReviews}}",
+      "settingsChangeSuccess": "Settings updated succesfully!",
+      "settingsChangeError": "Error occured while updating settings!"
     },
     "dueAndNewCards": "Cards due: {{old}} old, {{new}} new",
     "onlyNewCards": "Cards due: {{new}} new"
@@ -34,6 +36,10 @@
     "logout": "Logout",
     "close": "Close",
     "update": "Update"
+  },
+  "notification": {
+    "success": "Success",
+    "error": "Error"
   },
   "accountPage": {
     "title": "Account information",
@@ -142,10 +148,12 @@
     "noDecksFoundError": "No decks found.",
     "nonActiveDeckError": "Deck is not active.",
     "nonExistingDeckIdError": "Deck with id {{id}} does not exist.",
-    "maxLimitReviewsError": "maxLimitReviewsError",
-    "minLimitReviewsError": "minLimitReviewsError",
-    "maxNewReviewsError": "maxNewReviewsError",
-    "minNewReviewsError": "minNewReviewsError",
+    "maxLimitReviewsError": "Reviews per day value too high!",
+    "minLimitReviewsError": "Reviews per day value too low!",
+    "maxNewReviewsError": "New cards value too high!",
+    "minNewReviewsError": "New cards value too low!",
+    "maxReviewIntervalError": "Review interval value too high!",
+    "minReviewIntervalError": "Review interval value too low!",
     "pushReviewsLimitError": "pushReviewsLimitError",
     "invalidResultTypeError": "invalidResultTypeError",
     "badUserInput": "BAD_USER_INPUT",
@@ -154,8 +162,6 @@
     "internalServerError": "INTERNAL_SERVER_ERROR",
     "validationError": "Problem with validation, please try again.",
     "defaultError": "DEFAULT_ERROR",
-    "maxReviewIntervalError": "maxReviewIntervalError",
-    "minReviewIntervalError": "minReviewIntervalError",
     "noDueCardsError": "No cards due.",
     "storyTooLongError": "storyTooLongError",
     "storyTooShortError": "storyTooShortError",
