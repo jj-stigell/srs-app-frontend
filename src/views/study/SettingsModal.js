@@ -4,11 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 // material-ui
-import { makeStyles } from '@material-ui/styles';
 import UpdateIcon from '@material-ui/icons/Update';
 import CancelIcon from '@material-ui/icons/Cancel';
-import InfoIcon from '@material-ui/icons/Info';
-
 import {
   Typography,
   Button,
@@ -19,40 +16,22 @@ import {
   TableHead,
   TableRow,
   Paper,
-  IconButton,
   Modal,
   Box,
-  FormControl,
-  FormHelperText,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField,
-  Switch,
-  Rating,
-  Tooltip
+  Rating
 } from '@material-ui/core';
 
 // third party
-import * as Yup from 'yup';
-import { Formik } from 'formik';
-import 'react-notifications-component/dist/theme.css';
-import { Store } from 'react-notifications-component';
 import { useLazyQuery, useMutation } from '@apollo/client';
 
 // project imports
-import { GET_DECK_SETTINGS, SESSIONS } from '../../queries/queries';
-import { DELETE_SESSION, CHANGE_PASSWORD } from '../../queries/mutations';
-import { setSessions, removeSession, logOutAccount } from '../../store/accountReducer';
-import { formatDate } from '../../utils/formatDate';
-import AnimateButton from '../../ui-component/extended/AnimateButton';
+import { GET_DECK_SETTINGS } from '../../queries/queries';
+import { CHANGE_DECK_SETTINGS } from '../../queries/mutations';
 import { constants } from '../../utils/constants';
 import { addDeckSettingsToDeck } from '../../store/deckReducer';
 import InfoTooltip from './InfoTooltip';
-
-// assets
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { notification } from '../../utils/notification';
 
 const modalStyle = {
   position: 'absolute',
@@ -66,61 +45,12 @@ const modalStyle = {
   p: 4,
 };
 
-
-/*
-/*
-  /*
-query Decks($date: Date!) {
-  decks(date: $date) {
-    id
-    deckName
-    subscriberOnly
-    languageId
-    active
-    createdAt
-    updatedAt
-    deckTranslations {
-      id
-      languageId
-      title
-      description
-      active
-      createdAt
-      updatedAt
-    }
-    accountDeckSettings {
-      id
-      accountId
-      deckId
-      favorite
-      dueCards
-      reviewInterval
-      reviewsPerDay
-      newCardsPerDay
-      createdAt
-      updatedAt
-    }
-  }
-}
-
-  "deck": {
-    "settings": {
-      "dayoff": "Day off",
-      "settings": "Settings",
-      "optimize": "Optimize"
-    }
-  },
-*/
-
-
-//==============================|| ACCOUNT PAGE ||==============================//
+//==============================|| DECK SETTINGS MODAL ||==============================//
 
 const SettingsModal = ({ modalStatus, setModal, deckId, deckSettings }) => {
-  const account = useSelector(state => state.decks);
   const decks = useSelector(state => state.decks);
   const { t } = useTranslation();
   const dispatcher = useDispatch();
-  let allowDelete = false;
   const [ getDeckSettings ] = useLazyQuery(GET_DECK_SETTINGS);
   const [ disableSubmit, setDisableSubmit ] = useState(true);
   const [ settingsData, setSettingsData ] = useState(deckSettings);
@@ -128,6 +58,12 @@ const SettingsModal = ({ modalStatus, setModal, deckId, deckSettings }) => {
   const [ newReviews, setNewReviews ] = useState(0);
   const [ dueReviews, setDueReviews ] = useState(0);
   const [ reviewInterval, setReviewInterval ] = useState(0);
+
+  const [ updateDeckSettings, result ] = useMutation(CHANGE_DECK_SETTINGS, {
+    onError: (error) => {
+      console.log(error);
+    }
+  });
 
   const updateNewReviews = (number) => {
     setDisableSubmit(false);
@@ -173,160 +109,188 @@ const SettingsModal = ({ modalStatus, setModal, deckId, deckSettings }) => {
     }
   };
 
-  useEffect(async () => {
-    //setLoading(true);
-    if (!deckSettings) await fetchDeckSettings();
-    //setLoading(false);
-  }, []);
-
   const updateSettings = async () => {
-    console.log('updateing SETTINGASSS');
+    try {
+      const res = await updateDeckSettings({
+        variables: {
+          deckId: deckId,
+          newCardsPerDay: Number(newReviews),
+          reviewsPerDay: Number(dueReviews),
+          reviewInterval: Number(reviewInterval),
+          favorite: favorite === 1 ? true : false
+        }
+      });
+      if (res.errors) {
+        const errors = res.errors.graphQLErrors[0].extensions.code;
+        console.log(errors);
+        errors.forEach(error => {
+          notification({
+            title: t('notification.error'),
+            message: t(`errors.${error}`),
+            type: 'danger'
+          });
+        });
+      } else if (res.data) {
+        notification({
+          title: t('notification.success'),
+          message: t('deck.settings.settingsChangeSuccess'),
+          type: 'success'
+        });
+        setDisableSubmit(true);
+        dispatcher(addDeckSettingsToDeck({ deckId: deckId, deckSettings: settingsData, decks: decks }));
+      }
+    } catch(error) {
+      console.log('error:', error);
+    }
   };
+
+  useEffect(async () => {
+    if (!deckSettings) await fetchDeckSettings();
+  }, []);
 
   if (!settingsData) return <></>;
 
   return (
-    <>
-      <Modal
-        open={modalStatus}
-        onClose={() => setModal(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={modalStyle}>
-          <Typography id="modal-modal-title" variant="h3" component="h2">
-            {t('deck.settings.title')}
-          </Typography>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 30 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell align="right"></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow
-                  key='new-reviews-row'
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {t('deck.settings.newCardsPerDay')}
-                    <InfoTooltip title={t('deck.settings.newCardsPerDayInfo', { minNewReviews: constants.review.minNewReviews, maxNewReviews: constants.review.maxNewReviews })}/>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Box component="form">
-                      <TextField
-                        id="new-reviews-input"
-                        type="number"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        sx={{
-                          width: 80
-                        }}
-                        onChange={(e) => updateNewReviews(e.target.value)}
-                        value={newReviews}
-                      />
-                    </Box>
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  key='due-reviews-row'
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {t('deck.settings.reviewsPerDay')}
-                    <InfoTooltip title={t('deck.settings.reviewsPerDayInfo',{ minLimitReviews: constants.review.minLimitReviews, maxLimitReviews: constants.review.maxLimitReviews })}/>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Box component="form">
-                      <TextField
-                        id="due-reviews-input"
-                        type="number"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        sx={{
-                          width: 80
-                        }}
-                        onChange={(e) => updateDueReviews(e.target.value)}
-                        value={dueReviews}
-                      />
-                    </Box>
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  key='review-interval-row'
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {t('deck.settings.reviewInterval')}
-                    <InfoTooltip title={t('deck.settings.reviewIntervalInfo', { minReviewInterval: constants.review.minReviewInterval, maxReviewInterval: constants.review.maxReviewInterval })}/>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Box component="form">
-                      <TextField
-                        id="review-interval-input"
-                        type="number"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        sx={{
-                          width: 80
-                        }}
-                        onChange={(e) => updateReviewInterval(e.target.value)}
-                        value={reviewInterval}
-                      />
-                    </Box>
-                  </TableCell>
-                </TableRow>
-                <TableRow
-                  key='favorite-row'
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {t('deck.settings.favorite')}
-                    <InfoTooltip title={t('deck.settings.favoriteInfo')}/>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Box
-                      sx={{
-                        '& > legend': { mt: 2 },
+
+    <Modal
+      open={modalStatus}
+      onClose={() => setModal(false)}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={modalStyle}>
+        <Typography id="modal-modal-title" variant="h3" component="h2">
+          {t('deck.settings.title')}
+        </Typography>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 30 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell align="right"></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow
+                key='new-reviews-row'
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {t('deck.settings.newCardsPerDay')}
+                  <InfoTooltip title={t('deck.settings.newCardsPerDayInfo', { minNewReviews: constants.review.minNewReviews, maxNewReviews: constants.review.maxNewReviews })}/>
+                </TableCell>
+                <TableCell align="right">
+                  <Box component="form">
+                    <TextField
+                      id="new-reviews-input"
+                      type="number"
+                      InputLabelProps={{
+                        shrink: true,
                       }}
-                    >
-                      <Rating
-                        max={1}
-                        name="simple-controlled"
-                        value={favorite}
-                        onChange={(event, newValue) => {
-                          setFavorite(newValue);
-                          setDisableSubmit(false);
-                        }}
-                      />
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Button
-            sx={{ m: 2 }}
-            disabled={disableSubmit}
-            onClick={() => updateSettings()} variant="outlined" startIcon={<UpdateIcon />}>
-            {t('buttonGeneral.update')}
-          </Button>
-          <Button
-            sx={{ m: 2 }}
-            onClick={() => {
-              setModal(false);
-              setDisableSubmit(false);
-            }} variant="contained" endIcon={<CancelIcon />}>
-            {t('buttonGeneral.close')}
-          </Button>
-        </Box>
-      </Modal>
-    </>
+                      sx={{
+                        width: 80
+                      }}
+                      onChange={(e) => updateNewReviews(e.target.value)}
+                      value={newReviews}
+                    />
+                  </Box>
+                </TableCell>
+              </TableRow>
+              <TableRow
+                key='due-reviews-row'
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {t('deck.settings.reviewsPerDay')}
+                  <InfoTooltip title={t('deck.settings.reviewsPerDayInfo',{ minLimitReviews: constants.review.minLimitReviews, maxLimitReviews: constants.review.maxLimitReviews })}/>
+                </TableCell>
+                <TableCell align="right">
+                  <Box component="form">
+                    <TextField
+                      id="due-reviews-input"
+                      type="number"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      sx={{
+                        width: 80
+                      }}
+                      onChange={(e) => updateDueReviews(e.target.value)}
+                      value={dueReviews}
+                    />
+                  </Box>
+                </TableCell>
+              </TableRow>
+              <TableRow
+                key='review-interval-row'
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {t('deck.settings.reviewInterval')}
+                  <InfoTooltip title={t('deck.settings.reviewIntervalInfo', { minReviewInterval: constants.review.minReviewInterval, maxReviewInterval: constants.review.maxReviewInterval })}/>
+                </TableCell>
+                <TableCell align="right">
+                  <Box component="form">
+                    <TextField
+                      id="review-interval-input"
+                      type="number"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      sx={{
+                        width: 80
+                      }}
+                      onChange={(e) => updateReviewInterval(e.target.value)}
+                      value={reviewInterval}
+                    />
+                  </Box>
+                </TableCell>
+              </TableRow>
+              <TableRow
+                key='favorite-row'
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {t('deck.settings.favorite')}
+                  <InfoTooltip title={t('deck.settings.favoriteInfo')}/>
+                </TableCell>
+                <TableCell align="right">
+                  <Box
+                    sx={{
+                      '& > legend': { mt: 2 },
+                    }}
+                  >
+                    <Rating
+                      max={1}
+                      name="simple-controlled"
+                      value={favorite}
+                      onChange={(event, newValue) => {
+                        setFavorite(newValue);
+                        setDisableSubmit(false);
+                      }}
+                    />
+                  </Box>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Button
+          sx={{ m: 2 }}
+          disabled={disableSubmit}
+          onClick={() => updateSettings()} variant="outlined" startIcon={<UpdateIcon />}>
+          {t('buttonGeneral.update')}
+        </Button>
+        <Button
+          sx={{ m: 2 }}
+          onClick={() => {
+            setModal(false);
+            setDisableSubmit(false);
+          }} variant="contained" endIcon={<CancelIcon />}>
+          {t('buttonGeneral.close')}
+        </Button>
+      </Box>
+    </Modal>
   );
 };
 
