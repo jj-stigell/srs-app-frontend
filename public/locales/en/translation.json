@@ -11,8 +11,11 @@
     "title": "this is the dashboard page"
   },
   "statistics:": {
-    "titles": {
-      "kanji": "Kanji learning progress"
+    "kanji": {
+      "title": "Kanji learning progress:",
+      "infoNew": "How many new kanji (not seen before) are left to learn.",
+      "infoLearning": "Kanji that have been reviewed at least once but are not yet fully learned",
+      "infoMatured": "Kanji that are well learned with and review interval of {{matureInterval}}"
     },
     "labels": {
       "new": "New",
