@@ -60,3 +60,20 @@ mutation ChangePassword($currentPassword: String!, $newPassword: String!, $newPa
   }
 }
 `;
+
+export const CHANGE_DECK_SETTINGS = gql`
+mutation ChangeDeckSettings($deckId: Int!, $newCardsPerDay: Int, $reviewsPerDay: Int, $reviewInterval: Int, $favorite: Boolean) {
+  changeDeckSettings(deckId: $deckId, newCardsPerDay: $newCardsPerDay, reviewsPerDay: $reviewsPerDay, reviewInterval: $reviewInterval, favorite: $favorite) {
+    id
+    accountId
+    deckId
+    favorite
+    dueCards
+    reviewInterval
+    reviewsPerDay
+    newCardsPerDay
+    createdAt
+    updatedAt
+  }
+}
+`;
