@@ -41,7 +41,8 @@ const Dashboard = () => {
 
   useEffect(async () => {
     setLoading(true);
-    if (decks.length === 0) await fetchDecks();
+    //if (decks.length === 0) await fetchDecks();
+    await fetchDecks();
     setLoading(false);
   }, []);
 

@@ -29,7 +29,7 @@ import { useLazyQuery, useMutation } from '@apollo/client';
 import { GET_DECK_SETTINGS } from '../../queries/queries';
 import { CHANGE_DECK_SETTINGS } from '../../queries/mutations';
 import { constants } from '../../utils/constants';
-import { addDeckSettingsToDeck } from '../../store/deckReducer';
+import { addDeckSettingsToDeck, setDecks } from '../../store/deckReducer';
 import InfoTooltip from './InfoTooltip';
 import { notification } from '../../utils/notification';
 
@@ -55,9 +55,9 @@ const SettingsModal = ({ modalStatus, setModal, deckId, deckSettings }) => {
   const [ disableSubmit, setDisableSubmit ] = useState(true);
   const [ settingsData, setSettingsData ] = useState(deckSettings);
   const [ favorite, setFavorite ] = useState(0);
-  const [ newReviews, setNewReviews ] = useState(0);
-  const [ dueReviews, setDueReviews ] = useState(0);
-  const [ reviewInterval, setReviewInterval ] = useState(0);
+  const [ newReviews, setNewReviews ] = useState(constants.review.minNewReviews);
+  const [ dueReviews, setDueReviews ] = useState(constants.review.minLimitReviews);
+  const [ reviewInterval, setReviewInterval ] = useState(constants.review.minReviewInterval);
 
   const [ updateDeckSettings, result ] = useMutation(CHANGE_DECK_SETTINGS, {
     onError: (error) => {
@@ -94,15 +94,22 @@ const SettingsModal = ({ modalStatus, setModal, deckId, deckSettings }) => {
         }
       });
       if (res.errors) {
-        const error = res.errors.graphQLErrors[0].extensions.code;
-        console.log(error);
+        const errors = res.errors.graphQLErrors[0].extensions.code;
+        console.log(errors);
+        errors.forEach(error => {
+          notification({
+            title: t('notification.error'),
+            message: t(`errors.${error}`),
+            type: 'danger'
+          });
+        });
       } else if (res.data) {
         setSettingsData(res.data.deckSettings);
         setFavorite(res.data.deckSettings.favorite === true ? 1 : 0 );
         setNewReviews(res.data.deckSettings.newCardsPerDay);
         setDueReviews(res.data.deckSettings.reviewsPerDay);
         setReviewInterval(res.data.deckSettings.reviewInterval);
-        dispatcher(addDeckSettingsToDeck({ deckId: deckId, deckSettings: settingsData, decks: decks }));
+        dispatcher(addDeckSettingsToDeck({ deckId: deckId, deckSettings: res.data.deckSettings, decks: decks }));
       }
     } catch(error) {
       console.log('error:', error);
@@ -145,13 +152,19 @@ const SettingsModal = ({ modalStatus, setModal, deckId, deckSettings }) => {
   };
 
   useEffect(async () => {
-    if (!deckSettings) await fetchDeckSettings();
+    if (!deckSettings) {
+      await fetchDeckSettings();
+    } else {
+      setFavorite(deckSettings.favorite === true ? 1 : 0 );
+      setNewReviews(deckSettings.newCardsPerDay);
+      setDueReviews(deckSettings.reviewsPerDay);
+      setReviewInterval(deckSettings.reviewInterval);
+    }
   }, []);
 
-  if (!settingsData) return <></>;
+  if (!deckSettings) return <></>;
 
   return (
-
     <Modal
       open={modalStatus}
       onClose={() => setModal(false)}

@@ -133,6 +133,10 @@ const DeckCard = ({ userLanguage, deck, isLoading }) => {
     setAnchorEl(null);
   };
 
+  const startStudy = () => {
+    console.log('STUDY DECK ID', deck.id);
+  };
+
   return (
     <React.Fragment>
       {isLoading ? (
@@ -208,7 +212,7 @@ const DeckCard = ({ userLanguage, deck, isLoading }) => {
                     disableElevation
                     variant='contained'
                     size="small"
-                    //onClick={}
+                    onClick={() => startStudy()}
                   >
                     Study
                   </Button>
