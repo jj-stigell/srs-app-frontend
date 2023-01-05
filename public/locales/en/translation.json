@@ -21,7 +21,7 @@
       "reviewInterval": "Maximimum review interval:",
       "reviewsPerDay": "Maximum reviews per day:",
       "favoriteInfo": "If you set deck as your favorite, it will be shown on the front page, making access to it faster.",
-      "newCardsPerDayInfo": "How many new cards do you want to review from this deck every day? Can be set between 0 - {{maxNewReviews}}",
+      "newCardsPerDayInfo": "How many new cards do you want to review from this deck every day? Can be set between {{minNewReviews}} - {{maxNewReviews}}",
       "reviewIntervalInfo": "Review interval is the maximum time between reviews. Can be set between {{minReviewInterval}} - {{maxReviewInterval}}",
       "reviewsPerDayInfo": "How many reviews you want to do every day from this deck? Can be set between {{minLimitReviews}} - {{maxLimitReviews}}"
     },
