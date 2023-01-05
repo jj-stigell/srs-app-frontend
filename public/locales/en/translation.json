@@ -10,6 +10,16 @@
   "dashboard": {
     "title": "this is the dashboard page"
   },
+  "statistics:": {
+    "titles": {
+      "kanji": "Kanji learning progress"
+    },
+    "labels": {
+      "new": "New",
+      "learning": "Learning",
+      "matured": "Matured"
+    }
+  },
   "deck": {
     "settings": {
       "title": "Settings for deck:",
