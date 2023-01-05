@@ -64,3 +64,13 @@ query DeckSettings($deckId: Int!) {
   }
 }
 `;
+
+export const GET_LEARNING_STATS_BY_TYPE = gql`
+query LearningStatisticsByType($cardType: CardType!, $reviewType: ReviewType!) {
+  learningStatisticsByType(cardType: $cardType, reviewType: $reviewType) {
+    matured
+    learning
+    new
+  }
+}
+`;
