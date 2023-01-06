@@ -14,12 +14,13 @@ import Dashboard from '../views/dashboard/Default';
 const StudyDecks = Loadable(lazy(() => import('../views/study')));
 
 // utilities routing
-const UtilsColor = Loadable(lazy(() => import('../views/utilities/Color')));
-const UtilsShadow = Loadable(lazy(() => import('../views/utilities/Shadow')));
-const UtilsMaterialIcons = Loadable(lazy(() => import('../views/utilities/MaterialIcons')));
+//const UtilsColor = Loadable(lazy(() => import('../views/utilities/Color')));
+//const UtilsShadow = Loadable(lazy(() => import('../views/utilities/Shadow')));
+//const UtilsMaterialIcons = Loadable(lazy(() => import('../views/utilities/MaterialIcons')));
 
 // sample page routing
-const SamplePage = Loadable(lazy(() => import('../views/sample-page')));
+const NewsPage = Loadable(lazy(() => import('../views/news')));
+const UnderConstruction = Loadable(lazy(() => import('../views/underConstruction')));
 
 // account page
 const AccountPage = Loadable(lazy(() => import('../views/account')));
@@ -50,11 +51,11 @@ const MainRoutes = () => {
           <AuthGuard>
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/study" component={StudyDecks} />
-            <Route path="/achievements" component={UtilsColor} />
-            <Route path="/statistics/reviews" component={UtilsShadow} />
-            <Route path="/statistics/kanji" component={UtilsShadow} />
-            <Route path="/news" component={SamplePage} />
-            <Route path="/settings/decks" component={UtilsMaterialIcons} />
+            <Route path="/achievements" component={UnderConstruction} />
+            <Route path="/statistics/reviews" component={UnderConstruction} />
+            <Route path="/statistics/kanji" component={UnderConstruction} />
+            <Route path="/news" component={NewsPage} />
+            <Route path="/settings/decks" component={UnderConstruction} />
             <Route path="/settings/account" component={AccountPage} />
             <Route path="/logout" component={Logout} />
           </AuthGuard>

@@ -6,9 +6,9 @@ import { Typography } from '@material-ui/core';
 // project imports
 import MainCard from '../../ui-component/cards/MainCard';
 
-//==============================|| SAMPLE PAGE ||==============================//
+//==============================|| NEWS PAGE ||==============================//
 
-const SamplePage = () => {
+const NewsPage = () => {
   return (
     <>
       <MainCard title="New Decks Available">
@@ -39,4 +39,4 @@ const SamplePage = () => {
   );
 };
 
-export default SamplePage;
+export default NewsPage;

@@ -161,6 +161,12 @@
     "password": "Your password",
     "passwordConfirm": "Password confirmation"
   },
+  "construction": {
+    "title": "Site Under Construction",
+    "body1": "Thank you for visiting our website. We are currently in the process of building and designing our new website, and apologize for any inconvenience this may cause.",
+    "body2": "We are working hard to bring you a fully functional and user-friendly website as soon as possible. In the meantime, please bear with us as we complete this process.",
+    "body3": "Please check back soon to see the finished product."
+  },
   "errors": {
     "invalidJlptLevelError": "Not valid JLPT level.",
     "invalidLanguageIdError": "Language id selected does not exists.",
