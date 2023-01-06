@@ -18,9 +18,9 @@ import { GET_LEARNING_STATS_BY_TYPE } from '../../../queries/queries';
 
 //-----------------------|| DASHBOARD DONUT CHART LEARNING PROGRESS ||-----------------------//
 
-const LearningProgressDonutChart = ({ isLoading, cardType = 'kanji' }) => {
-  const [recallType, setRecallType] = useState('RECALL');
-  const [stats, setStats] = useState([0, 0, 0]);
+const LearningProgressDonutChart = ({ isLoading, cardType }) => {
+  const [ recallType, setRecallType ] = useState('RECALL');
+  const [ stats, setStats ] = useState([0, 0, 0]);
   const theme = useTheme();
   const { t } = useTranslation();
   const [ statsByType ] = useLazyQuery(GET_LEARNING_STATS_BY_TYPE);
@@ -98,7 +98,7 @@ const LearningProgressDonutChart = ({ isLoading, cardType = 'kanji' }) => {
   useEffect( async () => {
     const statss = await fetchStats();
     setStats([statss.new, statss.learning, statss.matured]);
-  }, []);
+  }, [recallType]);
 
   return (
     <React.Fragment>

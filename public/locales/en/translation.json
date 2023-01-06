@@ -17,12 +17,23 @@
       "infoLearning": "Kanji that have been reviewed at least once but are not yet fully learned",
       "infoMatured": "Kanji that are well learned with and review interval of {{matureInterval}}"
     },
+    "word": {
+      "title": "Word learning progress:",
+      "infoNew": "How many new words (not seen before) are left to learn.",
+      "infoLearning": "Words that have been reviewed at least once but are not yet fully learned",
+      "infoMatured": "Words that are well learned with and review interval of {{matureInterval}}"
+    },
     "labels": {
       "new": "New",
       "learning": "Learning",
       "matured": "Matured",
       "recall": "Recall",
       "recognise": "Recognise"
+    },
+    "heatmap": {
+      "title": "Reviews heatmap:",
+      "hoverData": "{{date}}, reviews: {{count}}",
+      "hoverDataNoReviews": "No reviews"
     }
   },
   "deck": {
