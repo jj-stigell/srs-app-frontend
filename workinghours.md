@@ -13,5 +13,6 @@
 | 3.1.2023 | 5 | account page with sessions, change password and general data, sidemenu load from translation, logout button |
 | 4.1.2023 | 4 | List all decks, modal for deck settings, fix render issue while using i18n |
 | 5.1.2023 | 4 | info tooltips for editing settings, pie chart proto |
+| 6.1.2023 | 3 | add graphs to the dashboard (donut, heatmap, list) |
 |  |  |  |
-| total | 35 |  | 
+| total | 38 |  | 
