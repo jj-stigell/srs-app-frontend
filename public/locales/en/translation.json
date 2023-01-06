@@ -34,6 +34,13 @@
       "title": "Reviews heatmap:",
       "hoverData": "{{date}}, reviews: {{count}}",
       "hoverDataNoReviews": "No reviews"
+    },
+    "dueCount": {
+      "title": "Due cards count:",
+      "noDues": "No reviews due",
+      "ShowOnlyDues": "List only days with due cards",
+      "date": "Date:",
+      "due": "Due:"
     }
   },
   "deck": {

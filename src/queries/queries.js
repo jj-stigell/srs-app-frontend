@@ -83,3 +83,12 @@ query ReviewHistory($limitReviews: Int!) {
   }
 }
 `;
+
+export const GET_DUE_COUNTS = gql`
+query DueCount($limitReviews: Int!, $date: Date!) {
+  dueCount(limitReviews: $limitReviews, date: $date) {
+    date
+    count
+  }
+}
+`;
