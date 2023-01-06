@@ -7,9 +7,9 @@ import Skeleton from '@material-ui/core/Skeleton';
 // project imports
 import { gridSpacing } from '../../../store/constant';
 
-//-----------------------|| SKELETON TOTAL GROWTH BAR CHART ||-----------------------//
+//-----------------------|| SKELETON LEARNING PROGRESS DONUT CHART ||-----------------------//
 
-const TotalGrowthBarChart = () => {
+const LearningProgressDonutChartSkeleton = () => {
   return (
     <Card>
       <CardContent>
@@ -40,4 +40,4 @@ const TotalGrowthBarChart = () => {
   );
 };
 
-export default TotalGrowthBarChart;
+export default LearningProgressDonutChartSkeleton;

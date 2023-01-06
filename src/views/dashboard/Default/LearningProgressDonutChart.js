@@ -7,45 +7,35 @@ import { useTranslation } from 'react-i18next';
 import { Grid, MenuItem, TextField, Typography, useTheme } from '@material-ui/core';
 
 // third-party
-import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
 import { useLazyQuery } from '@apollo/client';
 
 // project imports
-import SkeletonTotalGrowthBarChart from './../../../ui-component/cards/Skeleton/TotalGrowthBarChart';
-import MainCard from './../../../ui-component/cards/MainCard';
-import { gridSpacing } from './../../../store/constant';
+import LearningProgressDonutChartSkeleton from '../../../ui-component/cards/Skeleton/LearningProgressDonutChartSkeleton';
+import MainCard from '../../../ui-component/cards/MainCard';
+import { gridSpacing } from '../../../store/constant';
 import { GET_LEARNING_STATS_BY_TYPE } from '../../../queries/queries';
 
 //-----------------------|| DASHBOARD DONUT CHART LEARNING PROGRESS ||-----------------------//
 
-const TotalGrowthBarChart = ({ isLoading, cardType = 'kanji' }) => {
+const LearningProgressDonutChart = ({ isLoading, cardType = 'kanji' }) => {
   const [recallType, setRecallType] = useState('RECALL');
   const [stats, setStats] = useState([0, 0, 0]);
   const theme = useTheme();
   const { t } = useTranslation();
-
-  const primary = theme.palette.text.primary;
-  const grey200 = theme.palette.grey[200];
-
-  const primary200 = theme.palette.primary[200];
-  const primaryDark = theme.palette.primary.dark;
-  const secondaryMain = theme.palette.secondary.main;
-  const secondaryLight = theme.palette.secondary.light;
-  const grey500 = theme.palette.grey[500];
+  const [ statsByType ] = useLazyQuery(GET_LEARNING_STATS_BY_TYPE);
 
 
   const status = [
     {
       value: 'RECALL',
-      label: 'Recall'
+      label: t('stats.labels.recall')
     },
     {
       value: 'RECOGNISE',
-      label: 'Recognise'
+      label: t('stats.labels.recognise')
     }
   ];
-
 
   const chartData = {
     series: [44, 55, 18],
@@ -55,7 +45,7 @@ const TotalGrowthBarChart = ({ isLoading, cardType = 'kanji' }) => {
       speed: 800
     },
     options: {
-      //labels: [ t('statistics.labels.new'), t('statistics.labels.learning'), t('statistics.labels.matured') ],
+      labels: [ t('stats.labels.new'), t('stats.labels.learning'), t('stats.labels.matured') ],
       colors: ['#ff0000', '#ffb84d', '#33cc33'],
       chart: {
         width: 380,
@@ -85,9 +75,6 @@ const TotalGrowthBarChart = ({ isLoading, cardType = 'kanji' }) => {
     },
   };
 
-
-  const [ statsByType ] = useLazyQuery(GET_LEARNING_STATS_BY_TYPE);
-
   const fetchStats = async () => {
     try {
       const res = await statsByType({
@@ -100,11 +87,7 @@ const TotalGrowthBarChart = ({ isLoading, cardType = 'kanji' }) => {
         const error = res.errors.graphQLErrors[0].extensions.code;
         console.log(error);
       } else if (res.data) {
-
-        console.log(res.data.learningStatisticsByType);
-
         return res.data.learningStatisticsByType;
-
         //dispatcher(setDecks(res.data.decks));
       }
     } catch(error) {
@@ -112,93 +95,15 @@ const TotalGrowthBarChart = ({ isLoading, cardType = 'kanji' }) => {
     }
   };
 
-
   useEffect( async () => {
-
-
     const statss = await fetchStats();
-
     setStats([statss.new, statss.learning, statss.matured]);
-
-    /*
-
-  "statistics:": {
-    "titles": {
-      "kanji": "Kanji learning progress"
-    },
-    "labels": {
-      "new": "New",
-      "learning": "Learning",
-      "matured": "Matured"
-    }
-  },
-
-  query LearningStatisticsByType($cardType: CardType!, $reviewType: ReviewType!) {
-  learningStatisticsByType(cardType: $cardType, reviewType: $reviewType) {
-    matured
-    learning
-    new
-  }
-}
-
-    const newChartData = {
-      ...chartData.options,
-      colors: [primary200, primaryDark, secondaryMain, secondaryLight],
-      xaxis: {
-        labels: {
-          style: {
-            colors: [primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary, primary]
-          }
-        }
-      },
-      yaxis: {
-        labels: {
-          style: {
-            colors: [primary]
-          }
-        }
-      },
-      grid: {
-        borderColor: grey200
-      },
-      tooltip: {
-        theme: 'light'
-      },
-      legend: {
-        labels: {
-          colors: grey500
-        }
-      }
-    };
-              <Chart {...chartData} />
-    options={this.state.options} series={this.state.series} type="donut" width="380" />
-
-    {t('deck.settings.dayoff')}
-    */
-
-    /*
-  learningStatisticsByType(cardType: $cardType, reviewType: $reviewType) {
-    matured
-    learning
-    new
-  }
-    */
-
-    // do not load chart when loading
-    if (!isLoading) {
-      // eslint-disable-next-line quotes
-      //ApexCharts.exec(`bar-chart`, 'updateOptions', newChartData);
-      //ApexCharts.exec('donut', 'updateOptions', newChartData);
-    }
-  }, [primary200, primaryDark, secondaryMain, secondaryLight, primary, grey200, isLoading, recallType, grey500]);
-
-  const falsee = false;
-
+  }, []);
 
   return (
     <React.Fragment>
       {isLoading ? (
-        <SkeletonTotalGrowthBarChart />
+        <LearningProgressDonutChartSkeleton />
       ) : (
         <MainCard>
           <Grid container spacing={gridSpacing}>
@@ -207,7 +112,7 @@ const TotalGrowthBarChart = ({ isLoading, cardType = 'kanji' }) => {
                 <Grid item>
                   <Grid container direction="column" spacing={1}>
                     <Grid item>
-                      <Typography variant="h3">{t(`statistics.${cardType}.title`)}</Typography>
+                      <Typography variant="h3">{t(`stats.${cardType}.title`)}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -226,11 +131,6 @@ const TotalGrowthBarChart = ({ isLoading, cardType = 'kanji' }) => {
                     ))}
                   </TextField>
                 </Grid>
-
-
-
-
-
               </Grid>
             </Grid>
             <Grid item xs={10}>
@@ -243,8 +143,8 @@ const TotalGrowthBarChart = ({ isLoading, cardType = 'kanji' }) => {
   );
 };
 
-TotalGrowthBarChart.propTypes = {
+LearningProgressDonutChart.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default TotalGrowthBarChart;
+export default LearningProgressDonutChart;
