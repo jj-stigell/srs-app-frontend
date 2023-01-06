@@ -24,10 +24,12 @@ const App = () => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme(customization)}>
         <CssBaseline />
-        <NavigationScroll>
-          <ReactNotifications />
-          <Routes />
-        </NavigationScroll>
+        <React.Suspense fallback={<></>}>
+          <NavigationScroll>
+            <ReactNotifications />
+            <Routes />
+          </NavigationScroll>
+        </React.Suspense>
       </ThemeProvider>
     </StyledEngineProvider>
   );

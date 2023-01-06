@@ -9,8 +9,11 @@
   },
   "dashboard": {
     "title": "this is the dashboard page"
+
+
+
   },
-  "statistics:": {
+  "stats": {
     "kanji": {
       "title": "Kanji learning progress:",
       "infoNew": "How many new kanji (not seen before) are left to learn.",
@@ -20,7 +23,9 @@
     "labels": {
       "new": "New",
       "learning": "Learning",
-      "matured": "Matured"
+      "matured": "Matured",
+      "recall": "Recall",
+      "recognise": "Recognise"
     }
   },
   "deck": {
