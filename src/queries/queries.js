@@ -74,3 +74,12 @@ query LearningStatisticsByType($cardType: CardType!, $reviewType: ReviewType!) {
   }
 }
 `;
+
+export const GET_REVIEW_HISTORY = gql`
+query ReviewHistory($limitReviews: Int!) {
+  reviewHistory(limitReviews: $limitReviews) {
+    date
+    count
+  }
+}
+`;
