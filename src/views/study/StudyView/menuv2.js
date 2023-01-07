@@ -52,12 +52,13 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
   },
   selected: {
-    backgroundColor: 'lightgreen'
+    color: 'black',
+    backgroundColor: theme.palette.primary.light
   },
   selectedBody: {
     width: '100%',
     height: '100%',
-    backgroundColor: 'lightgreen'
+    backgroundColor: theme.palette.primary.light
   },
 }));
 
