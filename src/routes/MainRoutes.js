@@ -28,6 +28,9 @@ const AccountPage = Loadable(lazy(() => import('../views/account')));
 // logout
 const Logout = Loadable(lazy(() => import('../views/logout')));
 
+const Study = Loadable(lazy(() => import('../views/study/StudyView')));
+
+
 //-----------------------|| MAIN ROUTING ||-----------------------//
 
 const MainRoutes = () => {
@@ -44,6 +47,7 @@ const MainRoutes = () => {
         '/news',
         '/settings/decks',
         '/settings/account',
+        '/xxx'
       ]}
     >
       <MainLayout>
@@ -58,6 +62,7 @@ const MainRoutes = () => {
             <Route path="/settings/decks" component={UnderConstruction} />
             <Route path="/settings/account" component={AccountPage} />
             <Route path="/logout" component={Logout} />
+            <Route path="/xxx" component={Study} />
           </AuthGuard>
         </Switch>
       </MainLayout>
