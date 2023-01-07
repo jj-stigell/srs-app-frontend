@@ -2,38 +2,53 @@
 import React, { useState } from 'react';
 
 // material-ui
+import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
-
 import HelpIcon from '@material-ui/icons/Help';
+import { Tooltip, IconButton } from '@material-ui/core';
 
-
-import { ButtonBase, Link, Tooltip, IconButton } from '@material-ui/core';
-
-
-
-
+// project imports
 import Tab from './tabs';
 
-//import { gridSpacing } from './../../../store/constant';
-
+const useStyles = makeStyles((theme) => ({
+  body: {
+    height: '100%',
+    backgroundColor: theme.palette.primary.light
+  },
+  partition: {
+    height: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '20px'
+  },
+  partitionSecond: {
+    height: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '20px'
+  },
+}));
 
 const Study = () => {
+  const classes = useStyles();
   const [revealed, setRevealed] = useState(false);
-  const [menuVisible, setMenuVisible] = useState(false);
   const [hintVisible, setHintVisible] = useState(false);
 
-  const showHint = () => {
+  const handleReschedule = (result) => {
 
+    console.log('review result is:', result);
   };
 
   return (
     <Grid>
-      <div style={{ height: '100%', backgroundColor: 'lightgreen' }}>
+      <div className={classes.body}>
         {/* Upper half of the page */}
-        <div style={{ height: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+        <div className={classes.partition}>
           <h1>Car</h1>
         </div>
-        <div style={{ height: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+        <div className={classes.partition}>
           { !hintVisible
             ?
             <Tooltip title="Show hint">
@@ -50,14 +65,19 @@ const Study = () => {
         {revealed && (
           <div>
             <hr />
-            <div style={{ height: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <div className={classes.partition}>
               <h1>自動車</h1>
+            </div>
+            <div className={classes.partitionSecond}>
+              <button onClick={() => handleReschedule('again')}>again</button>
+              <button onClick={() => handleReschedule('hard')}>hard</button>
+              <button onClick={() => handleReschedule('easy')}>easy</button>
             </div>
           </div>
         )}
         {/* Reveal button */}
         {!revealed && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className={classes.partitionSecond}>
             <button onClick={() => setRevealed(true)}>show answer</button>
           </div>
         )}
@@ -73,22 +93,3 @@ const Study = () => {
 };
 
 export default Study;
-
-
-/*
-import * as React from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-
-export default function BasicTooltip() {
-  return (
-    <Tooltip title="Delete">
-      <IconButton>
-        <DeleteIcon />
-      </IconButton>
-    </Tooltip>
-  );
-}
-
-*/

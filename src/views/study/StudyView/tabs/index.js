@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
   },
   selected: {
-    color: 'black',
     backgroundColor: theme.palette.primary.light
   },
   selectedBody: {
