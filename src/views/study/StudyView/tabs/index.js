@@ -11,22 +11,11 @@ import TextSnippetIcon from '@material-ui/icons/TextSnippet';
 import EditIcon from '@material-ui/icons/Edit';
 import BugReportIcon from '@material-ui/icons/BugReport';
 
-
-import Information from './tabs/Information';
-import Examples from './tabs/Examples';
-import Edit from './tabs/Edit';
+// project import
+import Information from './Information';
+import Examples from './Examples';
+import Edit from './Edit';
 import BugReport from '@material-ui/icons/BugReport';
-
-
-/*
-
-          {value === 0 ? <Information /> : null}
-          {value === 1 ? <Examples /> : null}
-          {value === 2 ? <Edit /> : null}
-          {value === 3 ? <BugReport /> : null}
-        </div>
-*/
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,9 +65,6 @@ function Menu() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  console.log('value is now:', value);
-
 
   return (
     <div className={classes.root}>
@@ -135,41 +121,3 @@ function Menu() {
 }
 
 export default Menu;
-
-/*
-
-import EditIcon from '@material-ui/icons/Edit';
-import InfoIcon from '@material-ui/icons/Info';
-import BugReportIcon from '@material-ui/icons/BugReport';
-import TextSnippetIcon from '@material-ui/icons/TextSnippet';
-
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-
-export default function SimpleBottomNavigation() {
-  const [value, setValue] = React.useState(0);
-
-  return (
-    <Box sx={{ width: 500 }}>
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
-      </BottomNavigation>
-    </Box>
-  );
-}
-
-
-*/
