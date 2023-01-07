@@ -15,4 +15,5 @@
 | 5.1.2023 | 4 | info tooltips for editing settings, pie chart proto |
 | 6.1.2023 | 3 | add graphs to the dashboard (donut, heatmap, list) |
 |  |  |  |
+|  |  |  |
 | total | 38 |  | 
