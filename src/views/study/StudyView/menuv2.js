@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+
+// material-ui
+import { makeStyles } from '@material-ui/styles';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
-
-
-// Icons
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import InfoIcon from '@material-ui/icons/Info';
@@ -11,20 +11,22 @@ import TextSnippetIcon from '@material-ui/icons/TextSnippet';
 import EditIcon from '@material-ui/icons/Edit';
 import BugReportIcon from '@material-ui/icons/BugReport';
 
+
+import Information from './tabs/Information';
+import Examples from './tabs/Examples';
+import Edit from './tabs/Edit';
+import BugReport from '@material-ui/icons/BugReport';
+
+
 /*
-import EditIcon from '@mui/icons-material/Edit';
-import InfoIcon from '@mui/icons-material/Info';
 
-import BugReportIcon from '@mui/icons-material/BugReport';
-
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+          {value === 0 ? <Information /> : null}
+          {value === 1 ? <Examples /> : null}
+          {value === 2 ? <Edit /> : null}
+          {value === 3 ? <BugReport /> : null}
+        </div>
 */
-//import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-//import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-//import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-
-import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,7 +121,10 @@ function Menu() {
           />
         </BottomNavigation>
         <div className={classes.selectedBody}>
-          {value}
+          {value === 0 ? <Information /> : null}
+          {value === 1 ? <Examples /> : null}
+          {value === 2 ? <Edit /> : null}
+          {value === 3 ? <BugReport /> : null}
         </div>
       </div>
     </div>
