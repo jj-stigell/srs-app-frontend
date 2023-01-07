@@ -5,21 +5,31 @@ export const mockData = [
     reviewType: 'RECALL',
     createdAt: '2022-12-24T09:52:08.745Z',
     updatedAt: '2022-12-24T09:52:08.745Z',
-    accountCard: null,
-    kanji: null,
+    accountCard: {
+      id: 1,
+      reviewCount: 65,
+      easyFactor: 2.5,
+      accountStory: 'this is my account story: cars are cool',
+      accountHint: 'My own hint: its too complex to make up a hint',
+      dueAt: '2021-03-08',
+      mature: false,
+      createdAt: '2022-12-24T09:52:08.745Z',
+      updatedAt: '2022-12-24T09:52:08.745Z'
+    },
     word: {
       id: 2,
-      word: '青',
+      word: '自動車',
       jlptLevel: 5,
       furigana: true,
-      reading: 'あお',
-      readingRomaji: 'ao',
+      reading: 'じどうしゃ',
+      readingRomaji: 'jidousha',
       createdAt: '2022-12-24T09:52:08.745Z',
       updatedAt: '2022-12-24T09:52:08.745Z',
       translation: {
-        translation: 'blue',
-        hint: 'placeholder',
-        description: 'placeholder',
+        translation: 'card',
+        hint: 'this is the default hint for car',
+        story: 'Story for car word, default one',
+        description: 'description for the word car',
         createdAt: '2022-12-24T09:52:08.745Z',
         updatedAt: '2022-12-24T09:52:08.745Z'
       }
@@ -31,21 +41,31 @@ export const mockData = [
     reviewType: 'RECOGNISE',
     createdAt: '2022-12-24T09:52:08.745Z',
     updatedAt: '2022-12-24T09:52:08.745Z',
-    accountCard: null,
-    kanji: null,
+    accountCard: {
+      id: 1,
+      reviewCount: 65,
+      easyFactor: 2.5,
+      accountStory: 'this is my account story: cars are cool',
+      accountHint: 'My own hint: its too complex to make up a hint',
+      dueAt: '2021-03-08',
+      mature: false,
+      createdAt: '2022-12-24T09:52:08.745Z',
+      updatedAt: '2022-12-24T09:52:08.745Z'
+    },
     word: {
       id: 2,
-      word: '青',
+      word: '自動車',
       jlptLevel: 5,
       furigana: true,
-      reading: 'あお',
-      readingRomaji: 'ao',
+      reading: 'じどうしゃ',
+      readingRomaji: 'jidousha',
       createdAt: '2022-12-24T09:52:08.745Z',
       updatedAt: '2022-12-24T09:52:08.745Z',
       translation: {
-        translation: 'blue',
-        hint: 'placeholder',
-        description: 'placeholder',
+        translation: 'card',
+        hint: 'this is the default hint for car',
+        story: 'Story for car word, default one',
+        description: 'description for the word car',
         createdAt: '2022-12-24T09:52:08.745Z',
         updatedAt: '2022-12-24T09:52:08.745Z'
       }
@@ -57,7 +77,17 @@ export const mockData = [
     reviewType: 'RECALL',
     createdAt: '2022-12-24T09:52:08.745Z',
     updatedAt: '2022-12-24T09:52:08.745Z',
-    accountCard: null,
+    accountCard: {
+      id: 1,
+      reviewCount: 65,
+      easyFactor: 2.5,
+      accountStory: '3 lines, center one points to up',
+      accountHint: 'I am not good at making hints',
+      dueAt: '2021-03-08',
+      mature: false,
+      createdAt: '2022-12-24T09:52:08.745Z',
+      updatedAt: '2022-12-24T09:52:08.745Z'
+    },
     kanji: {
       id: 2,
       kanji: '上',
@@ -70,11 +100,11 @@ export const mockData = [
       createdAt: '2022-12-24T09:52:08.745Z',
       updatedAt: '2022-12-24T09:52:08.745Z',
       translation: {
-        keyword:'-',
-        story: '-',
-        hint:'-',
-        otherMeanings: null,
-        description: null,
+        keyword:'up',
+        story: 'Imagine support made of 3 lines, one pointing up',
+        hint:'3 lines pointing in different directions',
+        otherMeanings: 'above; over',
+        description: 'this kanji is really common, better learn it now',
         createdAt: '2022-12-24T09:52:08.745Z',
         updatedAt: '2022-12-24T09:52:08.745Z'
       },
@@ -82,13 +112,13 @@ export const mockData = [
         {
           radical: '⼘',
           reading: 'ぼく',
-          readingRomaji: null,
+          readingRomaji: 'boku',
           strokeCount: 2,
           createdAt: '2022-12-24T09:52:08.745Z',
           updatedAt: '2022-12-24T09:52:08.745Z',
           translation: {
             translation: 'oracle',
-            description: null,
+            description: 'description for radical oracle, cannot come up with any',
             createdAt: '2022-12-24T09:52:08.745Z',
             updatedAt: '2022-12-24T09:52:08.745Z'
           }
@@ -96,13 +126,13 @@ export const mockData = [
         {
           radical: '⼀',
           reading: 'いち',
-          readingRomaji: null,
+          readingRomaji: 'ichi',
           strokeCount: 1,
           createdAt: '2022-12-24T09:52:08.745Z',
           updatedAt: '2022-12-24T09:52:08.745Z',
           translation: {
             translation: 'one, horizontal stroke',
-            description: null,
+            description: 'description for radical one, cannot come up with any... sorry',
             createdAt: '2022-12-24T09:52:08.745Z',
             updatedAt: '2022-12-24T09:52:08.745Z'
           }
@@ -116,7 +146,17 @@ export const mockData = [
     reviewType: 'RECOGNISE',
     createdAt: '2022-12-24T09:52:08.745Z',
     updatedAt: '2022-12-24T09:52:08.745Z',
-    accountCard: null,
+    accountCard: {
+      id: 1,
+      reviewCount: 65,
+      easyFactor: 2.5,
+      accountStory: '3 lines, center one points to up',
+      accountHint: 'I am not good at making hints',
+      dueAt: '2021-03-08',
+      mature: false,
+      createdAt: '2022-12-24T09:52:08.745Z',
+      updatedAt: '2022-12-24T09:52:08.745Z'
+    },
     kanji: {
       id: 2,
       kanji: '上',
@@ -129,11 +169,11 @@ export const mockData = [
       createdAt: '2022-12-24T09:52:08.745Z',
       updatedAt: '2022-12-24T09:52:08.745Z',
       translation: {
-        keyword:'-',
-        story: '-',
-        hint:'-',
-        otherMeanings: null,
-        description: null,
+        keyword:'up',
+        story: 'Imagine support made of 3 lines, one pointing up',
+        hint:'3 lines pointing in different directions',
+        otherMeanings: 'above; over',
+        description: 'this kanji is really common, better learn it now',
         createdAt: '2022-12-24T09:52:08.745Z',
         updatedAt: '2022-12-24T09:52:08.745Z'
       },
@@ -141,13 +181,13 @@ export const mockData = [
         {
           radical: '⼘',
           reading: 'ぼく',
-          readingRomaji: null,
+          readingRomaji: 'boku',
           strokeCount: 2,
           createdAt: '2022-12-24T09:52:08.745Z',
           updatedAt: '2022-12-24T09:52:08.745Z',
           translation: {
             translation: 'oracle',
-            description: null,
+            description: 'description for radical oracle, cannot come up with any',
             createdAt: '2022-12-24T09:52:08.745Z',
             updatedAt: '2022-12-24T09:52:08.745Z'
           }
@@ -155,18 +195,18 @@ export const mockData = [
         {
           radical: '⼀',
           reading: 'いち',
-          readingRomaji: null,
+          readingRomaji: 'ichi',
           strokeCount: 1,
           createdAt: '2022-12-24T09:52:08.745Z',
           updatedAt: '2022-12-24T09:52:08.745Z',
           translation: {
             translation: 'one, horizontal stroke',
-            description: null,
+            description: 'description for radical one, cannot come up with any... sorry',
             createdAt: '2022-12-24T09:52:08.745Z',
             updatedAt: '2022-12-24T09:52:08.745Z'
           }
         }
       ]
     }
-  }
+  },
 ];
