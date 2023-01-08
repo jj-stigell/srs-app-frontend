@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menu: {
     width: '100%',
-    height: '60%',
+    height: '8%',
     position: 'fixed',
     bottom: '-60%',
     left: 0,
@@ -55,7 +55,7 @@ const ShowAnswerButton = ({ setRevealed }) => {
   return (
     <div className={classes.root}>
       <div className={`${classes.menu} ${classes.menuOpen}`}>
-        <BottomNavigation value={4} showLabels className={classes.navBody} >
+        <BottomNavigation value={4} showLabels className={classes.show} >
           <BottomNavigationAction
             label="Show answer"
             onClick={() => setRevealed(true)}
