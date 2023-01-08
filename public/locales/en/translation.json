@@ -63,6 +63,15 @@
     "dueAndNewCards": "Cards due: {{old}} old, {{new}} new",
     "onlyNewCards": "Cards due: {{new}} new"
   },
+  "card": {
+    "accountCard": {
+      "accountStory": "Account custom story",
+      "accountHint": "Account custom hint",
+      "storyPlaceholder": "Enter your story here",
+      "hintPlaceholder": "Enter your hint here",
+      "editTitle": "Edit customized card data"
+    }
+  },
   "buttonGeneral": {
     "delete": "Delete",
     "cancel": "Cancel",
@@ -202,12 +211,12 @@
     "validationError": "Problem with validation, please try again.",
     "defaultError": "DEFAULT_ERROR",
     "noDueCardsError": "No cards due.",
-    "storyTooLongError": "storyTooLongError",
-    "storyTooShortError": "storyTooShortError",
-    "hintTooLongError": "hintTooLongError",
-    "hintTooShortError": "hintTooShortError",
+    "storyTooLongError": "Custom story maximum length is {{length}} characters.",
+    "storyTooShortError": "Custom story must be at least {{length}} characters long.",
+    "hintTooLongError": "Custom hint maximum length is {{length}} characters.",
+    "hintTooShortError": "Custom hint must be at least {{length}} characters long.",
     "provideStoryOrHintError": "provideStoryOrHintError",
-    "nonExistingCardIdError": "nonExistingCardIdError",
+    "nonExistingCardIdError": "Card with an id {{id}} does not exist.",
     "invalidCardTypeError": "invalidCardTypeError",
     "inputValueMissingError": "Missing required input(s).",
     "invalidDateError": "invalidDateError",

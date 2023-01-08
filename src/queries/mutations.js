@@ -77,3 +77,17 @@ mutation ChangeDeckSettings($deckId: Int!, $newCardsPerDay: Int, $reviewsPerDay:
   }
 }
 `;
+
+export const EDIT_ACCOUNT_CARD = gql`
+mutation EditAccountCard($cardId: Int!, $hint: String, $story: String) {
+  editAccountCard(cardId: $cardId, hint: $hint, story: $story) {
+    id
+    accountId
+    cardId
+    accountStory
+    accountHint
+    createdAt
+    updatedAt
+  }
+}
+`;
