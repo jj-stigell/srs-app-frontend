@@ -72,6 +72,30 @@
       "editTitle": "Edit customized card data"
     }
   },
+  "review": {
+    "options": {
+      "again": "Again",
+      "hard": "Hard",
+      "easy": "Easy"
+    },
+    "help": {
+      "showHint": "Show hint"
+    },
+    "tabs": {
+      "grammar": {
+        "title": "Grammar"
+      },
+      "examples": {
+        "title": "Examples"
+      },
+      "edit": {
+        "title": "Edit"
+      },
+      "bugReport": {
+        "title": "Bug report"
+      }
+    }
+  },
   "buttonGeneral": {
     "delete": "Delete",
     "cancel": "Cancel",
