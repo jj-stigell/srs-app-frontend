@@ -92,3 +92,78 @@ query DueCount($limitReviews: Int!, $date: Date!) {
   }
 }
 `;
+
+export const GET_CARDS_FROM_DECK = gql`
+query CardsFromDeck($deckId: Int!, $date: Date!, $newCards: Boolean, $languageId: Language!) {
+  cardsFromDeck(deckId: $deckId, date: $date, newCards: $newCards, languageId: $languageId) {
+    id
+    cardType
+    reviewType
+    createdAt
+    updatedAt
+    accountCard {
+      id
+      reviewCount
+      easyFactor
+      accountStory
+      accountHint
+      dueAt
+      mature
+      createdAt
+      updatedAt
+    }
+    kanji {
+      id
+      kanji
+      jlptLevel
+      onyomi
+      onyomiRomaji
+      kunyomi
+      kunyomiRomaji
+      strokeCount
+      createdAt
+      updatedAt
+      translation {
+        keyword
+        story
+        hint
+        otherMeanings
+        description
+        createdAt
+        updatedAt
+      }
+      radicals {
+        radical
+        reading
+        readingRomaji
+        strokeCount
+        createdAt
+        updatedAt
+        translation {
+          translation
+          description
+          createdAt
+          updatedAt
+        }
+      }
+    }
+    word {
+      id
+      word
+      jlptLevel
+      furigana
+      reading
+      readingRomaji
+      createdAt
+      updatedAt
+      translation {
+        translation
+        hint
+        description
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+`;
