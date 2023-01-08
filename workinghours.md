@@ -14,6 +14,7 @@
 | 4.1.2023 | 4 | List all decks, modal for deck settings, fix render issue while using i18n |
 | 5.1.2023 | 4 | info tooltips for editing settings, pie chart proto |
 | 6.1.2023 | 3 | add graphs to the dashboard (donut, heatmap, list) |
+| 7.1.2023 | 2 | frame for study view, tabs for funtionalities, edit account card view with form |
+| 8.1.2023 | 6 | study view, load cards based on id, set to store, review one by one |
 |  |  |  |
-|  |  |  |
-| total | 38 |  | 
+| total | 46 |  | 
