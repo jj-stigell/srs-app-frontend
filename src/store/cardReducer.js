@@ -26,19 +26,6 @@ const cardSlice = createSlice({
       return initialState;
     },
     setActiveCard(state, action) {
-      /*
-      // take the next card from all the cards and set as active card, remove that from cards
-      let cards = state.cards, activeCard = null;
-      if (cards.length > 0) {
-        activeCard = cards.shift();
-      }
-
-      return {
-        cards: cards,
-        activeCard: activeCard
-      };
-      */
-
       return action.payload;
     }
   }
