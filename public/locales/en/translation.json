@@ -73,10 +73,14 @@
     }
   },
   "review": {
-    "options": {
-      "again": "Again",
-      "hard": "Hard",
-      "easy": "Easy"
+    "loadingMessage": "Loading Cards",
+    "reviewFinished": "All reviewed, good work! Redirecting to dashboard",
+    "buttons": {
+      "result": {
+        "again": "Again",
+        "hard": "Hard",
+        "easy": "Easy"
+      }
     },
     "help": {
       "showHint": "Show hint"

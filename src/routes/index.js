@@ -5,7 +5,7 @@ import { Redirect, Switch } from 'react-router-dom';
 import MainRoutes from './MainRoutes';
 import LoginRoutes from './LoginRoutes';
 import AuthenticationRoutes from './AuthenticationRoutes';
-import StudyRoutes from './StudyRoute';
+import StudyRoutes from './StudyRoutes';
 
 // project imports
 import config from './../config';
