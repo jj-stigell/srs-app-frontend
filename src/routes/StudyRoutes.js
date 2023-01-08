@@ -3,7 +3,7 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 
 // project imports
 import Loadable from '../ui-component/Loadable';
-import AuthGuard from './../utils/route-guard/AuthGuard';
+import AuthGuard from '../utils/route-guard/AuthGuard';
 
 const Study = Loadable(lazy(() => import('../views/study/StudyView')));
 
