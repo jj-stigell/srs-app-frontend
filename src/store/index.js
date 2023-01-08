@@ -9,6 +9,7 @@ import customizationReducer from './customizationReducer';
 import registerReducer from './registerReducer';
 import rememberMeReducer from './rememberMeReducer';
 import deckReducer from './deckReducer';
+import cardSlice from './cardReducer';
 
 //-----------------------|| CONFIGURE STORE WITH REDUCERS ||-----------------------//
 
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   customization: customizationReducer,
   register: registerReducer,
   remember: rememberMeReducer,
-  decks: deckReducer
+  decks: deckReducer,
+  cards: cardSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
