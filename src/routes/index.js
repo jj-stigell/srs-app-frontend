@@ -5,6 +5,7 @@ import { Redirect, Switch } from 'react-router-dom';
 import MainRoutes from './MainRoutes';
 import LoginRoutes from './LoginRoutes';
 import AuthenticationRoutes from './AuthenticationRoutes';
+import StudyRoutes from './StudyRoute';
 
 // project imports
 import config from './../config';
@@ -24,6 +25,9 @@ const Routes = () => {
 
         {/* Routes for main layouts */}
         <MainRoutes />
+
+        {/* Routes for study layouts */}
+        <StudyRoutes />
       </React.Fragment>
     </Switch>
   );
