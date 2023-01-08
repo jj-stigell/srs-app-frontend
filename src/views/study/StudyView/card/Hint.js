@@ -28,10 +28,10 @@ const Hint = ({ card }) => {
   } else {
     switch (card.cardType) {
     case 'WORD':
-      hint = card.word.word.translation.hint;
+      hint = card.word.translation.hint;
       break;
     case 'KANJI':
-      hint = card.kanji.kanji.translation.hint;
+      hint = card.kanji.translation.hint;
       break;
     }
   }
