@@ -13,10 +13,8 @@ const cardSlice = createSlice({
   initialState,
   reducers: {
     setCards(state, action) {
-      let cards = action.payload, activeCard = null;
-      if (cards.length > 0) {
-        activeCard = cards.shift();
-      }
+      let cards = [], activeCard = null;
+      [activeCard, ...cards] = action.payload;
       return {
         cards: cards,
         activeCard: activeCard
