@@ -25,7 +25,7 @@ export function Kanji({ style, ...props }) {
   return <span lang="ja" style={{ ...textStyle, ...style }} {...props} />;
 }
 
-const AddFurigana = ({ kanji, furigana }) => {
+const AddFurigana = ({ kanji = '', furigana = '' }) => {
   return (
     <div>
       <Furigana>{furigana}</Furigana>
