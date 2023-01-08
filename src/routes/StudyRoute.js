@@ -14,11 +14,11 @@ const StudyRoutes = () => {
 
   return (
     <Route
-      path={[ '/studymode/deck/:id' ]}
+      path={[ '/deck/study/:id' ]}
     >
       <Switch location={location} key={location.pathname}>
         <AuthGuard>
-          <Route path="/studymode/deck/:id" component={Study} />
+          <Route path="/deck/study/:id" component={Study} />
         </AuthGuard>
       </Switch>
     </Route>
